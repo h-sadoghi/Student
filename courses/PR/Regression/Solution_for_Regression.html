@@ -1,0 +1,1490 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Solution Method &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'courses/PR/Regression/Solution_for_Regression';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Theoretical Aspects of Regression" href="TheoryRegression.html" />
+    <link rel="prev" title="Evaluation and Model Selection" href="EvaluationModelSelection.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../Home_Page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../Home_Page.html">
+                    Welcome to my personal Website!
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../../Courses.html">Courses</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../../pattern_recognition.html">Pattern Recognition</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="Introduction_Regression.html">Regression</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Linearization.html">Linearization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="EvaluationModelSelection.html">Evaluation and Model Selection</a></li>
+
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Solution Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../machine_learning.html">Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ML/Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ML/Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ML/Regression/GP_Regression.html">Gaussian Process</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../filtering_algorithms.html">Filtering Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../signal_processing.html">Signal Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../image_processing.html">Image Processing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Blog.html">Blog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2Fcourses/PR/Regression/Solution_for_Regression.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/courses/PR/Regression/Solution_for_Regression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Solution Method</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-ols-regression">Ordinary Least Squares (OLS) Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-of-the-problem">1. <strong>Formulation of the Problem</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-function">2. <strong>Objective Function</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-the-objective-function">3. <strong>Expanding the Objective Function</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-minimum">4. <strong>Finding the Minimum</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-for-boldsymbol-beta">5. <strong>Solving for <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span></strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-summary">6. <strong>Solution Summary</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-considerations">7. <strong>Additional Considerations</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">8. <strong>Example</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-operator-onto-a-set-c">Projection Operator onto a Set <span class="math notranslate nohighlight">\( C \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-gradient-algorithm">Proximal Gradient Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conceptual-combination">Conceptual Combination</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-1-projection-operator-onto-a-set-c">Text 1: Projection Operator onto a Set <span class="math notranslate nohighlight">\( C \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-2-proximal-gradient-algorithm">Text 2: Proximal Gradient Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Conceptual Combination:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-mapping-a-comprehensive-overview">Proximal Mapping: A Comprehensive Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-proximal-mapping">1. <strong>Definition of Proximal Mapping</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-interpretation">2. <strong>Geometric Interpretation</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-proximal-mapping">3. <strong>Applications of Proximal Mapping</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-of-proximal-operators">4. <strong>Examples of Proximal Operators</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-gradient-method">5. <strong>Proximal Gradient Method</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-with-duality">6. <strong>Connection with Duality</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithms-using-proximal-mapping">7. <strong>Algorithms Using Proximal Mapping</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-operator-definition">1. <strong>Proximal Operator Definition</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-to-the-l-1-norm">2. <strong>Applying to the <span class="math notranslate nohighlight">\( L_1 \)</span> Norm</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimization-problem">3. <strong>Minimization Problem</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-u-i">4. <strong>Derivative with Respect to <span class="math notranslate nohighlight">\( u_i \)</span></strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-different-cases">5. <strong>Handling Different Cases</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">6. <strong>Putting It All Together</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1. <strong>Proximal Operator Definition</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piecewise-analysis">2. <strong>Piecewise Analysis</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-1-u-0">Case 1: <span class="math notranslate nohighlight">\( u &gt; 0 \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-2-u-leq-0">Case 2: <span class="math notranslate nohighlight">\( u \leq 0 \)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-case-u-0">3. <strong>Special Case: <span class="math notranslate nohighlight">\( u = 0 \)</span></strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-results">4. <strong>Combining Results</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">5. <strong>Interpretation</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-operator-for-g-x-equiv-0">Proximal Operator for <span class="math notranslate nohighlight">\( g(x) \equiv 0 \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Minimization Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Interpretation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-case">General Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-mapping">Proximal Mapping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>Definition of Proximal Mapping</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-and-proximal-mapping">Lasso Regression and Proximal Mapping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-formulation"><strong>Lasso Regression Formulation</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-lasso-using-proximal-mapping"><strong>Solving Lasso Using Proximal Mapping</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-operator-for-the-l-1-norm"><strong>Proximal Operator for the <span class="math notranslate nohighlight">\( L_1 \)</span> Norm</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-proximal-operator-in-lasso"><strong>Applying the Proximal Operator in Lasso</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><strong>Example</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="solution-method">
+<h1>Solution Method<a class="headerlink" href="#solution-method" title="Link to this heading">#</a></h1>
+<p>Certainly! Let’s go through the Ordinary Least Squares (OLS) regression step by step, focusing on deriving the solution approach in detail.</p>
+<section id="ordinary-least-squares-ols-regression">
+<h2>Ordinary Least Squares (OLS) Regression<a class="headerlink" href="#ordinary-least-squares-ols-regression" title="Link to this heading">#</a></h2>
+<p><strong>Objective</strong>: The goal of OLS regression is to find the best-fitting linear relationship between a set of input features <span class="math notranslate nohighlight">\( \mathbf{X} \)</span> and a target variable <span class="math notranslate nohighlight">\( \mathbf{y} \)</span>. The best-fitting line is determined by minimizing the sum of squared differences between the observed values and the predicted values.</p>
+<section id="formulation-of-the-problem">
+<h3>1. <strong>Formulation of the Problem</strong><a class="headerlink" href="#formulation-of-the-problem" title="Link to this heading">#</a></h3>
+<p>Given:</p>
+<ul class="simple">
+<li><p>A dataset with <span class="math notranslate nohighlight">\( n \)</span> observations and <span class="math notranslate nohighlight">\( d \)</span> features.</p></li>
+<li><p>Input features matrix <span class="math notranslate nohighlight">\( \mathbf{X} \)</span> of size <span class="math notranslate nohighlight">\( n \times d \)</span>, where each row represents an observation and each column represents a feature.</p></li>
+<li><p>Target vector <span class="math notranslate nohighlight">\( \mathbf{y} \)</span> of size <span class="math notranslate nohighlight">\( n \times 1 \)</span>.</p></li>
+</ul>
+<p><strong>Model</strong>:
+The linear model is expressed as:
+$<span class="math notranslate nohighlight">\(
+\mathbf{y} = \mathbf{X} \boldsymbol{\beta} + \mathbf{e}
+\)</span>$
+where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{X} \)</span> is the <span class="math notranslate nohighlight">\( n \times d \)</span> matrix of input features.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span> is the <span class="math notranslate nohighlight">\( d \times 1 \)</span> vector of coefficients.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathbf{e} \)</span> is the <span class="math notranslate nohighlight">\( n \times 1 \)</span> vector of errors or residuals.</p></li>
+</ul>
+<p>The objective is to estimate the coefficients <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span> that minimize the sum of squared residuals.</p>
+</section>
+<section id="objective-function">
+<h3>2. <strong>Objective Function</strong><a class="headerlink" href="#objective-function" title="Link to this heading">#</a></h3>
+<p>The objective is to minimize the Residual Sum of Squares (RSS):</p>
+<div class="math notranslate nohighlight">
+\[
+\text{RSS}(\boldsymbol{\beta}) = \| \mathbf{y} - \mathbf{X} \boldsymbol{\beta} \|^2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \| \cdot \|^2 \)</span> denotes the squared Euclidean norm, which is:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{RSS}(\boldsymbol{\beta}) = (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})
+\]</div>
+</section>
+<section id="expanding-the-objective-function">
+<h3>3. <strong>Expanding the Objective Function</strong><a class="headerlink" href="#expanding-the-objective-function" title="Link to this heading">#</a></h3>
+<p>Expand the RSS expression:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+\text{RSS}(\boldsymbol{\beta}) &amp;= (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \\
+&amp;= \mathbf{y}^T \mathbf{y} - 2 \mathbf{y}^T \mathbf{X} \boldsymbol{\beta} + \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta}
+\end{align*}
+\end{split}\]</div>
+<p>Here:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{y}^T \mathbf{y} \)</span> is a constant with respect to <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( -2 \mathbf{y}^T \mathbf{X} \boldsymbol{\beta} \)</span> is the linear term.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \boldsymbol{\beta}^T \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} \)</span> is the quadratic term.</p></li>
+</ul>
+</section>
+<section id="finding-the-minimum">
+<h3>4. <strong>Finding the Minimum</strong><a class="headerlink" href="#finding-the-minimum" title="Link to this heading">#</a></h3>
+<p>To find the minimum of the RSS, we take the derivative of the RSS with respect to <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span> and set it to zero:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \boldsymbol{\beta}} \text{RSS}(\boldsymbol{\beta}) = -2 \mathbf{X}^T \mathbf{y} + 2 \mathbf{X}^T \mathbf{X} \boldsymbol{\beta} = 0
+\]</div>
+<p>Simplify the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{X}^T \mathbf{X} \boldsymbol{\beta} = \mathbf{X}^T \mathbf{y}
+\]</div>
+</section>
+<section id="solving-for-boldsymbol-beta">
+<h3>5. <strong>Solving for <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span></strong><a class="headerlink" href="#solving-for-boldsymbol-beta" title="Link to this heading">#</a></h3>
+<p>To solve for <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span>, we rearrange the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\boldsymbol{\beta} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( (\mathbf{X}^T \mathbf{X})^{-1} \)</span> is the matrix inverse of <span class="math notranslate nohighlight">\( \mathbf{X}^T \mathbf{X} \)</span>, which exists if <span class="math notranslate nohighlight">\( \mathbf{X}^T \mathbf{X} \)</span> is non-singular (i.e., has full rank).</p>
+</section>
+<section id="solution-summary">
+<h3>6. <strong>Solution Summary</strong><a class="headerlink" href="#solution-summary" title="Link to this heading">#</a></h3>
+<p>The closed-form solution for the OLS regression coefficients <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y}
+\]</div>
+</section>
+</section>
+<section id="additional-considerations">
+<h2>7. <strong>Additional Considerations</strong><a class="headerlink" href="#additional-considerations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Regularization</strong>: In practice, OLS might be augmented with regularization (e.g., Ridge Regression) to handle multicollinearity or overfitting.</p></li>
+<li><p><strong>Singularity</strong>: If <span class="math notranslate nohighlight">\( \mathbf{X}^T \mathbf{X} \)</span> is singular, pseudoinverse techniques (e.g., Moore-Penrose pseudoinverse) can be used.</p></li>
+</ul>
+</section>
+<section id="example">
+<h2>8. <strong>Example</strong><a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>Let’s walk through a simple example with two features.</p>
+<p><strong>Given</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{X} = \begin{bmatrix} 1 &amp; 2 \\ 2 &amp; 3 \\ 3 &amp; 4 \end{bmatrix} \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathbf{y} = \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} \)</span></p></li>
+</ul>
+<p><strong>Step-by-Step Solution</strong>:</p>
+<ol class="arabic simple">
+<li><p>Compute <span class="math notranslate nohighlight">\( \mathbf{X}^T \mathbf{X} \)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{X}^T \mathbf{X} = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 2 &amp; 3 &amp; 4 \end{bmatrix} \begin{bmatrix} 1 &amp; 2 \\ 2 &amp; 3 \\ 3 &amp; 4 \end{bmatrix} = \begin{bmatrix} 14 &amp; 20 \\ 20 &amp; 29 \end{bmatrix}
+\end{split}\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Compute <span class="math notranslate nohighlight">\( \mathbf{X}^T \mathbf{y} \)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{X}^T \mathbf{y} = \begin{bmatrix} 1 &amp; 2 &amp; 3 \\ 2 &amp; 3 &amp; 4 \end{bmatrix} \begin{bmatrix} 1 \\ 2 \\ 3 \end{bmatrix} = \begin{bmatrix} 20 \\ 26 \end{bmatrix}
+\end{split}\]</div>
+<ol class="arabic simple" start="3">
+<li><p>Compute <span class="math notranslate nohighlight">\( (\mathbf{X}^T \mathbf{X})^{-1} \)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+(\mathbf{X}^T \mathbf{X})^{-1} = \frac{1}{14 \cdot 29 - 20 \cdot 20} \begin{bmatrix} 29 &amp; -20 \\ -20 &amp; 14 \end{bmatrix} = \frac{1}{6} \begin{bmatrix} 29 &amp; -20 \\ -20 &amp; 14 \end{bmatrix}
+\end{split}\]</div>
+<ol class="arabic simple" start="4">
+<li><p>Compute <span class="math notranslate nohighlight">\( \hat{\boldsymbol{\beta}} \)</span>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{y} = \frac{1}{6} \begin{bmatrix} 29 &amp; -20 \\ -20 &amp; 14 \end{bmatrix} \begin{bmatrix} 20 \\ 26 \end{bmatrix} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}
+\end{split}\]</div>
+<p>Thus, the estimated coefficients are <span class="math notranslate nohighlight">\( \hat{\beta}_1 = 2 \)</span> and <span class="math notranslate nohighlight">\( \hat{\beta}_2 = 1 \)</span>.</p>
+<p>This completes the detailed derivation and solution approach for OLS regression.</p>
+<p>In fact, <span class="math notranslate nohighlight">\( \text{prox}_f(v) \)</span> is the point that has the least distance to the vector <span class="math notranslate nohighlight">\( v \)</span> relative to the function <span class="math notranslate nohighlight">\( f \)</span>. That is why it is called the proximal mapping. Therefore, <span class="math notranslate nohighlight">\( \text{prox}_f(v) \)</span> is a point between the minimum of <span class="math notranslate nohighlight">\( f \)</span> and <span class="math notranslate nohighlight">\( v \)</span>.</p>
+<p>The number <span class="math notranslate nohighlight">\( \lambda \)</span> is a control parameter. For large <span class="math notranslate nohighlight">\( \lambda \)</span>, since the term <span class="math notranslate nohighlight">\( \frac{1}{2\lambda} \| x_{n-1} - v \|^2 \)</span> becomes larger, <span class="math notranslate nohighlight">\( x_n \)</span> is closer to the minimum of <span class="math notranslate nohighlight">\( f \)</span> and farther from <span class="math notranslate nohighlight">\( v \)</span>. Conversely, for small <span class="math notranslate nohighlight">\( \lambda \)</span>, since the term <span class="math notranslate nohighlight">\( \frac{1}{2\lambda} \| x_{n-1} - v \|^2 \)</span> becomes smaller, <span class="math notranslate nohighlight">\( x_n \)</span> is closer to <span class="math notranslate nohighlight">\( v \)</span> and farther from the minimum of <span class="math notranslate nohighlight">\( f \)</span>.</p>
+<p>In iterative algorithms for moving towards the optimal <span class="math notranslate nohighlight">\( f(x) \)</span>, we are generally committed to the previous point, similar to gradient descent. For example, in gradient descent <span class="math notranslate nohighlight">\( x_{n+1} = x_n - \alpha \nabla f(x_n) \)</span>, we combine the gradient of the function and the previous point to reach the next point. The same is true for the proximal algorithm.</p>
+<p>Assuming <span class="math notranslate nohighlight">\( f \)</span> is smooth (differentiable), we consider using explicit methods, such as the gradient descent method, to approximate the minimizer. The gradient descent method is a common technique in convex optimization. By selecting a smaller parameter <span class="math notranslate nohighlight">\( \lambda \)</span>, the term <span class="math notranslate nohighlight">\( \frac{1}{2\lambda} \| x_{n-1} - v \|^2 \)</span> becomes more significant. Consequently, the term <span class="math notranslate nohighlight">\( \frac{1}{2\lambda} \| x - x_{n-1} \|^2 \)</span> increases, enhancing the convergence rate and reducing the number of steps required to solve the problem using the gradient method.</p>
+<p>Thus, in the proximal point algorithm, minimizing the parameter <span class="math notranslate nohighlight">\( \lambda \)</span> as much as possible simplifies the problems and improves their convergence rate. However, this approach results in a slower overall convergence rate to the minimizer of the main objective function.</p>
+<p>The proximal point algorithm, in other words, is a discrete form of the subgradient descent method for nonsmooth optimization.</p>
+</section>
+<section id="projection-operator-onto-a-set-c">
+<h2>Projection Operator onto a Set <span class="math notranslate nohighlight">\( C \)</span><a class="headerlink" href="#projection-operator-onto-a-set-c" title="Link to this heading">#</a></h2>
+<p>The projection operator <span class="math notranslate nohighlight">\( P_C(v) \)</span> is used to project a point <span class="math notranslate nohighlight">\( v \)</span> onto a set <span class="math notranslate nohighlight">\( C \)</span>. It is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ P_C(v) = \arg \min_{x \in C} \frac{1}{2} \| v - x \|^2 \]</div>
+<p>This projection can also be expressed using the indicator function <span class="math notranslate nohighlight">\( I_C(x) \)</span> of the set <span class="math notranslate nohighlight">\( C \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ P_C(v) = \arg \min_{x} \left( \frac{1}{2} \| v - x \|^2 + I_C(x) \right) \]</div>
+<p>where the indicator function <span class="math notranslate nohighlight">\( I_C(x) \)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} I_C(x) = \begin{cases} 
+0 &amp; \text{if } x \in C \\
+\infty &amp; \text{otherwise} 
+\end{cases} \end{split}\]</div>
+</section>
+<section id="proximal-gradient-algorithm">
+<h2>Proximal Gradient Algorithm<a class="headerlink" href="#proximal-gradient-algorithm" title="Link to this heading">#</a></h2>
+<p>The proximal gradient algorithm is used to minimize the problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) + g(x) : x \in H \} \]</div>
+<p>where <span class="math notranslate nohighlight">\( f : H \to \mathbb{R} \)</span> is a convex and differentiable function, and <span class="math notranslate nohighlight">\( g : H \to (-\infty, +\infty] \)</span> is a convex, proper, and lower semicontinuous function. For example, the constrained minimization problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) : x \in C \} \]</div>
+<p>can be rewritten as the unconstrained minimization problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) + I_C(x) : x \in H \} \]</div>
+<p>where <span class="math notranslate nohighlight">\( I_C(x) \)</span> is the indicator function of the set <span class="math notranslate nohighlight">\( C \)</span>. The proximal gradient algorithm combines steepest descent for <span class="math notranslate nohighlight">\( f \)</span> and the proximal step for <span class="math notranslate nohighlight">\( g \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ x_{k+1} = \text{prox}_{\lambda_k g}(x_k - \lambda_k \nabla f(x_k)) \]</div>
+<p>where <span class="math notranslate nohighlight">\( \lambda_k &gt; 0 \)</span> is the step size. The proximal operator <span class="math notranslate nohighlight">\( \text{prox}_{\lambda_k g} \)</span> is used to handle the non-smooth term <span class="math notranslate nohighlight">\( g \)</span> in the optimization problem.</p>
+</section>
+<section id="conceptual-combination">
+<h2>Conceptual Combination<a class="headerlink" href="#conceptual-combination" title="Link to this heading">#</a></h2>
+<p>The proximal gradient algorithm leverages the concept of the projection operator <span class="math notranslate nohighlight">\( P_C(x) \)</span>. Specifically, the proximal operator for the indicator function <span class="math notranslate nohighlight">\( I_C \)</span> is equivalent to the projection operator:</p>
+<div class="math notranslate nohighlight">
+\[ \text{prox}_{I_C}(x) = P_C(x) \]</div>
+<p>This equivalence implies that the proximal gradient algorithm effectively incorporates the projection operator into its iterative steps. By solving:</p>
+<div class="math notranslate nohighlight">
+\[ x_{k+1} = \text{Proj}_C(x_k - \lambda_k \nabla f(x_k)) \]</div>
+<p>the algorithm ensures that each step minimizes both <span class="math notranslate nohighlight">\( f \)</span> and <span class="math notranslate nohighlight">\( g \)</span>, leveraging the convexity and differentiability of the functions involved. Thus, the proximal gradient algorithm combines the steepest descent method for <span class="math notranslate nohighlight">\( f \)</span> with the projection operator to handle constraints, achieving convergence towards a solution of the optimization problem.</p>
+<hr class="docutils" />
+<p>Here’s a translated and refined version of the provided text that integrates the concepts of the proximal gradient algorithm and the projection operator, making it suitable for English-speaking audiences:</p>
+<hr class="docutils" />
+<p>The proximal gradient algorithm addresses the minimization problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) + g(x) : x \in H \} \]</div>
+<p>where <span class="math notranslate nohighlight">\( f : H \to \mathbb{R} \)</span> is a convex and differentiable function, and <span class="math notranslate nohighlight">\( g : H \to (-\infty, +\infty] \)</span> is a convex, proper, and lower semicontinuous function. An example of such problems occurs when the objective function can be decomposed into the sum of two functions, one of which is differentiable (in this case, <span class="math notranslate nohighlight">\( f \)</span>). For example, the constrained minimization problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) : x \in C \} \]</div>
+<p>where <span class="math notranslate nohighlight">\( C \)</span> is closed and convex, can be transformed into the unconstrained minimization problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) + I_C(x) : x \in H \} \]</div>
+<p>where <span class="math notranslate nohighlight">\( I_C \)</span> is the indicator function of the set <span class="math notranslate nohighlight">\( C \)</span>. The proximal gradient algorithm for this problem is obtained by combining the steepest descent method for <span class="math notranslate nohighlight">\( f \)</span> with the proximal step for <span class="math notranslate nohighlight">\( g \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ x_{k+1} = \text{prox}_{\lambda_k g}(x_k - \lambda_k \nabla f(x_k)) \]</div>
+<p>where <span class="math notranslate nohighlight">\( \lambda_k &gt; 0 \)</span> denotes the step size. The appropriate choice of parameters <span class="math notranslate nohighlight">\( \lambda_k \)</span> ensures weak convergence of the sequence to a minimizer of <span class="math notranslate nohighlight">\( f + g \)</span>. It is evident that:</p>
+<div class="math notranslate nohighlight">
+\[ \text{prox}_{I_C}(x) = \text{Proj}_C(x) \]</div>
+<p>Thus, the proximal gradient algorithm for the constrained problem takes the form:</p>
+<div class="math notranslate nohighlight">
+\[ x_{k+1} = \text{Proj}_C(x_k - \lambda_k \nabla f(x_k)) \]</div>
+<p>This algorithm is also known as the <strong>splitting algorithm</strong> because it decomposes the objective function into a sum of two convex functions.</p>
+<p>Additionally, the proximal gradient algorithm can be interpreted as an iterative method for approximating a fixed point. Specifically, <span class="math notranslate nohighlight">\( x^* \)</span> is a solution to the problem if and only if it is a fixed point of the operator:</p>
+<div class="math notranslate nohighlight">
+\[ \text{prox}_{\lambda g} (I - \lambda \nabla f) \]</div>
+<p>where <span class="math notranslate nohighlight">\( I \)</span> is the identity operator. This means the algorithm iteratively applies this operator to converge to a solution.</p>
+<hr class="docutils" />
+<p>This explanation integrates the role of the projection operator and the proximal gradient algorithm in optimization, providing a clear and comprehensive overview.</p>
+</section>
+<section id="text-1-projection-operator-onto-a-set-c">
+<h2>Text 1: Projection Operator onto a Set <span class="math notranslate nohighlight">\( C \)</span><a class="headerlink" href="#text-1-projection-operator-onto-a-set-c" title="Link to this heading">#</a></h2>
+<p>The projection operator <span class="math notranslate nohighlight">\( P_C(v) \)</span> projects a point <span class="math notranslate nohighlight">\( v \)</span> onto a set <span class="math notranslate nohighlight">\( C \)</span> and is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ P_C(v) = \arg \min_{x \in C} \frac{1}{2} \| v - x \|^2 \]</div>
+<p>This can also be expressed using the indicator function <span class="math notranslate nohighlight">\( I_C(x) \)</span> of set <span class="math notranslate nohighlight">\( C \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ P_C(v) = \arg \min_{x} \left( \frac{1}{2} \| v - x \|^2 + I_C(x) \right) \]</div>
+<p>where <span class="math notranslate nohighlight">\( I_C(x) \)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} I_C(x) = \begin{cases} 
+0 &amp; \text{if } x \in C \\
+\infty &amp; \text{otherwise} 
+\end{cases} \end{split}\]</div>
+</section>
+<section id="text-2-proximal-gradient-algorithm">
+<h2>Text 2: Proximal Gradient Algorithm<a class="headerlink" href="#text-2-proximal-gradient-algorithm" title="Link to this heading">#</a></h2>
+<p>Let’s consider the proximal gradient algorithm for minimizing the problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) + g(x) : x \in H \} \]</div>
+<p>where <span class="math notranslate nohighlight">\( f : H \to \mathbb{R} \)</span> is a convex and differentiable function, and <span class="math notranslate nohighlight">\( g : H \to (-\infty, +\infty] \)</span> is a convex, proper, and lower semicontinuous function. For instance, the constrained minimization problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) : x \in C \} \]</div>
+<p>if <span class="math notranslate nohighlight">\( C \)</span> is closed and convex, is equivalent to the unconstrained minimization problem:</p>
+<div class="math notranslate nohighlight">
+\[ \min \{ f(x) + I_C(x) : x \in H \} \]</div>
+<p>where <span class="math notranslate nohighlight">\( I_C(x) \)</span> is the indicator function of <span class="math notranslate nohighlight">\( C \)</span>. The proximal gradient algorithm combines the steepest descent for <span class="math notranslate nohighlight">\( f \)</span> and the proximal step for <span class="math notranslate nohighlight">\( g \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ x_{k+1} = \text{prox}_{\lambda_k g}(x_k - \lambda_k \nabla f(x_k)) \]</div>
+<p>where <span class="math notranslate nohighlight">\( \lambda_k &gt; 0 \)</span> is the step size. The proximal operator <span class="math notranslate nohighlight">\( \text{prox}_{\lambda_k g} \)</span> is related to <span class="math notranslate nohighlight">\( g \)</span> and <span class="math notranslate nohighlight">\( \lambda_k \)</span>.</p>
+<p>The proximal gradient algorithm can be viewed as iterating towards a fixed point. Specifically, <span class="math notranslate nohighlight">\( x^* \)</span> solves the problem if it is a fixed point of:</p>
+<div class="math notranslate nohighlight">
+\[ \text{prox}_{\lambda g} (I - \lambda \nabla f) \]</div>
+<p>where <span class="math notranslate nohighlight">\( I \)</span> is the identity operator.</p>
+</section>
+<section id="id1">
+<h2>Conceptual Combination:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>The proximal gradient algorithm leverages the projection operator <span class="math notranslate nohighlight">\( P_C(x) \)</span> onto set <span class="math notranslate nohighlight">\( C \)</span>, where <span class="math notranslate nohighlight">\( P_C(x) = \text{prox}_{I_C}(x) \)</span>. This operator <span class="math notranslate nohighlight">\( P_C \)</span> helps in solving constrained minimization problems effectively by ensuring each step minimizes both <span class="math notranslate nohighlight">\( f \)</span> and <span class="math notranslate nohighlight">\( g \)</span>, incorporating the properties of convexity and differentiability to achieve convergence towards a solution.</p>
+</section>
+<section id="proximal-mapping-a-comprehensive-overview">
+<h2>Proximal Mapping: A Comprehensive Overview<a class="headerlink" href="#proximal-mapping-a-comprehensive-overview" title="Link to this heading">#</a></h2>
+<p><strong>Proximal mapping</strong> is a crucial concept in optimization, especially in problems involving non-differentiable terms or constraints. It plays a significant role in modern optimization techniques, such as those used in machine learning, signal processing, and statistics.</p>
+<section id="definition-of-proximal-mapping">
+<h3>1. <strong>Definition of Proximal Mapping</strong><a class="headerlink" href="#definition-of-proximal-mapping" title="Link to this heading">#</a></h3>
+<p>The <strong>proximal mapping</strong> of a function <span class="math notranslate nohighlight">\( f \)</span> at a point <span class="math notranslate nohighlight">\( x \)</span> is defined as the solution to the following optimization problem:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda f}(x) = \arg \min_{u} \left[ f(u) + \frac{1}{2\lambda} \| u - x \|^2 \right]
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \lambda \)</span> is a positive scalar (regularization parameter).</p></li>
+<li><p><span class="math notranslate nohighlight">\( \| \cdot \| \)</span> denotes the Euclidean norm (or another norm, depending on context).</p></li>
+</ul>
+<p>The term <span class="math notranslate nohighlight">\( \frac{1}{2\lambda} \| u - x \|^2 \)</span> represents a quadratic regularization that penalizes deviations of <span class="math notranslate nohighlight">\( u \)</span> from <span class="math notranslate nohighlight">\( x \)</span>. The function <span class="math notranslate nohighlight">\( f(u) \)</span> is typically non-smooth or non-differentiable, and the proximal operator provides a way to handle such non-smoothness.</p>
+</section>
+<section id="geometric-interpretation">
+<h3>2. <strong>Geometric Interpretation</strong><a class="headerlink" href="#geometric-interpretation" title="Link to this heading">#</a></h3>
+<p>The proximal mapping can be thought of as finding a point <span class="math notranslate nohighlight">\( u \)</span> that balances:</p>
+<ul class="simple">
+<li><p>The value of the function <span class="math notranslate nohighlight">\( f(u) \)</span>, which is often non-differentiable.</p></li>
+<li><p>The squared distance <span class="math notranslate nohighlight">\( \frac{1}{2\lambda} \| u - x \|^2 \)</span> from the point <span class="math notranslate nohighlight">\( x \)</span>.</p></li>
+</ul>
+<p>This trade-off can be interpreted as a form of regularization where the function <span class="math notranslate nohighlight">\( f \)</span> is smoothed out or approximated by adding a quadratic penalty.</p>
+</section>
+<section id="applications-of-proximal-mapping">
+<h3>3. <strong>Applications of Proximal Mapping</strong><a class="headerlink" href="#applications-of-proximal-mapping" title="Link to this heading">#</a></h3>
+<p>Proximal mapping is used in various optimization problems, particularly where:</p>
+<ul class="simple">
+<li><p><strong>Regularization</strong>: There are regularization terms (e.g., <span class="math notranslate nohighlight">\( L_1 \)</span> norm) that are not differentiable.</p></li>
+<li><p><strong>Constraint Handling</strong>: Problems involve constraints that can be handled using proximal operators.</p></li>
+<li><p><strong>Sparse Solutions</strong>: Techniques like Lasso regression utilize proximal operators to induce sparsity.</p></li>
+</ul>
+</section>
+<section id="examples-of-proximal-operators">
+<h3>4. <strong>Examples of Proximal Operators</strong><a class="headerlink" href="#examples-of-proximal-operators" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Proximal Operator for <span class="math notranslate nohighlight">\( L_1 \)</span> Norm (Soft-Thresholding)</strong></p>
+<p>For <span class="math notranslate nohighlight">\( f(u) = \| u \|_1 \)</span>, the proximal operator is:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{prox}_{\lambda \| \cdot \|_1}(x) = \text{sgn}(x) \cdot \max(|x| - \lambda, 0)
+   \]</div>
+<p>This is used in Lasso regression, where it promotes sparsity in the solution by shrinking coefficients towards zero.</p>
+</li>
+<li><p><strong>Proximal Operator for <span class="math notranslate nohighlight">\( L_2 \)</span> Norm</strong></p>
+<p>For <span class="math notranslate nohighlight">\( f(u) = \frac{1}{2} \| u \|_2^2 \)</span>, the proximal operator is:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{prox}_{\lambda \frac{1}{2} \| \cdot \|_2^2}(x) = x
+   \]</div>
+<p>This is used in Ridge regression, where the quadratic penalty does not change the solution but serves to shrink coefficients.</p>
+</li>
+<li><p><strong>Proximal Operator for <span class="math notranslate nohighlight">\( L_0 \)</span> Norm</strong></p>
+<p>The <span class="math notranslate nohighlight">\( L_0 \)</span> norm is not convex, so the proximal operator is not well-defined in the classical sense. However, approximations can be used in algorithms like the iterative hard thresholding algorithm.</p>
+</li>
+</ol>
+</section>
+<section id="proximal-gradient-method">
+<h3>5. <strong>Proximal Gradient Method</strong><a class="headerlink" href="#proximal-gradient-method" title="Link to this heading">#</a></h3>
+<p>The proximal gradient method is used for optimizing problems where the objective function can be split into a smooth part and a non-smooth part:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{u} \left[ f(u) + g(u) \right]
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( f \)</span> is smooth (differentiable) and <span class="math notranslate nohighlight">\( g \)</span> is non-smooth. The method iterates as follows:</p>
+<ol class="arabic">
+<li><p><strong>Gradient Step</strong>: Compute the gradient of the smooth part <span class="math notranslate nohighlight">\( f \)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+   u^{(k+1/2)} = u^{(k)} - \eta \nabla f(u^{(k)})
+   \]</div>
+</li>
+<li><p><strong>Proximal Step</strong>: Apply the proximal operator to handle the non-smooth part <span class="math notranslate nohighlight">\( g \)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+   u^{(k+1)} = \text{prox}_{\eta g}(u^{(k+1/2)})
+   \]</div>
+</li>
+</ol>
+<p>This approach allows handling non-differentiable terms efficiently by separating smooth and non-smooth components.</p>
+</section>
+<section id="connection-with-duality">
+<h3>6. <strong>Connection with Duality</strong><a class="headerlink" href="#connection-with-duality" title="Link to this heading">#</a></h3>
+<p>Proximal mapping also has a connection with duality theory in optimization. In many problems, solving the primal problem directly can be challenging, and the dual problem provides a different perspective. The proximal operator can be used to solve dual problems efficiently, particularly in convex optimization.</p>
+</section>
+<section id="algorithms-using-proximal-mapping">
+<h3>7. <strong>Algorithms Using Proximal Mapping</strong><a class="headerlink" href="#algorithms-using-proximal-mapping" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Coordinate Descent</strong>: Iterates over each coordinate separately while applying the proximal operator.</p></li>
+<li><p><strong>Iterative Hard Thresholding (IHT)</strong>: Applies proximal mapping in iterative steps for sparse recovery problems.</p></li>
+<li><p><strong>ADMM (Alternating Direction Method of Multipliers)</strong>: Uses proximal operators to solve optimization problems with multiple constraints.</p></li>
+</ul>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p><strong>Proximal Mapping</strong> is a versatile and powerful tool in optimization, especially for problems involving non-smooth functions or constraints. It provides a way to solve optimization problems by balancing the objective function and a regularization term through a quadratic penalty. The proximal operator helps handle non-differentiable terms efficiently, making it a fundamental concept in modern optimization algorithms.</p>
+<p>To understand the proximal operator for the <span class="math notranslate nohighlight">\( L_1 \)</span> norm, <span class="math notranslate nohighlight">\( \| \cdot \|_1 \)</span>, let’s go through the steps of deriving it. The proximal operator is a useful tool for solving optimization problems with non-differentiable functions, such as the <span class="math notranslate nohighlight">\( L_1 \)</span> norm.</p>
+</section>
+<section id="proximal-operator-definition">
+<h2>1. <strong>Proximal Operator Definition</strong><a class="headerlink" href="#proximal-operator-definition" title="Link to this heading">#</a></h2>
+<p>The proximal operator of a function <span class="math notranslate nohighlight">\( f \)</span> at a point <span class="math notranslate nohighlight">\( x \)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda f}(x) = \arg \min_{u} \left[ f(u) + \frac{1}{2\lambda} \| u - x \|^2 \right]
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \lambda \)</span> is a positive scalar and <span class="math notranslate nohighlight">\( \| \cdot \| \)</span> denotes the Euclidean norm.</p>
+</section>
+<section id="applying-to-the-l-1-norm">
+<h2>2. <strong>Applying to the <span class="math notranslate nohighlight">\( L_1 \)</span> Norm</strong><a class="headerlink" href="#applying-to-the-l-1-norm" title="Link to this heading">#</a></h2>
+<p>For the <span class="math notranslate nohighlight">\( L_1 \)</span> norm, the function <span class="math notranslate nohighlight">\( f(u) = \| u \|_1 \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+f(u) = \| u \|_1 = \sum_{i} |u_i|
+\]</div>
+<p>So, we need to find:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda \| \cdot \|_1}(x) = \arg \min_{u} \left[ \| u \|_1 + \frac{1}{2\lambda} \| u - x \|^2 \right]
+\]</div>
+</section>
+<section id="minimization-problem">
+<h2>3. <strong>Minimization Problem</strong><a class="headerlink" href="#minimization-problem" title="Link to this heading">#</a></h2>
+<p>We can rewrite the problem as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda \| \cdot \|_1}(x) = \arg \min_{u} \left[ \sum_{i} |u_i| + \frac{1}{2\lambda} \sum_{i} (u_i - x_i)^2 \right]
+\]</div>
+<p>This can be separated into component-wise problems because the <span class="math notranslate nohighlight">\( L_1 \)</span> norm is separable. For each component <span class="math notranslate nohighlight">\( i \)</span>, we minimize:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda \| \cdot \|_1}(x_i) = \arg \min_{u_i} \left[ |u_i| + \frac{1}{2\lambda} (u_i - x_i)^2 \right]
+\]</div>
+</section>
+<section id="derivative-with-respect-to-u-i">
+<h2>4. <strong>Derivative with Respect to <span class="math notranslate nohighlight">\( u_i \)</span></strong><a class="headerlink" href="#derivative-with-respect-to-u-i" title="Link to this heading">#</a></h2>
+<p>To solve this, take the derivative of the objective function with respect to <span class="math notranslate nohighlight">\( u_i \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial u_i} \left( |u_i| + \frac{1}{2\lambda} (u_i - x_i)^2 \right)
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\( |u_i| \)</span> is not differentiable at <span class="math notranslate nohighlight">\( u_i = 0 \)</span>, we consider the subdifferential. For <span class="math notranslate nohighlight">\( u_i \neq 0 \)</span>, the derivative is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial u_i} \left( |u_i| + \frac{1}{2\lambda} (u_i - x_i)^2 \right) = \text{sgn}(u_i) + \frac{1}{\lambda} (u_i - x_i)
+\]</div>
+<p>Setting this to zero gives:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{sgn}(u_i) + \frac{1}{\lambda} (u_i - x_i) = 0
+\]</div>
+<p>Solving for <span class="math notranslate nohighlight">\( u_i \)</span>, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+u_i = x_i - \lambda \text{sgn}(u_i)
+\]</div>
+</section>
+<section id="handling-different-cases">
+<h2>5. <strong>Handling Different Cases</strong><a class="headerlink" href="#handling-different-cases" title="Link to this heading">#</a></h2>
+<ul>
+<li><p><strong>If <span class="math notranslate nohighlight">\( |x_i| &gt; \lambda \)</span></strong>: The solution is:</p>
+<div class="math notranslate nohighlight">
+\[
+  u_i = x_i - \lambda \text{sgn}(x_i)
+  \]</div>
+<p>Here, <span class="math notranslate nohighlight">\( |x_i| &gt; \lambda \)</span>, so <span class="math notranslate nohighlight">\( u_i \)</span> is non-zero.</p>
+</li>
+<li><p><strong>If <span class="math notranslate nohighlight">\( |x_i| \leq \lambda \)</span></strong>: The solution is:</p>
+<div class="math notranslate nohighlight">
+\[
+  u_i = 0
+  \]</div>
+<p>Here, <span class="math notranslate nohighlight">\( |x_i| \leq \lambda \)</span>, so <span class="math notranslate nohighlight">\( u_i \)</span> should be zero because the penalty is greater than or equal to the value.</p>
+</li>
+</ul>
+</section>
+<section id="putting-it-all-together">
+<h2>6. <strong>Putting It All Together</strong><a class="headerlink" href="#putting-it-all-together" title="Link to this heading">#</a></h2>
+<p>Combining these cases, the proximal operator for the <span class="math notranslate nohighlight">\( L_1 \)</span> norm is:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda \| \cdot \|_1}(x_i) = \text{sgn}(x_i) \cdot \max(|x_i| - \lambda, 0)
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \text{sgn}(x_i) \)</span> is the sign function, giving <span class="math notranslate nohighlight">\( +1 \)</span> if <span class="math notranslate nohighlight">\( x_i &gt; 0 \)</span>, <span class="math notranslate nohighlight">\( -1 \)</span> if <span class="math notranslate nohighlight">\( x_i &lt; 0 \)</span>, and <span class="math notranslate nohighlight">\( 0 \)</span> if <span class="math notranslate nohighlight">\( x_i = 0 \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \max(|x_i| - \lambda, 0) \)</span> is the soft-thresholding operation, shrinking the value of <span class="math notranslate nohighlight">\( x_i \)</span> by <span class="math notranslate nohighlight">\( \lambda \)</span> if <span class="math notranslate nohighlight">\( |x_i| &gt; \lambda \)</span>, and setting it to 0 otherwise.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h2>Summary<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>The proximal operator for the <span class="math notranslate nohighlight">\( L_1 \)</span> norm, <span class="math notranslate nohighlight">\( \| \cdot \|_1 \)</span>, applies soft-thresholding to each component of <span class="math notranslate nohighlight">\( x \)</span>. It reduces the magnitude of each component by <span class="math notranslate nohighlight">\( \lambda \)</span> if the component’s magnitude is greater than <span class="math notranslate nohighlight">\( \lambda \)</span>, and sets it to zero otherwise. This operation is fundamental in various optimization problems, especially those involving sparse solutions like Lasso regression.</p>
+<p>Let’s carefully work through the proximal operator calculation for the function <span class="math notranslate nohighlight">\( g(x) = \lambda |x| \)</span>, which involves the <span class="math notranslate nohighlight">\( L_1 \)</span> norm. We’ll follow the example you provided, deriving the proximal operator step by step.</p>
+</section>
+<section id="id3">
+<h2>1. <strong>Proximal Operator Definition</strong><a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Given a function <span class="math notranslate nohighlight">\( g: \mathbb{R} \to \mathbb{R} \)</span> defined by <span class="math notranslate nohighlight">\( g(x) = \lambda |x| \)</span> with <span class="math notranslate nohighlight">\( \lambda &gt; 0 \)</span>, we want to find the proximal operator:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = \arg \min_{u \in \mathbb{R}} \left[ g(u) + \frac{1}{2} (u - x)^2 \right]
+\]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( g(u) = \lambda |u| \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = \arg \min_{u \in \mathbb{R}} \left[ \lambda |u| + \frac{1}{2} (u - x)^2 \right]
+\]</div>
+</section>
+<section id="piecewise-analysis">
+<h2>2. <strong>Piecewise Analysis</strong><a class="headerlink" href="#piecewise-analysis" title="Link to this heading">#</a></h2>
+<p>The function to minimize is piecewise linear, so we’ll consider two cases based on the sign of <span class="math notranslate nohighlight">\( u \)</span>:</p>
+<section id="case-1-u-0">
+<h3>Case 1: <span class="math notranslate nohighlight">\( u &gt; 0 \)</span><a class="headerlink" href="#case-1-u-0" title="Link to this heading">#</a></h3>
+<p>In this case, <span class="math notranslate nohighlight">\( |u| = u \)</span>. So the objective function becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+h_+(u) = \lambda u + \frac{1}{2} (u - x)^2
+\]</div>
+<p>To find the minimizer, take the derivative with respect to <span class="math notranslate nohighlight">\( u \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial u} \left[ \lambda u + \frac{1}{2} (u - x)^2 \right] = \lambda + (u - x)
+\]</div>
+<p>Setting the derivative to zero to find the critical points:</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda + (u - x) = 0 \implies u = x - \lambda
+\]</div>
+<p>We need to check if <span class="math notranslate nohighlight">\( u = x - \lambda \)</span> is valid for <span class="math notranslate nohighlight">\( u &gt; 0 \)</span>. Hence, if <span class="math notranslate nohighlight">\( x - \lambda &gt; 0 \)</span>, the solution is:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = x - \lambda
+\]</div>
+</section>
+<section id="case-2-u-leq-0">
+<h3>Case 2: <span class="math notranslate nohighlight">\( u \leq 0 \)</span><a class="headerlink" href="#case-2-u-leq-0" title="Link to this heading">#</a></h3>
+<p>In this case, <span class="math notranslate nohighlight">\( |u| = -u \)</span>. So the objective function becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+h_-(u) = -\lambda u + \frac{1}{2} (u - x)^2
+\]</div>
+<p>Take the derivative with respect to <span class="math notranslate nohighlight">\( u \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial u} \left[ -\lambda u + \frac{1}{2} (u - x)^2 \right] = -\lambda + (u - x)
+\]</div>
+<p>Setting the derivative to zero:</p>
+<div class="math notranslate nohighlight">
+\[
+-\lambda + (u - x) = 0 \implies u = x + \lambda
+\]</div>
+<p>We need to check if <span class="math notranslate nohighlight">\( u = x + \lambda \)</span> is valid for <span class="math notranslate nohighlight">\( u \leq 0 \)</span>. Hence, if <span class="math notranslate nohighlight">\( x + \lambda \leq 0 \)</span>, the solution is:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = x + \lambda
+\]</div>
+</section>
+</section>
+<section id="special-case-u-0">
+<h2>3. <strong>Special Case: <span class="math notranslate nohighlight">\( u = 0 \)</span></strong><a class="headerlink" href="#special-case-u-0" title="Link to this heading">#</a></h2>
+<p>At <span class="math notranslate nohighlight">\( u = 0 \)</span>, the objective function is:</p>
+<div class="math notranslate nohighlight">
+\[
+h(0) = \lambda \cdot 0 + \frac{1}{2} (0 - x)^2 = \frac{1}{2} x^2
+\]</div>
+<p>To ensure <span class="math notranslate nohighlight">\( u = 0 \)</span> is the minimizer, check the conditions:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\( |x| \leq \lambda \)</span>, then <span class="math notranslate nohighlight">\( 0 \)</span> lies in the range of the soft-thresholding operator, implying <span class="math notranslate nohighlight">\( \text{prox}_{\lambda g}(x) = 0 \)</span>.</p></li>
+</ul>
+</section>
+<section id="combining-results">
+<h2>4. <strong>Combining Results</strong><a class="headerlink" href="#combining-results" title="Link to this heading">#</a></h2>
+<p>Summarizing the results for the proximal operator:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{prox}_{\lambda g}(x) =
+\begin{cases}
+x - \lambda &amp; \text{if } x &gt; \lambda \\
+0 &amp; \text{if } |x| \leq \lambda \\
+x + \lambda &amp; \text{if } x &lt; -\lambda
+\end{cases}
+\end{split}\]</div>
+<p>This can be compactly written using the soft-thresholding function <span class="math notranslate nohighlight">\( T_\lambda(x) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = T_\lambda(x) = \text{sgn}(x) \cdot \max(|x| - \lambda, 0)
+\]</div>
+</section>
+<section id="interpretation">
+<h2>5. <strong>Interpretation</strong><a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h2>
+<p>The proximal operator <span class="math notranslate nohighlight">\( \text{prox}_{\lambda g}(x) \)</span> applies soft-thresholding, which:</p>
+<ul class="simple">
+<li><p>Shrinks <span class="math notranslate nohighlight">\( x \)</span> by <span class="math notranslate nohighlight">\( \lambda \)</span> if <span class="math notranslate nohighlight">\( x \)</span> is greater than <span class="math notranslate nohighlight">\( \lambda \)</span>,</p></li>
+<li><p>Shrinks <span class="math notranslate nohighlight">\( x \)</span> by <span class="math notranslate nohighlight">\( \lambda \)</span> if <span class="math notranslate nohighlight">\( x \)</span> is less than <span class="math notranslate nohighlight">\( -\lambda \)</span>,</p></li>
+<li><p>Sets <span class="math notranslate nohighlight">\( x \)</span> to zero if <span class="math notranslate nohighlight">\( |x| \leq \lambda \)</span>.</p></li>
+</ul>
+<p>This operator is widely used in Lasso regression and other sparse optimization problems where <span class="math notranslate nohighlight">\( L_1 \)</span> regularization is involved. The operation is also referred to as shrinkage or soft-thresholding.</p>
+<p>Let’s delve into the proximal operator for the zero function <span class="math notranslate nohighlight">\( g(x) \equiv 0 \)</span>, and understand why its proximal mapping is equivalent to the identity operator.</p>
+</section>
+<section id="proximal-operator-for-g-x-equiv-0">
+<h2>Proximal Operator for <span class="math notranslate nohighlight">\( g(x) \equiv 0 \)</span><a class="headerlink" href="#proximal-operator-for-g-x-equiv-0" title="Link to this heading">#</a></h2>
+<p><strong>Definition:</strong></p>
+<p>Given a function <span class="math notranslate nohighlight">\( g: \mathbb{R} \to \mathbb{R} \)</span> defined as <span class="math notranslate nohighlight">\( g(x) = 0 \)</span>, the proximal operator is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = \arg \min_{u \in \mathbb{R}} \left[ g(u) + \frac{1}{2} \|u - x\|^2 \right]
+\]</div>
+<p>Substituting <span class="math notranslate nohighlight">\( g(u) = 0 \)</span>, the problem becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = \arg \min_{u \in \mathbb{R}} \left[ \frac{1}{2} \|u - x\|^2 \right]
+\]</div>
+</section>
+<section id="id4">
+<h2>Minimization Problem<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>Let’s solve this minimization problem step-by-step:</p>
+<ol class="arabic">
+<li><p><strong>Objective Function:</strong></p>
+<p>The objective function to minimize is:</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{1}{2} \|u - x\|^2
+   \]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \| \cdot \| \)</span> denotes the Euclidean norm. For simplicity, in the one-dimensional case <span class="math notranslate nohighlight">\( \mathbb{R} \)</span>, this reduces to:</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{1}{2} (u - x)^2
+   \]</div>
+</li>
+<li><p><strong>Finding the Minimum:</strong></p>
+<p>To find the minimizer <span class="math notranslate nohighlight">\( u \)</span>, we take the derivative of the objective function with respect to <span class="math notranslate nohighlight">\( u \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\partial}{\partial u} \left[ \frac{1}{2} (u - x)^2 \right] = u - x
+   \]</div>
+<p>Setting the derivative to zero to find the critical point:</p>
+<div class="math notranslate nohighlight">
+\[
+   u - x = 0 \implies u = x
+   \]</div>
+<p>Therefore, the minimizer <span class="math notranslate nohighlight">\( u \)</span> that solves this problem is:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{prox}_{\lambda g}(x) = x
+   \]</div>
+</li>
+</ol>
+</section>
+<section id="id5">
+<h2>Interpretation<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>When <span class="math notranslate nohighlight">\( g(x) \equiv 0 \)</span>:</p>
+<ul class="simple">
+<li><p>The function <span class="math notranslate nohighlight">\( g \)</span> contributes nothing to the minimization problem.</p></li>
+<li><p>The problem simplifies to finding the <span class="math notranslate nohighlight">\( u \)</span> that is closest to <span class="math notranslate nohighlight">\( x \)</span> in terms of Euclidean distance.</p></li>
+<li><p>The solution is simply <span class="math notranslate nohighlight">\( x \)</span>, because the closest point to <span class="math notranslate nohighlight">\( x \)</span> is <span class="math notranslate nohighlight">\( x \)</span> itself.</p></li>
+</ul>
+</section>
+<section id="general-case">
+<h2>General Case<a class="headerlink" href="#general-case" title="Link to this heading">#</a></h2>
+<p>In more general settings, the proximal operator of the zero function <span class="math notranslate nohighlight">\( g \)</span> over any norm <span class="math notranslate nohighlight">\( \|\cdot\| \)</span> and any space <span class="math notranslate nohighlight">\( E \)</span> can be defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = \arg \min_{u \in E} \left[ \frac{1}{2} \|u - x\|^2 \right]
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\( \text{prox}_{\lambda g}(x) \)</span> simplifies to <span class="math notranslate nohighlight">\( x \)</span> because the minimization is purely over the quadratic term <span class="math notranslate nohighlight">\(\frac{1}{2} \|u - x\|^2\)</span>, which has its minimum when <span class="math notranslate nohighlight">\( u = x \)</span>.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>The proximal mapping for <span class="math notranslate nohighlight">\( g(x) \equiv 0 \)</span> is equivalent to the identity operator. This is because:</p>
+<ul class="simple">
+<li><p>The zero function does not add any additional constraints or penalties.</p></li>
+<li><p>Therefore, the proximal operator simply returns the input value <span class="math notranslate nohighlight">\( x \)</span> as the solution to the minimization problem.</p></li>
+</ul>
+<p>In summary, if <span class="math notranslate nohighlight">\( g \)</span> is the zero function, the proximal operator <span class="math notranslate nohighlight">\( \text{prox}_{\lambda g}(x) \)</span> is the identity operator, meaning:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda g}(x) = x
+\]</div>
+</section>
+<section id="proximal-mapping">
+<h2>Proximal Mapping<a class="headerlink" href="#proximal-mapping" title="Link to this heading">#</a></h2>
+<p><strong>Proximal mapping</strong> is a concept used in optimization, particularly in contexts involving regularization and sparsity. It is related to the notion of a <strong>proximal operator</strong> or <strong>proximal gradient descent</strong>, which helps in solving optimization problems where the objective function has a regularization term that is not differentiable.</p>
+<section id="id6">
+<h3><strong>Definition of Proximal Mapping</strong><a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>Given a convex function <span class="math notranslate nohighlight">\( f \)</span> and a point <span class="math notranslate nohighlight">\( x \)</span>, the <strong>proximal operator</strong> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda f}(x) = \arg \min_{u} \left[ f(u) + \frac{1}{2\lambda} \| u - x \|^2 \right]
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \lambda \)</span> is a positive scalar (regularization parameter).</p></li>
+<li><p><span class="math notranslate nohighlight">\( \| \cdot \| \)</span> denotes the Euclidean norm.</p></li>
+</ul>
+<p>The proximal operator <span class="math notranslate nohighlight">\( \text{prox}_{\lambda f}(x) \)</span> provides a solution to the minimization problem that balances the term <span class="math notranslate nohighlight">\( f(u) \)</span> and the squared distance from <span class="math notranslate nohighlight">\( x \)</span>.</p>
+</section>
+</section>
+<section id="lasso-regression-and-proximal-mapping">
+<h2>Lasso Regression and Proximal Mapping<a class="headerlink" href="#lasso-regression-and-proximal-mapping" title="Link to this heading">#</a></h2>
+<p>Lasso (Least Absolute Shrinkage and Selection Operator) regression is a type of linear regression that includes an <span class="math notranslate nohighlight">\( L_1 \)</span> regularization term. This term encourages sparsity in the coefficient estimates, effectively performing feature selection.</p>
+<section id="lasso-regression-formulation">
+<h3><strong>Lasso Regression Formulation</strong><a class="headerlink" href="#lasso-regression-formulation" title="Link to this heading">#</a></h3>
+<p>The objective of Lasso regression is to minimize the following cost function:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\boldsymbol{\beta}} \left[ \frac{1}{2} \| \mathbf{y} - \mathbf{X} \boldsymbol{\beta} \|^2 + \lambda \| \boldsymbol{\beta} \|_1 \right]
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{X} \)</span> is the <span class="math notranslate nohighlight">\( n \times d \)</span> matrix of input features.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathbf{y} \)</span> is the <span class="math notranslate nohighlight">\( n \times 1 \)</span> vector of target values.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span> is the <span class="math notranslate nohighlight">\( d \times 1 \)</span> vector of coefficients.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \lambda \)</span> is the regularization parameter that controls the amount of sparsity in <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span>.</p></li>
+</ul>
+</section>
+<section id="solving-lasso-using-proximal-mapping">
+<h3><strong>Solving Lasso Using Proximal Mapping</strong><a class="headerlink" href="#solving-lasso-using-proximal-mapping" title="Link to this heading">#</a></h3>
+<p>To solve Lasso regression using proximal mapping, we can leverage the proximal operator for the <span class="math notranslate nohighlight">\( L_1 \)</span> norm, which is known as the <strong>soft-thresholding operator</strong>.</p>
+<section id="proximal-operator-for-the-l-1-norm">
+<h4><strong>Proximal Operator for the <span class="math notranslate nohighlight">\( L_1 \)</span> Norm</strong><a class="headerlink" href="#proximal-operator-for-the-l-1-norm" title="Link to this heading">#</a></h4>
+<p>The proximal operator for the <span class="math notranslate nohighlight">\( L_1 \)</span> norm is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{prox}_{\lambda \| \cdot \|_1} (x) = \text{sgn}(x) \cdot \max(|x| - \lambda, 0)
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \text{sgn}(x) \)</span> is the sign function.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \max(\cdot, 0) \)</span> is the element-wise maximum function, ensuring that values below zero are set to zero.</p></li>
+</ul>
+</section>
+<section id="applying-the-proximal-operator-in-lasso">
+<h4><strong>Applying the Proximal Operator in Lasso</strong><a class="headerlink" href="#applying-the-proximal-operator-in-lasso" title="Link to this heading">#</a></h4>
+<ol class="arabic">
+<li><p><strong>Formulation</strong>:
+The Lasso objective function can be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+   \min_{\boldsymbol{\beta}} \left[ \frac{1}{2} \| \mathbf{y} - \mathbf{X} \boldsymbol{\beta} \|^2 + \lambda \| \boldsymbol{\beta} \|_1 \right]
+   \]</div>
+</li>
+<li><p><strong>Optimization Problem</strong>:
+To solve this, we use iterative algorithms like <strong>Coordinate Descent</strong> or <strong>Proximal Gradient Descent</strong>. The proximal operator helps handle the non-differentiable <span class="math notranslate nohighlight">\( L_1 \)</span> penalty.</p></li>
+<li><p><strong>Gradient Descent with Proximal Step</strong>:
+We use gradient descent to minimize the smooth part of the objective function <span class="math notranslate nohighlight">\( \frac{1}{2} \| \mathbf{y} - \mathbf{X} \boldsymbol{\beta} \|^2 \)</span>, and then apply the proximal operator to deal with the <span class="math notranslate nohighlight">\( L_1 \)</span> norm.</p>
+<p>Let’s denote the smooth part of the objective function as <span class="math notranslate nohighlight">\( f(\boldsymbol{\beta}) = \frac{1}{2} \| \mathbf{y} - \mathbf{X} \boldsymbol{\beta} \|^2 \)</span>. The gradient of <span class="math notranslate nohighlight">\( f(\boldsymbol{\beta}) \)</span> with respect to <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+   \nabla f(\boldsymbol{\beta}) = - \mathbf{X}^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta})
+   \]</div>
+<p>We perform gradient descent with a step size <span class="math notranslate nohighlight">\( \eta \)</span>, updating <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+   \boldsymbol{\beta}_{k+1} = \boldsymbol{\beta}_k - \eta \nabla f(\boldsymbol{\beta}_k)
+   \]</div>
+<p>After each gradient descent step, we apply the proximal operator to <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \boldsymbol{\beta}_{k+1} = \text{prox}_{\lambda \eta} (\boldsymbol{\beta}_{k+1})
+   \]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \text{prox}_{\lambda \eta} \)</span> applies element-wise soft-thresholding:</p>
+<div class="math notranslate nohighlight">
+\[
+   \text{prox}_{\lambda \eta} (\beta_j) = \text{sgn}(\beta_j) \cdot \max(|\beta_j| - \lambda \eta, 0)
+   \]</div>
+</li>
+<li><p><strong>Algorithm</strong>:</p>
+<ul class="simple">
+<li><p>Initialize <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span>.</p></li>
+<li><p>For each iteration:</p>
+<ul>
+<li><p>Compute the gradient <span class="math notranslate nohighlight">\( \nabla f(\boldsymbol{\beta}) \)</span>.</p></li>
+<li><p>Update <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span> using gradient descent.</p></li>
+<li><p>Apply the proximal operator to <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id7">
+<h4><strong>Example</strong><a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<p>Consider a simple Lasso problem with <span class="math notranslate nohighlight">\( \mathbf{X} \)</span>, <span class="math notranslate nohighlight">\( \mathbf{y} \)</span>, and <span class="math notranslate nohighlight">\( \lambda \)</span>.</p>
+<ol class="arabic">
+<li><p><strong>Initialization</strong>: Set <span class="math notranslate nohighlight">\( \boldsymbol{\beta}_0 \)</span> to zeros.</p></li>
+<li><p><strong>Gradient Descent Step</strong>: Compute <span class="math notranslate nohighlight">\( \nabla f(\boldsymbol{\beta}) = - \mathbf{X}^T (\mathbf{y} - \mathbf{X} \boldsymbol{\beta}) \)</span>.</p></li>
+<li><p><strong>Update</strong>: Perform gradient descent to get <span class="math notranslate nohighlight">\( \boldsymbol{\beta}_{k+1} \)</span>.</p></li>
+<li><p><strong>Proximal Operator</strong>: Apply soft-thresholding:</p>
+<div class="math notranslate nohighlight">
+\[
+   \boldsymbol{\beta}_{k+1, j} = \text{sgn}(\boldsymbol{\beta}_{k+1, j}) \cdot \max(|\boldsymbol{\beta}_{k+1, j}| - \lambda \eta, 0)
+   \]</div>
+</li>
+<li><p><strong>Repeat</strong>: Iterate until convergence.</p></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="id8">
+<h2>Summary<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p><strong>Proximal Mapping</strong> helps in handling optimization problems with non-differentiable regularization terms. For Lasso regression, the proximal operator is used to solve the <span class="math notranslate nohighlight">\( L_1 \)</span> regularization term efficiently. By combining gradient descent with the proximal operator, we can effectively solve the Lasso regression problem and find sparse solutions for the coefficients.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Define the proximal operator for l1-norm</span>
+<span class="k">def</span> <span class="nf">proximal_l1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">lambda_</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">lambda_</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Coordinate descent algorithm for Lasso</span>
+<span class="k">def</span> <span class="nf">lasso_coordinate_descent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">num_iters</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">iteration</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iters</span><span class="p">):</span>
+        <span class="c1"># Update bias term b</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+        
+        <span class="c1"># Update weight vector w using coordinate descent</span>
+        <span class="n">w_old</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+            <span class="c1"># Compute residual without j-th feature</span>
+            <span class="n">residual</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">b</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+            <span class="c1"># Update w_j using the proximal operator</span>
+            <span class="n">w</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">proximal_l1</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="n">j</span><span class="p">],</span> <span class="n">residual</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span><span class="p">,</span> <span class="n">lambda_</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+        
+        <span class="c1"># Check for convergence</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="n">w_old</span><span class="p">,</span> <span class="nb">ord</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+    
+    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span>
+
+<span class="c1"># Example data</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">lambda_</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Fit the Lasso model</span>
+<span class="n">w</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">lasso_coordinate_descent</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">lambda_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weight vector: </span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bias term: </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Weight vector: [nan nan]
+Bias term: nan
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>E:\MainHomePage\.M_HomePage\Lib\site-packages\numpy\_core\_methods.py:127: RuntimeWarning: overflow encountered in reduce
+  ret = umr_sum(arr, axis, dtype, out, keepdims, where=where)
+C:\Users\Dr\AppData\Local\Temp\ipykernel_11736\2102115283.py:21: RuntimeWarning: invalid value encountered in subtract
+  residual = y - b - X.dot(w)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./courses\PR\Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="EvaluationModelSelection.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Evaluation and Model Selection</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="TheoryRegression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Theoretical Aspects of Regression</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-least-squares-ols-regression">Ordinary Least Squares (OLS) Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-of-the-problem">1. <strong>Formulation of the Problem</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-function">2. <strong>Objective Function</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expanding-the-objective-function">3. <strong>Expanding the Objective Function</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-minimum">4. <strong>Finding the Minimum</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-for-boldsymbol-beta">5. <strong>Solving for <span class="math notranslate nohighlight">\( \boldsymbol{\beta} \)</span></strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-summary">6. <strong>Solution Summary</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-considerations">7. <strong>Additional Considerations</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">8. <strong>Example</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-operator-onto-a-set-c">Projection Operator onto a Set <span class="math notranslate nohighlight">\( C \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-gradient-algorithm">Proximal Gradient Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conceptual-combination">Conceptual Combination</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-1-projection-operator-onto-a-set-c">Text 1: Projection Operator onto a Set <span class="math notranslate nohighlight">\( C \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#text-2-proximal-gradient-algorithm">Text 2: Proximal Gradient Algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Conceptual Combination:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-mapping-a-comprehensive-overview">Proximal Mapping: A Comprehensive Overview</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-proximal-mapping">1. <strong>Definition of Proximal Mapping</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-interpretation">2. <strong>Geometric Interpretation</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-of-proximal-mapping">3. <strong>Applications of Proximal Mapping</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#examples-of-proximal-operators">4. <strong>Examples of Proximal Operators</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-gradient-method">5. <strong>Proximal Gradient Method</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connection-with-duality">6. <strong>Connection with Duality</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithms-using-proximal-mapping">7. <strong>Algorithms Using Proximal Mapping</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-operator-definition">1. <strong>Proximal Operator Definition</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-to-the-l-1-norm">2. <strong>Applying to the <span class="math notranslate nohighlight">\( L_1 \)</span> Norm</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimization-problem">3. <strong>Minimization Problem</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#derivative-with-respect-to-u-i">4. <strong>Derivative with Respect to <span class="math notranslate nohighlight">\( u_i \)</span></strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#handling-different-cases">5. <strong>Handling Different Cases</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">6. <strong>Putting It All Together</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">1. <strong>Proximal Operator Definition</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#piecewise-analysis">2. <strong>Piecewise Analysis</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-1-u-0">Case 1: <span class="math notranslate nohighlight">\( u &gt; 0 \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-2-u-leq-0">Case 2: <span class="math notranslate nohighlight">\( u \leq 0 \)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#special-case-u-0">3. <strong>Special Case: <span class="math notranslate nohighlight">\( u = 0 \)</span></strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#combining-results">4. <strong>Combining Results</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">5. <strong>Interpretation</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-operator-for-g-x-equiv-0">Proximal Operator for <span class="math notranslate nohighlight">\( g(x) \equiv 0 \)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Minimization Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Interpretation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-case">General Case</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-mapping">Proximal Mapping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6"><strong>Definition of Proximal Mapping</strong></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-and-proximal-mapping">Lasso Regression and Proximal Mapping</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-formulation"><strong>Lasso Regression Formulation</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-lasso-using-proximal-mapping"><strong>Solving Lasso Using Proximal Mapping</strong></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proximal-operator-for-the-l-1-norm"><strong>Proximal Operator for the <span class="math notranslate nohighlight">\( L_1 \)</span> Norm</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#applying-the-proximal-operator-in-lasso"><strong>Applying the Proximal Operator in Lasso</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7"><strong>Example</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

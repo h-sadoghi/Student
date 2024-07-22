@@ -1,0 +1,1488 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kernel Regression &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'courses/ML/Regression/KernelRegression';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Gaussian Process" href="GP_Regression.html" />
+    <link rel="prev" title="Regression Review" href="NonParamRegression.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../Home_Page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../Home_Page.html">
+                    Welcome to my personal Website!
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../../Courses.html">Courses</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../pattern_recognition.html">Pattern Recognition</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../PR/Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Introduction/Model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../PR/Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../PR/Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../PR/Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/EvaluationModelSelection.html">Evaluation and Model Selection</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../PR/Classification/PR_intro_Classification.html">Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../../machine_learning.html">Machine Learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Principal Component Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../filtering_algorithms.html">Filtering Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../signal_processing.html">Signal Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../image_processing.html">Image Processing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PRLabProduction.html">Pattern Lab Production</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2Fcourses/ML/Regression/KernelRegression.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/courses/ML/Regression/KernelRegression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Kernel Regression</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-formulation">Problem formulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-regression-by-correntropy-loss">Kernel Regression by correntropy loss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-correntropy-loss-function">Define the Correntropy Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-expected-loss-in-integral-form">Write the Expected Loss in Integral Form</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#take-the-derivative-with-respect-to-m-x">Take the Derivative with Respect to <span class="math notranslate nohighlight">\( m(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplify-the-integral">Simplify the Integral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-approximation-with-kernel-density">Discrete Approximation with Kernel Density</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluate-the-integral">Evaluate the Integral</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-for-m-x">Solve for <span class="math notranslate nohighlight">\( m(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-solution">Iterative Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1">Homework 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-sum-of-squared-errors">Weighted Sum of Squared Errors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-formulation">Matrix Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-linear-estimate">Local Linear Estimate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-sum-of-squared-errors-with-correntropy-loss">Weighted Sum of Squared Errors with Correntropy Loss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-linear-regression-with-correntropy-loss">Local Linear Regression with Correntropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Matrix Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivation">Derivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-derivation">Mathematical Derivation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-analysis-of-kernel-regression">Bias-Variance Analysis of Kernel Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions">Assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-of-hat-m-x">Expectation of <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-of-hat-m-x">Variance of <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">Mean Squared Error (MSE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-bandwidth">Optimal Bandwidth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finally">Finally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-function">Objective Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-derivation">Step-by-Step Derivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-for-m-x">Solving for <span class="math notranslate nohighlight">\( m(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-process">Step-by-Step Process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-formulation">Detailed Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-expression">Simplified Expression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-2">Homework 2</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="kernel-regression">
+<h1>Kernel Regression<a class="headerlink" href="#kernel-regression" title="Link to this heading">#</a></h1>
+<p>Your introduction to kernel regression provides a clear overview of the method, its applications, and the theoretical framework. Below is a refined version of the text, maintaining the key details and improving clarity.</p>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Kernel regression is a widely employed technique in various fields, including image denoising and reconstruction, telecommunications, and prediction and decision-making in noisy environments. This non-parametric method is used to estimate complex non-linear relationships between explanatory and response variables. Given a set of independent and identically distributed (i.i.d) data points <span class="math notranslate nohighlight">\(\{(X_i, Y_i)\}_{i=1}^n\)</span>, a regression model is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+Y_i = m(X_i) + \epsilon_i \tag{1}
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\epsilon\)</span> represents a zero-mean error term with variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>, while <span class="math notranslate nohighlight">\(m(\cdot)\)</span> denotes an unknown smooth nonlinear function.</p>
+</section>
+<section id="problem-formulation">
+<h2>Problem formulation<a class="headerlink" href="#problem-formulation" title="Link to this heading">#</a></h2>
+<p>The challenge of determining the <span class="math notranslate nohighlight">\(m(\cdot)\)</span> function, which effectively models the relationship between data points without making assumptions, has been addressed through various methods. The regression function <span class="math notranslate nohighlight">\(m\)</span> is estimated using the conditional expectation of <span class="math notranslate nohighlight">\(y\)</span> given <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \mathbb{E}[y|x] \equiv \int y f(y|x) \, dy = \int \frac{y f(x, y)}{f_X(x)} \, dy \tag{2}
+\]</div>
+<p>In non-parametric problems, where the joint and marginal density functions are entirely unknown, kernel density estimation (Parzen estimator) is employed to approximate these functions:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{f}_{X,Y}(x, y) = \frac{1}{nh^d} \sum_{i=1}^n K\left(\frac{x - X_i}{h}\right) K\left(\frac{y - Y_i}{h}\right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{f}_X(x) = \frac{1}{nh^d} \sum_{i=1}^n K\left(\frac{x - X_i}{h}\right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(h\)</span> indicates the bandwidth, and <span class="math notranslate nohighlight">\(K\)</span> is a kernel function that satisfies:</p>
+<div class="math notranslate nohighlight">
+\[
+\int K(x) \, dx = 1, \quad \int x K(x) \, dx = 0, \quad \int x^2 K(x) \, dx \neq 0
+\]</div>
+<p>The <span class="math notranslate nohighlight">\(m(\cdot)\)</span> function is then achieved through a local weighted average, commonly known as the Nadaraya-Watson estimator:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \mathbb{E}[y|x] \equiv \int y f(y|x) \, dy = \int \frac{y f(x, y)}{f_X(x)} \, dy 
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\int \frac{y \frac{1}{nh^d} \sum_{i=1}^n K\left(\frac{x - X_i}{h}\right) K\left(\frac{y - Y_i}{h_1}\right)}{f_X(x)} \, dy
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\int \frac{y \frac{1}{nh^d} \sum_{i=1}^n K\left(\frac{x - X_i}{h}\right) K\left(\frac{y - Y_i}{h_1}\right)}{\frac{1}{nh^d} \sum_{i=1}^n K\left(\frac{x - X_i}{h}\right)} \, dy
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{\frac{1}{nh^d}\sum_{i=1}^n (K\left(\frac{x - X_i}{h}\right) \int yK\left(\frac{y - Y_i}{h_1}\right)\, dy)}{\frac{1}{nh^d} \sum_{i=1}^n K\left(\frac{x - X_i}{h}\right)}
+\]</div>
+<p>If <span class="math notranslate nohighlight">\( h_i \)</span> goes to small values we have,</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\sum_{i=1}^n y_i K_h(x - X_i)}{\sum_{j=1}^n K_h(x - X_j)}
+\]</div>
+<p><strong><em>Again with more details</em></strong>
+Non-parametric regression defines the relationship between response <span class="math notranslate nohighlight">\(Y\)</span> and explanatory <span class="math notranslate nohighlight">\(X\)</span> variables <span class="math notranslate nohighlight">\(\{(X_i, Y_i)\}_{i=1}^n\)</span> by an unknown <span class="math notranslate nohighlight">\(m(\cdot)\)</span> function as in Eq. (1). Using the expected loss viewpoint in the kernel regression problem leads to the cost function of what actually occurred <span class="math notranslate nohighlight">\(y\)</span> and what the model predicted <span class="math notranslate nohighlight">\(m(\cdot)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+V = \mathbb{E}\{L(\text{error})\} = \int L(y - m(x)) f_{Y|X}(x, y) \, dy \tag{5}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(L\)</span> indicates the loss function. Taking the derivative of Eq. (5) with respect to <span class="math notranslate nohighlight">\(m(\cdot)\)</span> gives the best estimator:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial V}{\partial m(x)} = \int \frac{\partial L(y - m(x))}{\partial m(x)} f_{Y|X}(x, y) \, dy
+\]</div>
+<p>Employing the square loss in Eq. (6) and taking the derivative with respect to <span class="math notranslate nohighlight">\(m(\cdot)\)</span> results in the unknown <span class="math notranslate nohighlight">\(m(x)\)</span> function as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+V = \int (y - m(x))^2 f_{Y|X}(x, y) \, dy
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial V_{SL}}{\partial m(x)} = 2 \int -(y - m(x)) f_{Y|X}(x, y) \, dy = 0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\int y f_{X,Y}(x, y) \, dy}{f_X(x)} = \frac{\sum_{i=1}^n y_i K_h(x - X_i)}{\sum_{j=1}^n K_h(x - X_j)} 
+\]</div>
+<p>which is the ordinary Nadaraya-Watson estimator.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="c1"># Kernel function: Gaussian kernel</span>
+<span class="k">def</span> <span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Nadaraya-Watson estimator</span>
+<span class="k">def</span> <span class="nf">nadaraya_watson</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">y_train</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Split the data into training and test sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Apply Nadaraya-Watson estimator</span>
+<span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">nadaraya_watson</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">])</span>
+
+<span class="c1"># Evaluate the model</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Nadaraya-Watson Kernel Regression&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 13.536508293401408
+</pre></div>
+</div>
+<img alt="../../../_images/ceba009a1c9bea450df7fe59834b072ed2c915f5a3954aa729fe80cb4c07ac5b.png" src="../../../_images/ceba009a1c9bea450df7fe59834b072ed2c915f5a3954aa729fe80cb4c07ac5b.png" />
+</div>
+</div>
+</section>
+<section id="kernel-regression-by-correntropy-loss">
+<h2>Kernel Regression by correntropy loss<a class="headerlink" href="#kernel-regression-by-correntropy-loss" title="Link to this heading">#</a></h2>
+<p>Derive the closed form of kernel regression using the Correntropy-Induced Metric (CIM) as follows,</p>
+<section id="define-the-correntropy-loss-function">
+<h3>Define the Correntropy Loss Function<a class="headerlink" href="#define-the-correntropy-loss-function" title="Link to this heading">#</a></h3>
+<p>Correntropy is a similarity measure between two random variables that is robust to non-Gaussian noise and outliers. The loss function based on correntropy is:</p>
+<div class="math notranslate nohighlight">
+\[
+L_{\text{CIM}}(e) = 1 - \exp\left(-\frac{e^2}{2\sigma^2}\right)
+\]</div>
+<p>For the kernel regression problem, we consider the expected loss:</p>
+<div class="math notranslate nohighlight">
+\[
+V_{\text{CIM}} = \mathbb{E}\left[1 - \exp\left(-\frac{(Y - m(X))^2}{2\sigma^2}\right)\right]
+\]</div>
+</section>
+<section id="write-the-expected-loss-in-integral-form">
+<h3>Write the Expected Loss in Integral Form<a class="headerlink" href="#write-the-expected-loss-in-integral-form" title="Link to this heading">#</a></h3>
+<p>Expressing the expected loss in terms of an integral:</p>
+<div class="math notranslate nohighlight">
+\[
+V_{\text{CIM}} = \int \left[1 - \exp\left(-\frac{(y - m(x))^2}{2\sigma^2}\right)\right] f_{Y|X}(x, y) \, dy
+\]</div>
+</section>
+<section id="take-the-derivative-with-respect-to-m-x">
+<h3>Take the Derivative with Respect to <span class="math notranslate nohighlight">\( m(x) \)</span><a class="headerlink" href="#take-the-derivative-with-respect-to-m-x" title="Link to this heading">#</a></h3>
+<p>To find the optimal function <span class="math notranslate nohighlight">\( m(x) \)</span>, we need to take the derivative of <span class="math notranslate nohighlight">\( V_{\text{CIM}} \)</span> with respect to <span class="math notranslate nohighlight">\( m(x) \)</span> and set it to zero:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial V_{\text{CIM}}}{\partial m(x)} = \int \frac{\partial}{\partial m(x)} \left[1 - \exp\left(-\frac{(y - m(x))^2}{2\sigma^2}\right)\right] f_{Y|X}(x, y) \, dy = 0
+\]</div>
+<p>The derivative inside the integral is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial m(x)} \left[1 - \exp\left(-\frac{(y - m(x))^2}{2\sigma^2}\right)\right] = \frac{(y - m(x)) \exp\left(-\frac{(y - m(x))^2}{2\sigma^2}\right)}{\sigma^2}
+\]</div>
+<p>Thus, the integral becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\int \frac{(y - m(x)) \exp\left(-\frac{(y - m(x))^2}{2\sigma^2}\right)}{\sigma^2} f_{Y|X}(x, y) \, dy = 0
+\]</div>
+</section>
+<section id="simplify-the-integral">
+<h3>Simplify the Integral<a class="headerlink" href="#simplify-the-integral" title="Link to this heading">#</a></h3>
+<p>Rewriting the equation in terms of the joint density function <span class="math notranslate nohighlight">\( f_{X,Y}(x, y) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\int (y - m(x)) \exp\left(-\frac{(y - m(x))^2}{2\sigma^2}\right) f_{X,Y}(x, y) \, dy = 0
+\]</div>
+</section>
+<section id="discrete-approximation-with-kernel-density">
+<h3>Discrete Approximation with Kernel Density<a class="headerlink" href="#discrete-approximation-with-kernel-density" title="Link to this heading">#</a></h3>
+<p>In practice, we approximate the continuous distribution using kernel density estimation. Let <span class="math notranslate nohighlight">\( K_h \)</span> be the kernel function with bandwidth <span class="math notranslate nohighlight">\( h \)</span>, and we have a sample <span class="math notranslate nohighlight">\(\{(X_i, Y_i)\}_{i=1}^n\)</span>. The estimator for <span class="math notranslate nohighlight">\( f_{X,Y}(x, y) \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+f_{X,Y}(x, y) \approx \frac{1}{n h} \sum_{i=1}^n K_h(x - X_i) \delta(y - Y_i)
+\]</div>
+<p>Substituting this into the integral:</p>
+<div class="math notranslate nohighlight">
+\[
+\int (y - m(x)) \exp\left(-\frac{(y - m(x))^2}{2\sigma^2}\right) \frac{1}{n h} \sum_{i=1}^n K_h(x - X_i) \delta(y - Y_i) \, dy = 0
+\]</div>
+<section id="evaluate-the-integral">
+<h4>Evaluate the Integral<a class="headerlink" href="#evaluate-the-integral" title="Link to this heading">#</a></h4>
+<p>The Dirac delta function <span class="math notranslate nohighlight">\( \delta(y - Y_i) \)</span> picks out the value at <span class="math notranslate nohighlight">\( y = Y_i \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{n h} \sum_{i=1}^n (Y_i - m(x)) \exp\left(-\frac{(Y_i - m(x))^2}{2\sigma^2}\right) K_h(x - X_i) = 0
+\]</div>
+</section>
+</section>
+<section id="solve-for-m-x">
+<h3>Solve for <span class="math notranslate nohighlight">\( m(x) \)</span><a class="headerlink" href="#solve-for-m-x" title="Link to this heading">#</a></h3>
+<p>To solve for <span class="math notranslate nohighlight">\( m(x) \)</span>, we need to isolate <span class="math notranslate nohighlight">\( m(x) \)</span>. This involves solving a nonlinear equation. One approach is to use an iterative method such as fixed-point iteration or gradient descent. However, for simplicity, let’s rewrite the expression in a more familiar form:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^n (Y_i - m(x)) \exp\left(-\frac{(Y_i - m(x))^2}{2\sigma^2}\right) K_h(x - X_i) = 0
+\]</div>
+<p>Rearranging terms, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^n Y_i \exp\left(-\frac{(Y_i - m(x))^2}{2\sigma^2}\right) K_h(x - X_i) = m(x) \sum_{i=1}^n \exp\left(-\frac{(Y_i - m(x))^2}{2\sigma^2}\right) K_h(x - X_i)
+\]</div>
+<p>Thus, the closed form of the estimator <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span> can be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\sum_{i=1}^n Y_i \exp\left(-\frac{(Y_i - m(x))^2}{2\sigma^2}\right) K_h(x - X_i)}{\sum_{i=1}^n \exp\left(-\frac{(Y_i - m(x))^2}{2\sigma^2}\right) K_h(x - X_i)}
+\]</div>
+</section>
+<section id="iterative-solution">
+<h3>Iterative Solution<a class="headerlink" href="#iterative-solution" title="Link to this heading">#</a></h3>
+<p>Since <span class="math notranslate nohighlight">\( m(x) \)</span> appears on both sides of the equation, we solve it iteratively:</p>
+<p>. Initialize <span class="math notranslate nohighlight">\( m(x) \)</span> (e.g., using the Nadaraya-Watson estimator).
+. Update <span class="math notranslate nohighlight">\( m(x) \)</span> using the equation above until convergence.</p>
+<p><strong>Finally</strong></p>
+<p>The kernel regression estimator with correntropy loss is given by:</p>
+<div class="math notranslate nohighlight">
+\[ \hat{m}(x) = \frac{\sum_{i=1}^n Y_i \exp\left(-\frac{(Y_i - m(x))^2}{2\sigma^2}\right) K_h(x - X_i)}{\sum_{i=1}^n \exp\left(-\frac{(Y_i - m(x))^2}{2\sigma^2}\right) K_h(x - X_i)} \]</div>
+<p>This form requires an iterative solution to find <span class="math notranslate nohighlight">\( m(x) \)</span> because it is implicitly defined.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="c1"># Kernel functions: Gaussian kernels</span>
+<span class="k">def</span> <span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">gaussian_correntropy</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Correntropy-induced Kernel Regression</span>
+<span class="k">def</span> <span class="nf">correntropy_kernel_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="n">m_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>  <span class="c1"># Initialize m(x) with the mean of y_train</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+        <span class="n">m_x_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y_train</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">y_train</span> <span class="o">-</span> <span class="n">m_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">y_train</span> <span class="o">-</span> <span class="n">m_x</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span>
+        
+        <span class="c1"># Check for convergence</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">m_x_new</span> <span class="o">-</span> <span class="n">m_x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="n">m_x</span> <span class="o">=</span> <span class="n">m_x_new</span>
+
+    <span class="k">return</span> <span class="n">m_x</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Introduce outliers</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">120</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Split the data into training and test sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Apply Correntropy-induced Kernel Regression</span>
+<span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1.1</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.2</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">correntropy_kernel_regression</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">])</span>
+
+<span class="c1"># Evaluate the model</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Kernel Regression with Correntropy Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 150.4070291748456
+</pre></div>
+</div>
+<img alt="../../../_images/f847ac2c4db549c7b5048bd1dcef63c911acf631283054fd75152bb7dae50c3a.png" src="../../../_images/f847ac2c4db549c7b5048bd1dcef63c911acf631283054fd75152bb7dae50c3a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="homework-1">
+<h2>Homework 1<a class="headerlink" href="#homework-1" title="Link to this heading">#</a></h2>
+<p>Correct the above code and write the perfect mathematics and code for log_cosh_loss, quantile_loss, and tukey_loss.</p>
+</section>
+<section id="weighted-sum-of-squared-errors">
+<h2>Weighted Sum of Squared Errors<a class="headerlink" href="#weighted-sum-of-squared-errors" title="Link to this heading">#</a></h2>
+<p>We used kernel regression idea in local linear regression, instead of fitting a constant function <span class="math notranslate nohighlight">\(m(x)\)</span>, we fit a linear function <span class="math notranslate nohighlight">\(m(x) \approx a + b(x - x_i)\)</span> around each point <span class="math notranslate nohighlight">\(x\)</span>. The goal is to estimate the parameters <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> by minimizing a weighted sum of squared errors.</p>
+<p>The objective function to minimize is:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^n K_h(x - X_i) (Y_i - a - b(X_i - x))^2
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(K_h\)</span> is a kernel function with bandwidth <span class="math notranslate nohighlight">\(h\)</span>. The Gaussian kernel is commonly used:</p>
+<div class="math notranslate nohighlight">
+\[
+K_h(x - X_i) = \exp\left(-\frac{(x - X_i)^2}{2h^2}\right)
+\]</div>
+<section id="matrix-formulation">
+<h3>Matrix Formulation<a class="headerlink" href="#matrix-formulation" title="Link to this heading">#</a></h3>
+<p>To solve this, we can set up the problem in matrix form. Define:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{y} \)</span> as the vector of observed responses.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathbf{X} \)</span> as the design matrix of predictors.</p></li>
+</ul>
+<p>For local linear regression, we augment the design matrix to include the linear term:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{X}_{\text{augmented}} = \begin{bmatrix}
+1 &amp; X_1 - x \\
+1 &amp; X_2 - x \\
+\vdots &amp; \vdots \\
+1 &amp; X_n - x
+\end{bmatrix}
+\end{split}\]</div>
+<p>Define the weight matrix <span class="math notranslate nohighlight">\( \mathbf{W} \)</span> as a diagonal matrix with the kernel weights:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{W} = \text{diag}\left(K_h(x - X_1), K_h(x - X_2), \ldots, K_h(x - X_n)\right)
+\]</div>
+<p>The parameters <span class="math notranslate nohighlight">\( \mathbf{\theta} \)</span> (which include <span class="math notranslate nohighlight">\( a \)</span> and <span class="math notranslate nohighlight">\( b \)</span>) are estimated by minimizing:</p>
+<div class="math notranslate nohighlight">
+\[
+(\mathbf{y} - \mathbf{X}_{\text{augmented}} \mathbf{\theta})^T \mathbf{W} (\mathbf{y} - \mathbf{X}_{\text{augmented}} \mathbf{\theta})
+\]</div>
+</section>
+<section id="solution">
+<h3>Solution<a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<p>The solution to the weighted least squares problem is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{\theta} = (\mathbf{X}_{\text{augmented}}^T \mathbf{W} \mathbf{X}_{\text{augmented}})^{-1} \mathbf{X}_{\text{augmented}}^T \mathbf{W} \mathbf{y}
+\]</div>
+<p>This yields the estimates for <span class="math notranslate nohighlight">\( a \)</span> and <span class="math notranslate nohighlight">\( b \)</span>.</p>
+</section>
+<section id="local-linear-estimate">
+<h3>Local Linear Estimate<a class="headerlink" href="#local-linear-estimate" title="Link to this heading">#</a></h3>
+<p>The local linear estimate of <span class="math notranslate nohighlight">\( m(x) \)</span> at a point <span class="math notranslate nohighlight">\( x \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+m(x) \approx a
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( a \)</span> is the first component of <span class="math notranslate nohighlight">\( \mathbf{\theta} \)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="c1"># Kernel function: Gaussian kernel</span>
+<span class="k">def</span> <span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Local Linear Regression</span>
+<span class="k">def</span> <span class="nf">local_linear_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    
+    <span class="n">X_augmented</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">X_train</span> <span class="o">-</span> <span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X_augmented</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W</span> <span class="o">@</span> <span class="n">X_augmented</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_augmented</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">W</span> <span class="o">@</span> <span class="n">y_train</span>
+    
+    <span class="k">return</span> <span class="n">theta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Split the data into training and test sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Apply Local Linear Regression</span>
+<span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">local_linear_regression</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">])</span>
+
+<span class="c1"># Evaluate the model</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Local Linear Regression&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 6.924919926410908
+</pre></div>
+</div>
+<img alt="../../../_images/7293e818bdc29b3ee729f5fd6eee1fd88b4969dca579eb2dd6f5fbfab7d752fb.png" src="../../../_images/7293e818bdc29b3ee729f5fd6eee1fd88b4969dca579eb2dd6f5fbfab7d752fb.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="weighted-sum-of-squared-errors-with-correntropy-loss">
+<h2>Weighted Sum of Squared Errors with Correntropy Loss<a class="headerlink" href="#weighted-sum-of-squared-errors-with-correntropy-loss" title="Link to this heading">#</a></h2>
+<p>Correntropy is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ V(x) = \sum_{i=1}^n K_\sigma(Y_i - m(X_i)) \]</div>
+<p>where <span class="math notranslate nohighlight">\( K_\sigma \)</span> is a kernel function with bandwidth <span class="math notranslate nohighlight">\( \sigma \)</span>. For simplicity, we use the Gaussian kernel for <span class="math notranslate nohighlight">\( K_\sigma \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ K_\sigma(u) = \exp\left(-\frac{u^2}{2\sigma^2}\right) \]</div>
+<section id="local-linear-regression-with-correntropy-loss">
+<h3>Local Linear Regression with Correntropy Loss<a class="headerlink" href="#local-linear-regression-with-correntropy-loss" title="Link to this heading">#</a></h3>
+<p>We aim to fit a linear function <span class="math notranslate nohighlight">\( m(x) \approx a + b(x - x_i) \)</span> by minimizing the correntropy loss. The objective function becomes:</p>
+<div class="math notranslate nohighlight">
+\[ V(x) = \sum_{i=1}^n K_h(x - X_i) K_\sigma(Y_i - (a + b(X_i - x))) \]</div>
+</section>
+<section id="id1">
+<h3>Matrix Formulation<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>To solve this problem, we can set up the objective function and compute the parameters <span class="math notranslate nohighlight">\( a \)</span> and <span class="math notranslate nohighlight">\( b \)</span>.</p>
+</section>
+<section id="derivation">
+<h3>Derivation<a class="headerlink" href="#derivation" title="Link to this heading">#</a></h3>
+<p>The correntropy-based objective function to minimize is:</p>
+<div class="math notranslate nohighlight">
+\[ V(x) = \sum_{i=1}^n K_h(x - X_i) \exp\left(-\frac{(Y_i - (a + b(X_i - x)))^2}{2\sigma^2}\right) \]</div>
+</section>
+<section id="mathematical-derivation">
+<h3>Mathematical Derivation<a class="headerlink" href="#mathematical-derivation" title="Link to this heading">#</a></h3>
+<p>The correntropy-based local linear regression objective function is:</p>
+<div class="math notranslate nohighlight">
+\[ V(x) = \sum_{i=1}^n K_h(x - X_i) \exp\left(-\frac{(Y_i - (a + b(X_i - x)))^2}{2\sigma^2}\right) \]</div>
+<p>To solve this, we can use gradient descent to optimize the parameters <span class="math notranslate nohighlight">\( a \)</span> and <span class="math notranslate nohighlight">\( b \)</span>. The gradients of the objective function with respect to <span class="math notranslate nohighlight">\( a \)</span> and <span class="math notranslate nohighlight">\( b \)</span> are derived as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial V}{\partial a} = -\sum_{i=1}^n K_h(x - X_i) \frac{(Y_i - (a + b(X_i - x)))}{\sigma^2} \exp\left(-\frac{(Y_i - (a + b(X_i - x)))^2}{2\sigma^2}\right) \]</div>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial V}{\partial b} = -\sum_{i=1}^n K_h(x - X_i) \frac{(Y_i - (a + b(X_i - x)))(X_i - x)}{\sigma^2} \exp\left(-\frac{(Y_i - (a + b(X_i - x)))^2}{2\sigma^2}\right) \]</div>
+<p>Since the correntropy loss involves an exponential function, the solution cannot be obtained analytically as in the case of the squared error. We need to use numerical optimization techniques such as gradient descent. Using these gradients, we can update <span class="math notranslate nohighlight">\( a \)</span> and <span class="math notranslate nohighlight">\( b \)</span> iteratively using gradient descent.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="c1"># Kernel functions: Gaussian kernels</span>
+<span class="k">def</span> <span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">gaussian_correntropy</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">u</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Local Linear Regression with Correntropy Loss</span>
+<span class="k">def</span> <span class="nf">correntropy_local_linear_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.09</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">3000</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span>
+    
+    <span class="c1"># Initialize parameters</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="n">gradient_a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">gradient_b</span> <span class="o">=</span> <span class="mi">0</span>
+        
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)):</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">prediction</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">prediction</span>
+            <span class="n">correntropy</span> <span class="o">=</span> <span class="n">gaussian_correntropy</span><span class="p">(</span><span class="n">error</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+            
+            <span class="n">gradient_a</span> <span class="o">-=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">correntropy</span> <span class="o">*</span> <span class="n">error</span> <span class="o">/</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+            <span class="n">gradient_b</span> <span class="o">-=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">correntropy</span> <span class="o">*</span> <span class="n">error</span> <span class="o">*</span> <span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span>
+        
+        <span class="n">a</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient_a</span>
+        <span class="n">b</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient_b</span>
+    
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+
+<span class="c1"># Introduce outliers</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">120</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Split the data into training and test sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Apply Local Linear Regression with Correntropy Loss</span>
+<span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1.1</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">2.5</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">correntropy_local_linear_regression</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span> <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">X_test</span><span class="p">])</span>
+
+<span class="c1"># Evaluate the model</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Local Linear Regression with Correntropy Loss&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 205.75919421745843
+</pre></div>
+</div>
+<img alt="../../../_images/5b3bdf811be96f32e51925be22dc763977e912a79fadc59949e822dc66a155b4.png" src="../../../_images/5b3bdf811be96f32e51925be22dc763977e912a79fadc59949e822dc66a155b4.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="bias-variance-analysis-of-kernel-regression">
+<h2>Bias-Variance Analysis of Kernel Regression<a class="headerlink" href="#bias-variance-analysis-of-kernel-regression" title="Link to this heading">#</a></h2>
+<p>The Nadaraya-Watson estimator for kernel regression is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ \hat{m}(x) = \frac{\sum_{i=1}^n K\left(\frac{x - X_i}{h}\right) y_i}{\sum_{i=1}^n K\left(\frac{x - X_i}{h}\right)} \]</div>
+<p>To simplify notation, we introduce weights:</p>
+<div class="math notranslate nohighlight">
+\[ w_i = \frac{K\left(\frac{x - X_i}{h}\right)}{\sum_{j=1}^n K\left(\frac{x - X_j}{h}\right)} \]</div>
+<section id="assumptions">
+<h3>Assumptions<a class="headerlink" href="#assumptions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>A0</strong>: For simplicity, assume <span class="math notranslate nohighlight">\( x \in \mathbb{R} \)</span>.</p></li>
+<li><p><strong>A1</strong>: There is a true smooth function <span class="math notranslate nohighlight">\( f(x) \)</span> such that:
+$<span class="math notranslate nohighlight">\( y = f(x) + \epsilon \)</span><span class="math notranslate nohighlight">\(
+where \)</span> \epsilon <span class="math notranslate nohighlight">\( is independently sampled for each \)</span> x <span class="math notranslate nohighlight">\( from a distribution \)</span> P_\epsilon <span class="math notranslate nohighlight">\( with \)</span> \mathbb{E}[\epsilon] = 0 <span class="math notranslate nohighlight">\( and \)</span> \text{Var}(\epsilon) = \sigma^2 $.</p></li>
+<li><p><strong>A2</strong>: The kernel <span class="math notranslate nohighlight">\( K(z) \)</span> is smooth, <span class="math notranslate nohighlight">\( \int_{\mathbb{R}} K(z)dz = 1 \)</span>, <span class="math notranslate nohighlight">\( \int_{\mathbb{R}} zK(z)dz = 0 \)</span>, and we denote:
+$<span class="math notranslate nohighlight">\( \sigma_b^2 = \int_{\mathbb{R}} z^2 K(z)dz, \quad \gamma_b^2 = \int_{\mathbb{R}} K^2(z)dz \)</span>$</p></li>
+</ul>
+</section>
+<section id="expectation-of-hat-m-x">
+<h3>Expectation of <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span><a class="headerlink" href="#expectation-of-hat-m-x" title="Link to this heading">#</a></h3>
+<p>By expanding <span class="math notranslate nohighlight">\( f \)</span> in a Taylor series around <span class="math notranslate nohighlight">\( x \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ f(X_i) = f(x) + f'(x)(X_i - x) + \frac{1}{2}f''(x)(X_i - x)^2 + o((X_i - x)^2) \]</div>
+<p>Given <span class="math notranslate nohighlight">\( y_i = f(X_i) + \epsilon_i \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{E}[\hat{m}(x)] = \mathbb{E}\left[\sum_{i=1}^n w_i y_i\right] = \sum_{i=1}^n w_i f(X_i) + \sum_{i=1}^n w_i \mathbb{E}[\epsilon_i] \]</div>
+<p>Since <span class="math notranslate nohighlight">\( \mathbb{E}[\epsilon_i] = 0 \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{E}[\hat{m}(x)] = \sum_{i=1}^n w_i f(X_i) \]</div>
+<p>Substituting the Taylor expansion of <span class="math notranslate nohighlight">\( f(X_i) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{E}[\hat{m}(x)] = f(x) + f'(x)\sum_{i=1}^n w_i (X_i - x) + \frac{1}{2}f''(x)\sum_{i=1}^n w_i (X_i - x)^2 + o(h^2) \]</div>
+<p>Using the properties of the kernel <span class="math notranslate nohighlight">\( K \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \sum_{i=1}^n w_i (X_i - x) \approx 0 \]</div>
+<p>Hence,</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{E}[\hat{m}(x)] = f(x) + \frac{1}{2} f''(x) h^2 \sigma_b^2 \]</div>
+<p>The bias is:</p>
+<div class="math notranslate nohighlight">
+\[ \text{Bias}(\hat{m}(x)) = \mathbb{E}[\hat{m}(x)] - f(x) \approx \frac{1}{2} f''(x) h^2 \sigma_b^2 \]</div>
+</section>
+<section id="variance-of-hat-m-x">
+<h3>Variance of <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span><a class="headerlink" href="#variance-of-hat-m-x" title="Link to this heading">#</a></h3>
+<p>The variance is:</p>
+<div class="math notranslate nohighlight">
+\[ \text{Var}(\hat{m}(x)) = \mathbb{E}\left[\left(\hat{m}(x) - \mathbb{E}[\hat{m}(x)]\right)^2\right] \]</div>
+<p>Since <span class="math notranslate nohighlight">\( y_i = f(X_i) + \epsilon_i \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \text{Var}(\hat{m}(x)) \approx \sum_{i=1}^n w_i^2 \text{Var}(\epsilon_i) = \sigma^2 \sum_{i=1}^n w_i^2 \]</div>
+<p>Using the kernel properties:</p>
+<div class="math notranslate nohighlight">
+\[ \text{Var}(\hat{m}(x)) \approx \frac{\sigma^2 \gamma_b^2}{nh} \]</div>
+</section>
+<section id="mean-squared-error-mse">
+<h3>Mean Squared Error (MSE)<a class="headerlink" href="#mean-squared-error-mse" title="Link to this heading">#</a></h3>
+<p>Combining bias and variance:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{MSE}(\hat{m}(x)) = \text{Bias}(\hat{m}(x))^2 + \text{Var}(\hat{m}(x))
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\text{MSE}(\hat{m}(x)) = \left(\frac{1}{2} f''(x) h^2 \sigma_b^2\right)^2 + \frac{\sigma^2 \gamma_b^2}{nh}
+\]</div>
+</section>
+<section id="optimal-bandwidth">
+<h3>Optimal Bandwidth<a class="headerlink" href="#optimal-bandwidth" title="Link to this heading">#</a></h3>
+<p>To minimize MSE, take the derivative with respect to <span class="math notranslate nohighlight">\( h \)</span> and set to zero:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial}{\partial h} \left( \left(\frac{1}{2} f''(x) h^2 \sigma_b^2\right)^2 + \frac{\sigma^2 \gamma_b^2}{nh} \right) = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[ 2 \left(\frac{1}{2} f''(x) h^2 \sigma_b^2\right) \cdot f''(x) \sigma_b^2 h - \frac{\sigma^2 \gamma_b^2}{nh^2} = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[ f''(x)^2 \sigma_b^4 h^3 = \frac{\sigma^2 \gamma_b^2}{n} \]</div>
+<div class="math notranslate nohighlight">
+\[ h^3 = \frac{\sigma^2 \gamma_b^2}{n f''(x)^2 \sigma_b^4} \]</div>
+<div class="math notranslate nohighlight">
+\[ h = \left( \frac{\sigma^2 \gamma_b^2}{n f''(x)^2 \sigma_b^4} \right)^{1/3} \]</div>
+</section>
+<section id="finally">
+<h3>Finally<a class="headerlink" href="#finally" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Bias</strong>: <span class="math notranslate nohighlight">\(\text{Bias}(\hat{m}(x)) \approx \frac{1}{2} f''(x) h^2 \sigma_b^2\)</span></p></li>
+<li><p><strong>Variance</strong>: <span class="math notranslate nohighlight">\(\text{Var}(\hat{m}(x)) \approx \frac{\sigma^2 \gamma_b^2}{nh}\)</span></p></li>
+<li><p><strong>MSE</strong>: <span class="math notranslate nohighlight">\(\text{MSE}(\hat{m}(x)) \approx \left(\frac{1}{2} f''(x) h^2 \sigma_b^2\right)^2 + \frac{\sigma^2 \gamma_b^2}{nh}\)</span></p></li>
+<li><p><strong>Optimal Bandwidth</strong>: <span class="math notranslate nohighlight">\(h \propto n^{-1/5}\)</span></p></li>
+</ol>
+<p>This analysis shows the trade-off between bias and variance in kernel regression and how the bandwidth parameter <span class="math notranslate nohighlight">\( h \)</span> can be chosen to minimize the mean squared error.</p>
+<div class="math notranslate nohighlight">
+\[
+ \frac{\partial}{\partial h} \left( \left(\frac{1}{2} f''(x) h^2 \sigma_b^2\right)^2 + \frac{\sigma^2 \gamma_b^2}{nh} \right)
+ \]</div>
+<p>The regularization term involving <span class="math notranslate nohighlight">\( f''(x) \)</span> and its derivative with respect to <span class="math notranslate nohighlight">\( m(x) \)</span> needs careful handling. Let’s revisit the derivation with the proper relationship between <span class="math notranslate nohighlight">\( f''(x) \)</span> and <span class="math notranslate nohighlight">\( m(x) \)</span>.</p>
+</section>
+<section id="objective-function">
+<h3>Objective Function<a class="headerlink" href="#objective-function" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[ 
+V = \int (y - m(x))^2 f_{Y|X}(x, y) \, dy + \lambda \left( \left( \frac{1}{2} f''(x) h^2 \sigma_b^2 \right)^2 + \frac{\sigma^2 \gamma_b^2}{nh} \right)
+\]</div>
+</section>
+<section id="step-by-step-derivation">
+<h3>Step-by-Step Derivation<a class="headerlink" href="#step-by-step-derivation" title="Link to this heading">#</a></h3>
+<p><strong>Expected Squared Loss Term</strong>:</p>
+<p>As before, we start with the expected squared loss term:</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\partial}{\partial m(x)} \left( \int (y - m(x))^2 f_{Y|X}(x, y) \, dy \right) = -2 \int (y - m(x)) f_{Y|X}(x, y) \, dy
+   \]</div>
+<p><strong>Regularization Term</strong>:</p>
+<p>The regularization term involving <span class="math notranslate nohighlight">\( f''(x) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \lambda \left( \left( \frac{1}{2} f''(x) h^2 \sigma_b^2 \right)^2 \right)
+   \]</div>
+<p>The term <span class="math notranslate nohighlight">\( f''(x) \)</span> is the second derivative of the unknown function <span class="math notranslate nohighlight">\( m(x) \)</span>, which can be expressed as <span class="math notranslate nohighlight">\( m''(x) \)</span>. The derivative of <span class="math notranslate nohighlight">\( (m''(x))^2 \)</span> with respect to <span class="math notranslate nohighlight">\( m(x) \)</span> is computed as:</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\partial}{\partial m(x)} \left( (m''(x))^2 \right) = 2 m''(x) \cdot \frac{\partial m''(x)}{\partial m(x)}
+   \]</div>
+<p>Since <span class="math notranslate nohighlight">\( \frac{\partial m''(x)}{\partial m(x)} = m'''(x) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\partial}{\partial m(x)} \left( (m''(x))^2 \right) = 2 m''(x) \cdot m'''(x)
+   \]</div>
+<p><strong>Combining Terms</strong>:</p>
+<p>Combining the derivatives from both the expected squared loss and the regularization term:</p>
+<div class="math notranslate nohighlight">
+\[
+   -2 \int (y - m(x)) f_{Y|X}(x, y) \, dy + \lambda \left( \frac{1}{2} h^2 \sigma_b^2 \right) \cdot 2 m''(x) \cdot m'''(x) = 0
+   \]</div>
+<p>Simplifying:</p>
+<div class="math notranslate nohighlight">
+\[
+   \int (y - m(x)) f_{Y|X}(x, y) \, dy = \frac{\lambda}{2} \left( \frac{1}{2} h^2 \sigma_b^2 \right) m''(x) \cdot m'''(x)
+   \]</div>
+</section>
+<section id="solving-for-m-x">
+<h3>Solving for <span class="math notranslate nohighlight">\( m(x) \)</span><a class="headerlink" href="#solving-for-m-x" title="Link to this heading">#</a></h3>
+<p>To solve for <span class="math notranslate nohighlight">\( m(x) \)</span>, we need to balance the data fitting term with the regularization term involving the second and third derivatives of <span class="math notranslate nohighlight">\( m(x) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\int y f_{X,Y}(x, y) \, dy}{f_X(x)} + \frac{\lambda}{2} \left( \frac{1}{2} h^2 \sigma_b^2 \right) m''(x) \cdot m'''(x)
+\]</div>
+<p>To estimate <span class="math notranslate nohighlight">\( m''(x) \)</span> and <span class="math notranslate nohighlight">\( m'''(x) \)</span>, we need to use numerical differentiation. We can approximate the second and third derivatives of the function <span class="math notranslate nohighlight">\( m(x) \)</span> based on the available data points. Let’s go through the steps to obtain these derivatives and substitute them into the estimator <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span>.</p>
+</section>
+<section id="step-by-step-process">
+<h3>Step-by-Step Process<a class="headerlink" href="#step-by-step-process" title="Link to this heading">#</a></h3>
+<p><strong>Kernel Density Estimates for <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span></strong></p>
+<p>The Nadaraya-Watson estimator for <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\sum_{i=1}^n y_i K_h(x - X_i)}{\sum_{j=1}^n K_h(x - X_j)}
+\]</div>
+<p><strong>Second Derivative <span class="math notranslate nohighlight">\( m''(x) \)</span></strong></p>
+<p>The second derivative can be estimated using finite differences. For example, a central difference approximation is:</p>
+<div class="math notranslate nohighlight">
+\[
+m''(x) \approx \frac{m(x + h) - 2m(x) + m(x - h)}{h^2}
+\]</div>
+<p><strong>Third Derivative <span class="math notranslate nohighlight">\( m'''(x) \)</span></strong></p>
+<p>The third derivative can also be approximated using finite differences:</p>
+<div class="math notranslate nohighlight">
+\[
+m'''(x) \approx \frac{m(x + 2h) - 2m(x + h) + 2m(x - h) - m(x - 2h)}{2h^3}
+\]</div>
+<p><strong>Substituting into the Estimator</strong></p>
+<p>Substitute the estimates of <span class="math notranslate nohighlight">\( m''(x) \)</span> and <span class="math notranslate nohighlight">\( m'''(x) \)</span> into the regularization term:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\sum_{i=1}^n y_i K_h(x - X_i)}{\sum_{j=1}^n K_h(x - X_j)} + \frac{\lambda}{2} \left( \frac{1}{2} h^2 \sigma_b^2 \right) m''(x) \cdot m'''(x)
+\]</div>
+</section>
+<section id="detailed-formulation">
+<h3>Detailed Formulation<a class="headerlink" href="#detailed-formulation" title="Link to this heading">#</a></h3>
+<p><strong>Nadaraya-Watson Estimator</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\sum_{i=1}^n y_i K_h(x - X_i)}{\sum_{j=1}^n K_h(x - X_j)}
+\]</div>
+<p><strong>Second Derivative Approximation</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+m''(x) \approx \frac{\hat{m}(x + h) - 2\hat{m}(x) + \hat{m}(x - h)}{h^2}
+\]</div>
+<p><strong>Third Derivative Approximation</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+m'''(x) \approx \frac{\hat{m}(x + 2h) - 2\hat{m}(x + h) + 2\hat{m}(x - h) - \hat{m}(x - 2h)}{2h^3}
+\]</div>
+<p><strong>Final Estimator with Regularization</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\sum_{i=1}^n y_i K_h(x - X_i)}{\sum_{j=1}^n K_h(x - X_j)} + \frac{\lambda}{2} \left( \frac{1}{2} h^2 \sigma_b^2 \right) \left( \frac{\hat{m}(x + h) - 2\hat{m}(x) + \hat{m}(x - h)}{h^2} \right) \cdot \left( \frac{\hat{m}(x + 2h) - 2\hat{m}(x + h) + 2\hat{m}(x - h) - \hat{m}(x - 2h)}{2h^3} \right)
+\]</div>
+</section>
+<section id="simplified-expression">
+<h3>Simplified Expression<a class="headerlink" href="#simplified-expression" title="Link to this heading">#</a></h3>
+<p>Combining these approximations into a single expression, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{m}(x) = \frac{\sum_{i=1}^n y_i K_h(x - X_i)}{\sum_{j=1}^n K_h(x - X_j)} + \frac{\lambda}{2} \left( \frac{1}{2} h^2 \sigma_b^2 \right) \cdot \left( \frac{\hat{m}(x + h) - 2\hat{m}(x) + \hat{m}(x - h)}{h^2} \right) \cdot \left( \frac{\hat{m}(x + 2h) - 2\hat{m}(x + h) + 2\hat{m}(x - h) - \hat{m}(x - 2h)}{2h^3} \right)
+\]</div>
+<p>This final form takes into account the kernel density estimates as well as the regularization term that penalizes high curvature.</p>
+</section>
+</section>
+<section id="homework-2">
+<h2>Homework 2<a class="headerlink" href="#homework-2" title="Link to this heading">#</a></h2>
+<p>In the following code, a regularization term has been added. Correct some issues to improve the fit.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="c1"># Gaussian kernel function</span>
+<span class="k">def</span> <span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Compute the local linear regression estimate</span>
+<span class="k">def</span> <span class="nf">local_linear_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="n">weighted_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">normalization</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">weighted_sum</span> <span class="o">/</span> <span class="n">normalization</span>
+
+<span class="c1"># Compute second derivative using finite differences</span>
+<span class="k">def</span> <span class="nf">compute_second_derivative</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+    <span class="n">m_x_plus_h</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">h</span><span class="p">)</span>
+    <span class="n">m_x_minus_h</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">h</span><span class="p">)</span>
+    <span class="n">m_x_plus_2h</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">m_x_minus_2h</span> <span class="o">=</span> <span class="n">m</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">h</span><span class="p">)</span>
+    
+    <span class="n">m_prime_prime</span> <span class="o">=</span> <span class="p">(</span><span class="n">m_x_plus_2h</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">m_x_plus_h</span> <span class="o">+</span> <span class="n">m_x_minus_2h</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">h</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">m_prime_prime</span>
+
+<span class="c1"># Kernel Regression with Regularization</span>
+<span class="k">def</span> <span class="nf">kernel_regression_with_regularization</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">,</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">sigma_b</span><span class="p">,</span> <span class="n">h</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">m_estimator</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">local_linear_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span>
+    
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X_test</span><span class="p">):</span>
+        <span class="n">m_x</span> <span class="o">=</span> <span class="n">m_estimator</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">m_prime_prime</span> <span class="o">=</span> <span class="n">compute_second_derivative</span><span class="p">(</span><span class="n">m_estimator</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+        
+        <span class="c1"># Regularization term</span>
+        <span class="n">regularization_term</span> <span class="o">=</span> <span class="n">lambda_</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">h</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_b</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">m_prime_prime</span>
+        <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">m_x</span> <span class="o">+</span> <span class="n">regularization_term</span>
+    
+    <span class="k">return</span> <span class="n">y_pred</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Introduce outliers</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">120</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Split the data into training and test sets</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Apply Kernel Regression with Regularization</span>
+<span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">1.1</span>
+<span class="n">lambda_</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">sigma_b</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">kernel_regression_with_regularization</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">,</span> <span class="n">lambda_</span><span class="p">,</span> <span class="n">sigma_b</span><span class="p">,</span> <span class="n">h</span><span class="p">)</span>
+
+<span class="c1"># Evaluate the model</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Test data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Kernel Regression with Regularization&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 199.19875538433809
+</pre></div>
+</div>
+<img alt="../../../_images/35dba9f9c739784b5405e34dbc1031bbb9b70d5272be6514c8e0aecc992786aa.png" src="../../../_images/35dba9f9c739784b5405e34dbc1031bbb9b70d5272be6514c8e0aecc992786aa.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./courses\ML\Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="NonParamRegression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Regression Review</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="GP_Regression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Gaussian Process</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-formulation">Problem formulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-regression-by-correntropy-loss">Kernel Regression by correntropy loss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#define-the-correntropy-loss-function">Define the Correntropy Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#write-the-expected-loss-in-integral-form">Write the Expected Loss in Integral Form</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#take-the-derivative-with-respect-to-m-x">Take the Derivative with Respect to <span class="math notranslate nohighlight">\( m(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplify-the-integral">Simplify the Integral</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-approximation-with-kernel-density">Discrete Approximation with Kernel Density</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluate-the-integral">Evaluate the Integral</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solve-for-m-x">Solve for <span class="math notranslate nohighlight">\( m(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iterative-solution">Iterative Solution</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1">Homework 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-sum-of-squared-errors">Weighted Sum of Squared Errors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-formulation">Matrix Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-linear-estimate">Local Linear Estimate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-sum-of-squared-errors-with-correntropy-loss">Weighted Sum of Squared Errors with Correntropy Loss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-linear-regression-with-correntropy-loss">Local Linear Regression with Correntropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Matrix Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivation">Derivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-derivation">Mathematical Derivation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-analysis-of-kernel-regression">Bias-Variance Analysis of Kernel Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#assumptions">Assumptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-of-hat-m-x">Expectation of <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-of-hat-m-x">Variance of <span class="math notranslate nohighlight">\( \hat{m}(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-squared-error-mse">Mean Squared Error (MSE)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-bandwidth">Optimal Bandwidth</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finally">Finally</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-function">Objective Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-derivation">Step-by-Step Derivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-for-m-x">Solving for <span class="math notranslate nohighlight">\( m(x) \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-process">Step-by-Step Process</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-formulation">Detailed Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#simplified-expression">Simplified Expression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-2">Homework 2</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1574 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Gaussian Process &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'courses/ML/Regression/GP_Regression';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Principal Component Analysis" href="../FeatureReduction/FR_Intro.html" />
+    <link rel="prev" title="Kernel Regression" href="KernelRegression.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../Home_Page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../Home_Page.html">
+                    Welcome to my personal Website!
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../../Courses.html">Courses</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../pattern_recognition.html">Pattern Recognition</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../PR/Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Introduction/Model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../PR/Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../PR/Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../PR/Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/EvaluationModelSelection.html">Evaluation and Model Selection</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../PR/Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../PR/Classification/PR_intro_Classification.html">Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../../machine_learning.html">Machine Learning</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l3"><a class="reference internal" href="KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Gaussian Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../FeatureReduction/FR_Intro.html">Principal Component Analysis</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../filtering_algorithms.html">Filtering Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../signal_processing.html">Signal Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../image_processing.html">Image Processing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PRLabProduction.html">Pattern Lab Production</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2Fcourses/ML/Regression/GP_Regression.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/courses/ML/Regression/GP_Regression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Gaussian Process</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-space-view">Weight-space View</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-model">Linear Model:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-implementation-of-gp">Step-by-Step Implementation of GP</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-generating-synthetic-data">Step 1: Generating Synthetic Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-define-the-linear-model">Step 2: Define the Linear Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-define-the-likelihood">Step 3: Define the Likelihood</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-define-the-prior">Step 4: Define the Prior</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-compute-the-posterior">Step 5: Compute the Posterior</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-define-the-predictive-distribution">Step 6: Define the Predictive Distribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-space-view-nonlinear-model">Weight-space View : Nonlinear model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-application">Practical Application</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1">Homework 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-space-view-with-gaussian-processes">Function-Space View with Gaussian Processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-phi-space-feature-space-to-kernel-based-covariance">From <span class="math notranslate nohighlight">\(\phi \)</span> space (Feature space) to kernel-based covariance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#projections-of-inputs-into-feature-space">Projections of Inputs into Feature Space</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-trick">Kernel Trick</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-function-kernel">Covariance Function (Kernel)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Function-Space View with Gaussian Processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporate-observational-noise">Incorporate Observational Noise</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-with-gaussian-processes">Prediction with Gaussian Processes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-works">Do works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-for-gp-based-prediction">Algorithm for GP-based Prediction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-log-marginal-likelihood-using-alpha-and-l">Calculating the Log Marginal Likelihood using <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(L\)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Homework 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-of-gp-prediction">Implementation of GP prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-kernel-function"><strong>Polynomial Kernel Function</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#again-above-example-with-rbf-kernel">Again above example with RBF kernel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rbf-with-epsilon-insensitive-loss">RBF with <span class="math notranslate nohighlight">\(\epsilon \)</span> Insensitive Loss</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-2">Homework 2</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gaussian-process">
+<h1>Gaussian Process<a class="headerlink" href="#gaussian-process" title="Link to this heading">#</a></h1>
+<p>We examine the Gaussian process from both the weight-space and function-space perspectives.</p>
+<section id="weight-space-view">
+<h2>Weight-space View<a class="headerlink" href="#weight-space-view" title="Link to this heading">#</a></h2>
+<section id="linear-model">
+<h3>Linear Model:<a class="headerlink" href="#linear-model" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+   f(x) = x^\top w
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   y = f(x) + \epsilon
+   \]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( x \)</span> is the input vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\( w \)</span> is the vector of weights (parameters) of the linear model.</p></li>
+<li><p><span class="math notranslate nohighlight">\( f(x) \)</span> is the function value.</p></li>
+<li><p><span class="math notranslate nohighlight">\( y \)</span> is the observed target value.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \epsilon \sim \mathcal{N}(0, \sigma^2_n) \)</span> is the additive noise.</p></li>
+</ul>
+<p><strong>Likelihood</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   p(y|X,w) = \prod_{i=1}^n p(y_i|x_i, w) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2_n}} \exp\left( -\frac{(y_i - x_i^\top w)^2}{2\sigma^2_n} \right)
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   = \frac{1}{(2\pi\sigma^2_n)^{n/2}} \exp\left( -\frac{1}{2\sigma^2_n} \|y - X^\top w\|^2 \right)
+   \]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( y \)</span> is the vector of observed target values.</p></li>
+<li><p><span class="math notranslate nohighlight">\( X \)</span> is the matrix of input vectors.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \sigma^2_n \)</span> is the variance of the noise.</p></li>
+<li><p>The likelihood <span class="math notranslate nohighlight">\( p(y|X,w) \)</span> represents the probability of observing <span class="math notranslate nohighlight">\( y \)</span> given <span class="math notranslate nohighlight">\( X \)</span> and <span class="math notranslate nohighlight">\( w \)</span>.</p></li>
+</ul>
+<p><strong>Prior</strong>:
+$<span class="math notranslate nohighlight">\(
+   w \sim \mathcal{N}(0, \Sigma_p)
+   \)</span>$</p>
+<ul class="simple">
+<li><p>A zero-mean Gaussian prior with covariance matrix <span class="math notranslate nohighlight">\( \Sigma_p \)</span> is placed on the weights <span class="math notranslate nohighlight">\( w \)</span>.</p></li>
+</ul>
+<p><strong>Posterior</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   p(w|y,X) = \frac{p(y|X,w) p(w)}{p(y|X)}
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   p(w|X,y) \propto \exp\left( -\frac{1}{2\sigma^2_n} (y - X^\top w)^\top (y - X^\top w) \right) \exp\left( -\frac{1}{2} w^\top \Sigma_p^{-1} w \right)
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   \propto \exp\left( -\frac{1}{2} \left( w - \bar{w} \right)^\top \left( \frac{1}{\sigma^2_n} XX^\top + \Sigma_p^{-1} \right) \left( w - \bar{w} \right) \right)
+   \]</div>
+<ul class="simple">
+<li><p>The posterior distribution <span class="math notranslate nohighlight">\( p(w|X,y) \)</span> is Gaussian with mean <span class="math notranslate nohighlight">\( \bar{w} \)</span> and covariance matrix <span class="math notranslate nohighlight">\( A^{-1} \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \bar{w} = \left( \sigma^{-2}_n (XX^\top) + \Sigma_p^{-1} \right)^{-1} Xy \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( A = \sigma^{-2}_n XX^\top + \Sigma_p^{-1} \)</span></p></li>
+</ul>
+<p><strong>Predictive Distribution</strong>:
+$<span class="math notranslate nohighlight">\(
+   p(f_*|x_*,X,y) = \int p(f_*|x_*,w) p(w|X,y) \, dw
+   \)</span><span class="math notranslate nohighlight">\(
+   \)</span><span class="math notranslate nohighlight">\(
+   = \mathcal{N}\left( \frac{1}{\sigma^2_n} x_*^\top A^{-1} Xy, x_*^\top A^{-1} x_* \right)
+   \)</span>$</p>
+<ul class="simple">
+<li><p>The predictive distribution for <span class="math notranslate nohighlight">\( f_* = f(x_*) \)</span> at a new input <span class="math notranslate nohighlight">\( x_* \)</span> is obtained by averaging over all possible parameter values, weighted by their posterior probability.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Introduce outliers</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">10</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">120</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Linear model</span>
+<span class="k">def</span> <span class="nf">linear_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">X</span> <span class="o">@</span> <span class="n">w</span>
+
+<span class="c1"># Likelihood (not directly used in the code but provided for completeness)</span>
+<span class="k">def</span> <span class="nf">likelihood</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">linear_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_n</span><span class="p">))</span> <span class="o">**</span> <span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Prior (not directly used in the code but provided for completeness)</span>
+<span class="k">def</span> <span class="nf">prior</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">**</span> <span class="n">d</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">Sigma_p</span><span class="p">)))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">w</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma_p</span><span class="p">)</span> <span class="o">@</span> <span class="n">w</span><span class="p">)</span>
+
+<span class="c1"># Posterior</span>
+<span class="k">def</span> <span class="nf">posterior</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Ensure y is a column vector</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma_p</span><span class="p">)</span>
+    <span class="n">w_bar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">w_bar</span><span class="p">,</span> <span class="n">A</span>
+
+<span class="c1"># Predictive distribution</span>
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">):</span>
+    <span class="n">w_bar</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">posterior</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">X_test</span> <span class="o">@</span> <span class="n">w_bar</span>
+    <span class="n">pred_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">X_test</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_test</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">pred_var</span>
+
+<span class="c1"># Add bias term to the input</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">x</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="c1"># Define test points</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">x_test</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+
+<span class="c1"># Hyperparameters</span>
+<span class="n">sigma_n</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">Sigma_p</span> <span class="o">=</span> <span class="mi">80</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Fit and predict using Gaussian Process Regression</span>
+<span class="n">y_pred</span><span class="p">,</span> <span class="n">pred_var</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">y_pred</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Gaussian Process Regression&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/f5290ea3e987814153e8e79a7962c0914ce0f0eab9bb5a23874f5db053431b76.png" src="../../../_images/f5290ea3e987814153e8e79a7962c0914ce0f0eab9bb5a23874f5db053431b76.png" />
+</div>
+</div>
+</section>
+<section id="step-by-step-implementation-of-gp">
+<h3>Step-by-Step Implementation of GP<a class="headerlink" href="#step-by-step-implementation-of-gp" title="Link to this heading">#</a></h3>
+<section id="step-1-generating-synthetic-data">
+<h4>Step 1: Generating Synthetic Data<a class="headerlink" href="#step-1-generating-synthetic-data" title="Link to this heading">#</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="step-2-define-the-linear-model">
+<h4>Step 2: Define the Linear Model<a class="headerlink" href="#step-2-define-the-linear-model" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+f(x) = x^\top w
+\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Linear model</span>
+<span class="k">def</span> <span class="nf">linear_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">X</span> <span class="o">@</span> <span class="n">w</span>
+</pre></div>
+</div>
+</section>
+<section id="step-3-define-the-likelihood">
+<h4>Step 3: Define the Likelihood<a class="headerlink" href="#step-3-define-the-likelihood" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+p(y|X,w) = \prod_{i=1}^n p(y_i|x_i, w) = \prod_{i=1}^n \frac{1}{\sqrt{2\pi\sigma^2_n}} \exp\left( -\frac{(y_i - x_i^\top w)^2}{2\sigma^2_n} \right)
+\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">likelihood</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">linear_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma_n</span><span class="p">))</span> <span class="o">**</span> <span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">pred</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-define-the-prior">
+<h4>Step 4: Define the Prior<a class="headerlink" href="#step-4-define-the-prior" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+w \sim \mathcal{N}(0, \Sigma_p)
+\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prior</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">**</span> <span class="n">d</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">Sigma_p</span><span class="p">)))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">w</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma_p</span><span class="p">)</span> <span class="o">@</span> <span class="n">w</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="step-5-compute-the-posterior">
+<h4>Step 5: Compute the Posterior<a class="headerlink" href="#step-5-compute-the-posterior" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+p(w|X,y) \propto \exp\left( -\frac{1}{2\sigma^2_n} (y - X^\top w)^\top (y - X^\top w) \right) \exp\left( -\frac{1}{2} w^\top \Sigma_p^{-1} w \right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\propto \exp\left( -\frac{1}{2} \left( w - \bar{w} \right)^\top \left( \frac{1}{\sigma^2_n} XX^\top + \Sigma_p^{-1} \right) \left( w - \bar{w} \right) \right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\bar{w} = \left( \sigma^{-2}_n (XX^\top) + \Sigma_p^{-1} \right)^{-1} Xy
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+A = \sigma^{-2}_n XX^\top + \Sigma_p^{-1}
+\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">posterior</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma_p</span><span class="p">)</span>
+    <span class="n">w_bar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">w_bar</span><span class="p">,</span> <span class="n">A</span>
+</pre></div>
+</div>
+</section>
+<section id="step-6-define-the-predictive-distribution">
+<h4>Step 6: Define the Predictive Distribution<a class="headerlink" href="#step-6-define-the-predictive-distribution" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+p(f_*|x_*,X,y) = \int p(f_*|x_*,w) p(w|X,y) \, dw
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \mathcal{N}\left( \frac{1}{\sigma^2_n} x_*^\top A^{-1} Xy, x_*^\top A^{-1} x_* \right)
+\]</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">):</span>
+    <span class="n">w_bar</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">posterior</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">X_test</span> <span class="o">@</span> <span class="n">w_bar</span>
+    <span class="n">pred_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">X_test</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_test</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">pred_var</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="weight-space-view-nonlinear-model">
+<h2>Weight-space View : Nonlinear model<a class="headerlink" href="#weight-space-view-nonlinear-model" title="Link to this heading">#</a></h2>
+<p>As discussed in the Linearization section of the Pattern Recognition course under Regression (Linearization), we use the feature space <span class="math notranslate nohighlight">\(\phi\)</span> defined as the Transformed Feature Space: <span class="math notranslate nohighlight">\(\phi(x) = [1, x, x^2, \ldots, x^k]\)</span>. This technique linearizes the problem, allowing us to continue using a linear model as explained in the above section.</p>
+<p><strong>Remember: Polynomial Linearization: Understanding and Application</strong></p>
+<p>Polynomial regression is a form of linear regression where the relationship between the independent variable <span class="math notranslate nohighlight">\( x \)</span> and the dependent variable <span class="math notranslate nohighlight">\( y \)</span> is modeled as an <span class="math notranslate nohighlight">\( n \)</span>-degree polynomial. Despite its non-linear appearance, polynomial regression is treated as a linear regression problem by transforming the feature space.</p>
+<section id="key-concepts">
+<h3>Key Concepts<a class="headerlink" href="#key-concepts" title="Link to this heading">#</a></h3>
+<p><strong>Polynomial Features</strong>:</p>
+<ul>
+<li><p>Polynomial regression extends linear regression by including polynomial terms of the features.</p></li>
+<li><p>For example, in a quadratic polynomial regression, the model can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+     y = \beta_0 + \beta_1 x + \beta_2 x^2 + \epsilon
+     \]</div>
+</li>
+<li><p>For a cubic polynomial regression, it becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+     y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3 x^3 + \epsilon
+     \]</div>
+</li>
+<li><p>By creating polynomial features, the regression model learns more complex relationships.</p></li>
+</ul>
+<p><strong>Linearization</strong>:</p>
+<ul class="simple">
+<li><p>Polynomial regression is a linear model in terms of the coefficients <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
+<li><p>Although the features themselves are non-linear (e.g., <span class="math notranslate nohighlight">\(x^2\)</span> or <span class="math notranslate nohighlight">\(x^3\)</span>), the relationship between the transformed features and the target variable <span class="math notranslate nohighlight">\(y\)</span> remains linear.</p></li>
+</ul>
+<p><strong>Feature Transformation</strong>:</p>
+<ul>
+<li><p>To handle polynomial regression, we transform the original feature vector <span class="math notranslate nohighlight">\( x \)</span> into a higher-dimensional feature space.</p></li>
+<li><p>For a cubic polynomial, the feature vector <span class="math notranslate nohighlight">\( x \)</span> is transformed as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+     \phi(x) = \begin{bmatrix} x^3 \\ x^2 \\ x \\ 1 \end{bmatrix}
+     \end{split}\]</div>
+</li>
+<li><p>This transformation allows us to apply linear regression methods to the polynomial feature space.</p></li>
+</ul>
+<section id="practical-application">
+<h4>Practical Application<a class="headerlink" href="#practical-application" title="Link to this heading">#</a></h4>
+<p><strong>Data Preparation</strong>:</p>
+<ul>
+<li><p>Convert the original feature vector <span class="math notranslate nohighlight">\( x \)</span> into the polynomial feature space.</p></li>
+<li><p>For example, for a cubic polynomial, use the transformation:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">polynomial_features</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Regression Model</strong>:</p>
+<ul class="simple">
+<li><p>The regression model can be applied to these polynomial features just like linear regression.</p></li>
+<li><p>The regression coefficients are estimated based on these transformed features, and predictions are made in the same feature space.</p></li>
+</ul>
+<p><strong>Example Code</strong>:</p>
+<ul class="simple">
+<li><p>Here’s how you can apply polynomial features and perform linear regression:</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Ensure x is a column vector</span>
+<span class="n">y</span> <span class="o">=</span>  <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># y as a 1D array</span>
+<span class="c1">#2 * x**2 - 3 * x + 5</span>
+<span class="c1"># Introduce outliers</span>
+<span class="n">n_outliers</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">outlier_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">//</span> <span class="n">n_outliers</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>  <span class="c1"># Convert y to 1D</span>
+<span class="n">y</span><span class="p">[</span><span class="n">outlier_indices</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">120</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outlier_indices</span><span class="p">))</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Polynomial features transformation</span>
+<span class="k">def</span> <span class="nf">polynomial_features</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+
+<span class="c1"># Linear model</span>
+<span class="k">def</span> <span class="nf">linear_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">X</span> <span class="o">@</span> <span class="n">w</span>
+
+<span class="c1"># Posterior</span>
+<span class="k">def</span> <span class="nf">posterior</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Ensure y is a column vector</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">Sigma_p</span><span class="p">)</span>
+    <span class="n">w_bar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>  <span class="c1"># No need to multiply by (1 / sigma_n ** 2) here</span>
+    <span class="k">return</span> <span class="n">w_bar</span><span class="p">,</span> <span class="n">A</span>
+
+<span class="c1"># Predictive distribution</span>
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">):</span>
+    <span class="n">w_bar</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">posterior</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">X_test</span> <span class="o">@</span> <span class="n">w_bar</span>
+    <span class="c1"># Calculate predictive variance for each test point</span>
+    <span class="n">pred_var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X_test</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">X_test</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+    <span class="k">return</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">pred_var</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+<span class="c1"># Prepare training and test data</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">polynomial_features</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Polynomial features for training</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">polynomial_features</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Same features for test</span>
+
+<span class="c1"># Training data</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="c1"># Hyperparameters</span>
+<span class="n">sigma_n</span> <span class="o">=</span> <span class="mf">0.99</span>
+<span class="n">Sigma_p</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Fit and predict using Gaussian Process Regression</span>
+<span class="n">y_pred</span><span class="p">,</span> <span class="n">pred_var</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">Sigma_p</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">y_pred</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">y_pred</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Gaussian Process Regression with Polynomial Features&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/a01e61752f06cd679e9b8287f635a7d5d062691210d871f8bd04d0e3902777ab.png" src="../../../_images/a01e61752f06cd679e9b8287f635a7d5d062691210d871f8bd04d0e3902777ab.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="homework-1">
+<h2>Homework 1<a class="headerlink" href="#homework-1" title="Link to this heading">#</a></h2>
+<p>Explore the <em><strong>multivariate weight-space</strong></em> view for both linear and nonlinear models. Write the necessary mathematical formulations and apply them using appropriate code on suitable data.</p>
+</section>
+<section id="function-space-view-with-gaussian-processes">
+<h2>Function-Space View with Gaussian Processes<a class="headerlink" href="#function-space-view-with-gaussian-processes" title="Link to this heading">#</a></h2>
+<p>In the function-space view, we use a Gaussian Process (GP) to describe a distribution over functions.</p>
+<section id="from-phi-space-feature-space-to-kernel-based-covariance">
+<h3>From <span class="math notranslate nohighlight">\(\phi \)</span> space (Feature space) to kernel-based covariance<a class="headerlink" href="#from-phi-space-feature-space-to-kernel-based-covariance" title="Link to this heading">#</a></h3>
+<section id="projections-of-inputs-into-feature-space">
+<h4>Projections of Inputs into Feature Space<a class="headerlink" href="#projections-of-inputs-into-feature-space" title="Link to this heading">#</a></h4>
+<p><strong>Feature Mapping</strong>:</p>
+<ul class="simple">
+<li><p>The input vector <span class="math notranslate nohighlight">\( x \)</span> is projected into a feature space using a mapping <span class="math notranslate nohighlight">\( \phi(x) \)</span>.</p></li>
+<li><p>For example, a scalar input <span class="math notranslate nohighlight">\( x \)</span> can be mapped into the space of its powers: <span class="math notranslate nohighlight">\(\phi(x) = (1, x, x^2, x^3, \ldots)^\top\)</span>.</p></li>
+</ul>
+<p><strong>Predictive Distribution in Feature Space</strong>:</p>
+<ul class="simple">
+<li><p>The predictive distribution becomes:
+$<span class="math notranslate nohighlight">\(
+f_* | x_*, X, y \sim \mathcal{N}\left( \frac{1}{\sigma^2_n} \phi(x_*)^\top A^{-1} \Phi y, \phi(x_*)^\top A^{-1} \phi(x_*) \right)
+\)</span>$</p></li>
+<li><p>Here, <span class="math notranslate nohighlight">\(\Phi = \Phi(X)\)</span> is the matrix of feature vectors of the training data.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A = \sigma^{-2}_n \Phi \Phi^\top + \Sigma_p^{-1}\)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="kernel-trick">
+<h3>Kernel Trick<a class="headerlink" href="#kernel-trick" title="Link to this heading">#</a></h3>
+<p>To address the computational challenge, we use the kernel trick:</p>
+<p><strong>Rewriting the Predictive Distribution</strong>:</p>
+<ul class="simple">
+<li><p>The predictive distribution can be rewritten using the kernel trick:
+$<span class="math notranslate nohighlight">\(
+f_* | x_*, X, y \sim \mathcal{N}\left( \phi_*^\top \Sigma_p \Phi (K + \sigma^2_n I)^{-1} y, \phi_*^\top \Sigma_p \phi_* - \phi_*^\top \Sigma_p \Phi (K + \sigma^2_n I)^{-1} \Phi^\top \Sigma_p \phi_* \right)
+\)</span>$</p></li>
+<li><p>Here, <span class="math notranslate nohighlight">\(\phi_* = \phi(x_*)\)</span> and <span class="math notranslate nohighlight">\(K = \Phi^\top \Sigma_p \Phi\)</span>.</p></li>
+</ul>
+</section>
+<section id="covariance-function-kernel">
+<h3>Covariance Function (Kernel)<a class="headerlink" href="#covariance-function-kernel" title="Link to this heading">#</a></h3>
+<p><strong>Inner Products in Feature Space</strong>:</p>
+<ul class="simple">
+<li><p>The feature space enters the equations in the form of <span class="math notranslate nohighlight">\(\Phi^\top \Sigma_p \Phi\)</span>, <span class="math notranslate nohighlight">\(\phi_*^\top \Sigma_p \Phi\)</span>, or <span class="math notranslate nohighlight">\(\phi_*^\top \Sigma_p \phi_*\)</span>.</p></li>
+<li><p>These entries are inner products <span class="math notranslate nohighlight">\(\phi(x)^\top \Sigma_p \phi(x')\)</span> where <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x'\)</span> are in the training or test sets.</p></li>
+</ul>
+<p><strong>Kernel Definition</strong>:</p>
+<ul class="simple">
+<li><p>Define the kernel function <span class="math notranslate nohighlight">\(k(x, x') = \phi(x)^\top \Sigma_p \phi(x')\)</span>.</p></li>
+<li><p>This kernel function is also known as a covariance function.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Function-Space View with Gaussian Processes<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>In the function-space view, we use a Gaussian Process (GP) to describe a distribution over functions.
+<strong>Mean and Covariance Functions</strong>:</p>
+<ul>
+<li><p>The mean function <span class="math notranslate nohighlight">\(m(x)\)</span> and the covariance function <span class="math notranslate nohighlight">\(k(x,x')\)</span> of a real process <span class="math notranslate nohighlight">\(f(x)\)</span> are defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+     m(x) = \mathbb{E}[f(x)]
+     \]</div>
+<div class="math notranslate nohighlight">
+\[
+     k(x, x') = \mathbb{E}[(f(x) - m(x))(f(x') - m(x'))]
+     \]</div>
+</li>
+<li><p>A Gaussian process can be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+     f(x) \sim \mathcal{GP}(m(x), k(x, x'))
+     \]</div>
+</li>
+</ul>
+<p><strong>Zero Mean Function</strong>:</p>
+<ul>
+<li><p>For simplicity, the mean function is often taken to be zero:</p>
+<div class="math notranslate nohighlight">
+\[
+     m(x) = 0
+     \]</div>
+</li>
+</ul>
+<p><strong>Random Variables in GPs</strong>:</p>
+<ul class="simple">
+<li><p>In this context, the random variables represent the value of the function <span class="math notranslate nohighlight">\(f(x)\)</span> at location <span class="math notranslate nohighlight">\(x\)</span>. The index set <span class="math notranslate nohighlight">\(X\)</span> is the set of possible inputs.</p></li>
+</ul>
+<p><strong>Example: Bayesian Linear Regression</strong>:</p>
+<ul>
+<li><p>Consider a Bayesian linear regression model <span class="math notranslate nohighlight">\(f(x) = \phi(x)^\top w\)</span> with prior <span class="math notranslate nohighlight">\(w \sim \mathcal{N}(0, \Sigma_p)\)</span>. For this model:</p>
+<div class="math notranslate nohighlight">
+\[
+     \mathbb{E}[f(x)] = \phi(x)^\top \mathbb{E}[w] = 0
+     \]</div>
+<div class="math notranslate nohighlight">
+\[
+     \mathbb{E}[f(x) f(x')] = \phi(x)^\top \mathbb{E}[w w^\top] \phi(x') = \phi(x)^\top \Sigma_p \phi(x')
+     \]</div>
+</li>
+<li><p>The covariance function specifies the covariance between pairs of random variables:
+$<span class="math notranslate nohighlight">\(
+\text{cov}(f(x_p), f(x_q)) = k(x_p, x_q) = \exp\left( -\frac{1}{2} |x_p - x_q|^2 \right)
+\)</span>$</p></li>
+</ul>
+<section id="incorporate-observational-noise">
+<h4>Incorporate Observational Noise<a class="headerlink" href="#incorporate-observational-noise" title="Link to this heading">#</a></h4>
+<p>Assume we have noisy observations <span class="math notranslate nohighlight">\( y_i = f(x_i) + \epsilon_i \)</span> where <span class="math notranslate nohighlight">\(\epsilon_i \sim \mathcal{N}(0, \sigma^2)\)</span>. The noise variance <span class="math notranslate nohighlight">\(\sigma^2\)</span> is added to the diagonal of the covariance matrix:</p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{y} \sim \mathcal{N}(\mathbf{0}, \mathbf{K} + \sigma^2 \mathbf{I}) \]</div>
+<h2 style="color:red;"> Joint Distribution of Training and Test Points</h2>
+<p>Consider a new test input <span class="math notranslate nohighlight">\( x_* \)</span>. The joint distribution of the observed targets <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> and the function value <span class="math notranslate nohighlight">\( f_* = f(x_*) \)</span> at <span class="math notranslate nohighlight">\( x_* \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix} \mathbf{y} \\ f_* \end{bmatrix} \sim \mathcal{N} \left( \mathbf{0}, \begin{bmatrix} \mathbf{K} + \sigma^2 \mathbf{I} &amp; \mathbf{k}_* \\ \mathbf{k}_*^T &amp; k(x_*, x_*) \end{bmatrix} \right)
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{k}_* = [k(x_1, x_*), k(x_2, x_*), \ldots, k(x_N, x_*)]^T\)</span> is the covariance vector between the training inputs and the test input.</p>
+<h2 style="color:blue;"> Conditional Distribution for Predictions</h2>
+<p>Or</p>
+</section>
+</section>
+<section id="prediction-with-gaussian-processes">
+<h3>Prediction with Gaussian Processes<a class="headerlink" href="#prediction-with-gaussian-processes" title="Link to this heading">#</a></h3>
+<p>The predictive distribution <span class="math notranslate nohighlight">\( p(f_* | \mathbf{X}, \mathbf{y}, x_*) \)</span> can be derived using the properties of multivariate Gaussian distributions. The conditional distribution of <span class="math notranslate nohighlight">\( f_* \)</span> given <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+f_* | \mathbf{X}, \mathbf{y}, x_* \sim \mathcal{N}(\mu_*, \sigma_*^2)
+\]</div>
+<p>where the mean and variance are given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu_* = \mathbf{k}_*^T (\mathbf{K} + \sigma^2 \mathbf{I})^{-1} \mathbf{y}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sigma_*^2 = k(x_*, x_*) - \mathbf{k}_*^T (\mathbf{K} + \sigma^2 \mathbf{I})^{-1} \mathbf{k}_*
+\]</div>
+</section>
+<section id="do-works">
+<h3>Do works<a class="headerlink" href="#do-works" title="Link to this heading">#</a></h3>
+<p>The six steps for Gaussian Process regression:</p>
+<ol class="arabic simple">
+<li><p><strong>Define the Gaussian Process</strong>: <span class="math notranslate nohighlight">\( f(x) \sim \mathcal{GP}(0, k(x, x')) \)</span></p></li>
+<li><p><strong>Specify the Kernel Function</strong>: Commonly used kernels include the RBF kernel.</p></li>
+<li><p><strong>Formulate the Joint Distribution</strong>: <span class="math notranslate nohighlight">\(\mathbf{f} \sim \mathcal{N}(\mathbf{0}, \mathbf{K})\)</span></p></li>
+<li><p><strong>Incorporate Observational Noise</strong>: <span class="math notranslate nohighlight">\(\mathbf{y} \sim \mathcal{N}(\mathbf{0}, \mathbf{K} + \sigma^2 \mathbf{I})\)</span></p></li>
+<li><p><strong>Joint Distribution of Training and Test Points</strong>: <span class="math notranslate nohighlight">\(\begin{bmatrix} \mathbf{y} \\ f_* \end{bmatrix} \sim \mathcal{N} \left( \mathbf{0}, \begin{bmatrix} \mathbf{K} + \sigma^2 \mathbf{I} &amp; \mathbf{k}_* \\ \mathbf{k}_*^T &amp; k(x_*, x_*) \end{bmatrix} \right)\)</span></p></li>
+<li><p><strong>Conditional Distribution for Predictions</strong>:</p>
+<ul class="simple">
+<li><p>Mean: <span class="math notranslate nohighlight">\( \mu_* = \mathbf{k}_*^T (\mathbf{K} + \sigma^2 \mathbf{I})^{-1} \mathbf{y} \)</span></p></li>
+<li><p>Variance: <span class="math notranslate nohighlight">\( \sigma_*^2 = k(x_*, x_*) - \mathbf{k}_*^T (\mathbf{K} + \sigma^2 \mathbf{I})^{-1} \mathbf{k}_* \)</span></p></li>
+</ul>
+</li>
+</ol>
+<p><em>Function Space view of Gaussian Processes</em> offer a <strong>flexible and powerful way and non-parametric method</strong> to model complex, non-linear relationships while providing probabilistic predictions with associated uncertainties.</p>
+</section>
+<section id="algorithm-for-gp-based-prediction">
+<h3>Algorithm for GP-based Prediction<a class="headerlink" href="#algorithm-for-gp-based-prediction" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Input: <span class="math notranslate nohighlight">\(X\)</span> (training inputs), <span class="math notranslate nohighlight">\(y\)</span> (training targets), <span class="math notranslate nohighlight">\(k\)</span> (covariance function), <span class="math notranslate nohighlight">\(\sigma_n^2\)</span> (noise level), <span class="math notranslate nohighlight">\(x_*\)</span> (test input)</p></li>
+<li><p>Compute the Cholesky decomposition: <span class="math notranslate nohighlight">\(L := \text{cholesky}(K + \sigma_n^2 I)\)</span></p></li>
+<li><p>Solve for <span class="math notranslate nohighlight">\(\alpha\)</span>: <span class="math notranslate nohighlight">\(\alpha := L^\top \backslash (L \backslash y)\)</span></p></li>
+<li><p>Compute the predictive mean: <span class="math notranslate nohighlight">\(\bar{f}_* := k_*^\top \alpha\)</span></p></li>
+<li><p>Compute the intermediate variable <span class="math notranslate nohighlight">\(v\)</span>: <span class="math notranslate nohighlight">\(v := L \backslash k_*\)</span></p></li>
+<li><p>Compute the predictive variance: <span class="math notranslate nohighlight">\(\text{Var}[f_*] := k(x_*, x_*) - v^\top v\)</span></p></li>
+</ol>
+<p>Output: <span class="math notranslate nohighlight">\(\bar{f}_*\)</span> (mean), <span class="math notranslate nohighlight">\(\text{Var}[f_*]\)</span> (variance)</p>
+<section id="calculating-the-log-marginal-likelihood-using-alpha-and-l">
+<h4>Calculating the Log Marginal Likelihood using <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(L\)</span><a class="headerlink" href="#calculating-the-log-marginal-likelihood-using-alpha-and-l" title="Link to this heading">#</a></h4>
+<p>The log marginal likelihood of the observed data <span class="math notranslate nohighlight">\(y\)</span> given the inputs <span class="math notranslate nohighlight">\(X\)</span> under the Gaussian process model is:</p>
+<div class="math notranslate nohighlight">
+\[
+\log p(y|X) = -\frac{1}{2} y^\top \alpha - \sum_i \log L_{ii} - \frac{n}{2} \log 2\pi
+\]</div>
+</section>
+</section>
+</section>
+<section id="id2">
+<h2>Homework 1<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>What is the relationship between complexity and the term <span class="math notranslate nohighlight">\( \sum_i \log L_{ii} \)</span>, and model fit and the term <span class="math notranslate nohighlight">\( y^\top \alpha \)</span>?”
+Also, change the points (in the following code) for training and testing, and adjust the parameters. Then, explain what occurs.</p>
+<section id="implementation-of-gp-prediction">
+<h3>Implementation of GP prediction<a class="headerlink" href="#implementation-of-gp-prediction" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Define the RBF kernel</span>
+<span class="k">def</span> <span class="nf">rbf_kernel</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">sqdist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X2</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">length_scale</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sqdist</span><span class="p">)</span>
+
+<span class="c1"># Training data (inputs and outputs)</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],[</span><span class="mf">1.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Test data (inputs)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">length_scale</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="c1"># Compute the covariance matrices</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+<span class="n">K_s</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+<span class="n">K_ss</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+<span class="n">sigma_n</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># Noise level</span>
+
+<span class="c1"># Compute the Cholesky decomposition</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="n">K</span> <span class="o">+</span> <span class="n">sigma_n</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)))</span>
+
+<span class="c1"># Solve for alpha</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
+
+<span class="c1"># Predictive mean</span>
+<span class="n">mean_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K_s</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">alpha</span><span class="p">)</span>
+
+<span class="c1"># Solve for v</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">L</span><span class="p">,</span> <span class="n">K_s</span><span class="p">)</span>
+
+<span class="c1"># Predictive variance</span>
+<span class="n">var_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">K_ss</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">std_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var_s</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training Data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">mean_s</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictive Mean&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">mean_s</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">std_s</span><span class="p">,</span> <span class="n">mean_s</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">std_s</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;95% Confidence Interval&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Input (x)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Output (f)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Gaussian Process Regression&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/cdc0fbf43d38c42439cc099a58c7de47fff51601fc3440881d5cae3344c16d57.png" src="../../../_images/cdc0fbf43d38c42439cc099a58c7de47fff51601fc3440881d5cae3344c16d57.png" />
+</div>
+</div>
+</section>
+<section id="polynomial-kernel-function">
+<h3><strong>Polynomial Kernel Function</strong><a class="headerlink" href="#polynomial-kernel-function" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[ k(x_i, x_j) = (x_i^\top x_j + c)^d \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x_i\)</span> and <span class="math notranslate nohighlight">\(x_j\)</span> are input vectors.</p></li>
+<li><p><span class="math notranslate nohighlight">\(c\)</span> is a constant.</p></li>
+<li><p><span class="math notranslate nohighlight">\(d\)</span> is the degree of the polynomial.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Remove outliers for simplicity</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">10</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">120</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Add bias term to the input</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Train input matrix</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="c1"># Polynomial kernel function</span>
+<span class="k">def</span> <span class="nf">polynomial_kernel</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">X1</span> <span class="o">@</span> <span class="n">X2</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="o">**</span> <span class="n">d</span>
+
+<span class="c1"># Compute the covariance matrices</span>
+<span class="k">def</span> <span class="nf">compute_covariances</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">):</span>
+    <span class="n">K_train_train</span> <span class="o">=</span> <span class="n">polynomial_kernel</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">)</span>
+    <span class="n">K_test_train</span> <span class="o">=</span> <span class="n">polynomial_kernel</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">)</span>
+    <span class="n">K_test_test</span> <span class="o">=</span> <span class="n">polynomial_kernel</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_test</span><span class="p">)</span>
+    <span class="n">K_train_train</span> <span class="o">+=</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Add noise variance to the training covariance matrix</span>
+    <span class="k">return</span> <span class="n">K_train_train</span><span class="p">,</span> <span class="n">K_test_train</span><span class="p">,</span> <span class="n">K_test_test</span>
+
+<span class="c1"># Predictive distribution</span>
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">):</span>
+    <span class="n">K_train_train</span><span class="p">,</span> <span class="n">K_test_train</span><span class="p">,</span> <span class="n">K_test_test</span> <span class="o">=</span> <span class="n">compute_covariances</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">)</span>
+    
+    <span class="c1"># Compute the mean of the predictive distribution</span>
+    <span class="n">K_train_train_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">K_train_train</span><span class="p">)</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">K_test_train</span> <span class="o">@</span> <span class="n">K_train_train_inv</span> <span class="o">@</span> <span class="n">y_train</span>
+    
+    <span class="c1"># Compute the covariance of the predictive distribution</span>
+    <span class="n">covariance</span> <span class="o">=</span> <span class="n">K_test_test</span> <span class="o">-</span> <span class="n">K_test_train</span> <span class="o">@</span> <span class="n">K_train_train_inv</span> <span class="o">@</span> <span class="n">K_test_train</span><span class="o">.</span><span class="n">T</span>
+    
+    <span class="k">return</span> <span class="n">mean</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">covariance</span><span class="p">)</span>
+
+<span class="c1"># Define test points</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">x_test</span>
+
+<span class="c1"># Hyperparameters</span>
+<span class="n">sigma_n</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="c1"># Noise variance</span>
+
+<span class="c1"># Fit and predict using Gaussian Process Regression</span>
+<span class="n">y_pred</span><span class="p">,</span> <span class="n">pred_var</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">y_pred</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">y_pred</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Gaussian Process Regression with Polynomial Kernel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/6bb6d9b8b565356edb1e0dac0965b60bcdb824f9de4578b4d156b80396de0f0c.png" src="../../../_images/6bb6d9b8b565356edb1e0dac0965b60bcdb824f9de4578b4d156b80396de0f0c.png" />
+</div>
+</div>
+</section>
+<section id="again-above-example-with-rbf-kernel">
+<h3>Again above example with RBF kernel<a class="headerlink" href="#again-above-example-with-rbf-kernel" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Remove outliers for simplicity</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">10</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">20</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Add bias term to the input</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Train input matrix</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="c1"># Define the RBF kernel</span>
+<span class="k">def</span> <span class="nf">rbf_kernel</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">sqdist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X1</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">X2</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">X2</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">length_scale</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sqdist</span><span class="p">)</span>
+
+<span class="c1"># Compute the covariance matrices</span>
+<span class="k">def</span> <span class="nf">compute_covariances</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">):</span>
+    <span class="n">K_train_train</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+    <span class="n">K_test_train</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+    <span class="n">K_test_test</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+    <span class="n">K_train_train</span> <span class="o">+=</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Add noise variance to the training covariance matrix</span>
+    <span class="k">return</span> <span class="n">K_train_train</span><span class="p">,</span> <span class="n">K_test_train</span><span class="p">,</span> <span class="n">K_test_test</span>
+
+<span class="c1"># Predictive distribution</span>
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">):</span>
+    <span class="n">K_train_train</span><span class="p">,</span> <span class="n">K_test_train</span><span class="p">,</span> <span class="n">K_test_test</span> <span class="o">=</span> <span class="n">compute_covariances</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+    
+    <span class="c1"># Compute the mean of the predictive distribution</span>
+    <span class="n">K_train_train_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">K_train_train</span><span class="p">)</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">K_test_train</span> <span class="o">@</span> <span class="n">K_train_train_inv</span> <span class="o">@</span> <span class="n">y_train</span>
+    
+    <span class="c1"># Compute the covariance of the predictive distribution</span>
+    <span class="n">covariance</span> <span class="o">=</span> <span class="n">K_test_test</span> <span class="o">-</span> <span class="n">K_test_train</span> <span class="o">@</span> <span class="n">K_train_train_inv</span> <span class="o">@</span> <span class="n">K_test_train</span><span class="o">.</span><span class="n">T</span>
+    
+    <span class="k">return</span> <span class="n">mean</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">covariance</span><span class="p">)</span>
+
+
+<span class="c1"># Define test points</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">x_test</span>
+
+<span class="c1"># Hyperparameters</span>
+<span class="n">sigma_n</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># Noise variance</span>
+<span class="n">length_scale</span><span class="o">=</span><span class="mf">0.5</span>
+
+<span class="c1"># Fit and predict using Gaussian Process Regression</span>
+<span class="n">y_pred</span><span class="p">,</span> <span class="n">pred_var</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">y_pred</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">y_pred</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Gaussian Process Regression with Polynomial Kernel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/706a3960253d8efb1c4511faab47a0bf6f4901eb75d4529ea12f26ff59621282.png" src="../../../_images/706a3960253d8efb1c4511faab47a0bf6f4901eb75d4529ea12f26ff59621282.png" />
+</div>
+</div>
+</section>
+<section id="rbf-with-epsilon-insensitive-loss">
+<h3>RBF with <span class="math notranslate nohighlight">\(\epsilon \)</span> Insensitive Loss<a class="headerlink" href="#rbf-with-epsilon-insensitive-loss" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">epsilon_loss</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="n">n1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+    <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n2</span><span class="p">):</span>
+            <span class="n">errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">target</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">preds</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">errors</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">)</span>
+            <span class="n">K</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">loss</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">K</span>
+
+<span class="k">def</span> <span class="nf">rbf_kernel</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">length_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sigma_f</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+    <span class="n">sqdist</span> <span class="o">=</span> <span class="n">epsilon_loss</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sigma_f</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">length_scale</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sqdist</span><span class="p">)</span>
+
+
+<span class="c1"># # Define the RBF kernel</span>
+<span class="c1"># def rbf_kernel(X1, X2, length_scale=1.0):</span>
+<span class="c1">#     sqdist = np.sum(X1**2, 1).reshape(-1, 1) + np.sum(X2**2, 1) - 2 * np.dot(X1, X2.T)</span>
+<span class="c1">#     return np.exp(-0.5 / length_scale**2 * sqdist)</span>
+
+<span class="c1"># Compute the covariance matrices</span>
+<span class="k">def</span> <span class="nf">compute_covariances</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="n">K_train_train</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+    <span class="n">K_test_train</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+    <span class="n">K_test_test</span> <span class="o">=</span> <span class="n">rbf_kernel</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+    <span class="n">K_train_train</span> <span class="o">+=</span> <span class="n">sigma_n</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Add noise variance to the training covariance matrix</span>
+    <span class="k">return</span> <span class="n">K_train_train</span><span class="p">,</span> <span class="n">K_test_train</span><span class="p">,</span> <span class="n">K_test_test</span>
+
+<span class="c1"># Predictive distribution</span>
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+    <span class="n">K_train_train</span><span class="p">,</span> <span class="n">K_test_train</span><span class="p">,</span> <span class="n">K_test_test</span> <span class="o">=</span> <span class="n">compute_covariances</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+    
+    <span class="c1"># Compute the mean of the predictive distribution</span>
+    <span class="n">K_train_train_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">K_train_train</span><span class="p">)</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">K_test_train</span> <span class="o">@</span> <span class="n">K_train_train_inv</span> <span class="o">@</span> <span class="n">y_train</span>
+    
+    <span class="c1"># Compute the covariance of the predictive distribution</span>
+    <span class="n">covariance</span> <span class="o">=</span> <span class="n">K_test_test</span> <span class="o">-</span> <span class="n">K_test_train</span> <span class="o">@</span> <span class="n">K_train_train_inv</span> <span class="o">@</span> <span class="n">K_test_train</span><span class="o">.</span><span class="n">T</span>
+    
+    <span class="k">return</span> <span class="n">mean</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">covariance</span><span class="p">)</span>
+
+
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Remove outliers for simplicity</span>
+<span class="n">y</span><span class="p">[::</span><span class="mi">10</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">20</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Add bias term to the input</span>
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Train input matrix</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y</span>
+
+<span class="c1"># Define test points</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">x_test</span>
+
+<span class="c1"># Hyperparameters</span>
+<span class="n">sigma_n</span> <span class="o">=</span> <span class="mf">1.0</span>  <span class="c1"># Noise variance</span>
+<span class="n">length_scale</span><span class="o">=</span><span class="mf">0.5</span>
+<span class="n">epsilon</span><span class="o">=</span> <span class="mi">2</span>
+<span class="c1"># Fit and predict using Gaussian Process Regression</span>
+<span class="n">y_pred</span><span class="p">,</span> <span class="n">pred_var</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">sigma_n</span><span class="p">,</span> <span class="n">length_scale</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training data&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Prediction&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_test</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">y_pred</span> <span class="o">-</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">y_pred</span> <span class="o">+</span> <span class="mf">1.96</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pred_var</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Gaussian Process Regression with Polynomial Kernel&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_13176\3957923635.py:13: DeprecationWarning: Conversion of an array with ndim &gt; 0 to a scalar is deprecated, and will error in future. Ensure you extract a single element from your array before performing this operation. (Deprecated NumPy 1.25.)
+  K[i, j] = 4 * loss**2
+C:\Users\Dr\AppData\Local\Temp\ipykernel_13176\3957923635.py:76: RuntimeWarning: invalid value encountered in sqrt
+  plt.fill_between(x_test.flatten(), y_pred - 1.96 * np.sqrt(pred_var), y_pred + 1.96 * np.sqrt(pred_var), alpha=0.2, color=&#39;red&#39;)
+</pre></div>
+</div>
+<img alt="../../../_images/3f689031ff6bd00254cb00bf4f5a930d5b2711d8bd8c1983e5b61fb5c053968f.png" src="../../../_images/3f689031ff6bd00254cb00bf4f5a930d5b2711d8bd8c1983e5b61fb5c053968f.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="homework-2">
+<h2>Homework 2<a class="headerlink" href="#homework-2" title="Link to this heading">#</a></h2>
+<p><strong>Preface</strong></p>
+<p><em>Discussion on RBF Kernel with <span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss</em></p>
+<p>In Homework 2, we examined the Radial Basis Function (RBF) kernel and its integration with the <span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss function. This analysis provides insight into how different components of a machine learning model interact, specifically in the context of Gaussian Processes (GPs) and Support Vector Regression.</p>
+<p><strong>Radial Basis Function (RBF) Kernel</strong>:</p>
+<ul>
+<li><p>The RBF kernel, also known as the Gaussian kernel, is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+  k(x_i, x_j) = \sigma_f^2 \exp\left(-\frac{\|x_i - x_j\|^2}{2 \ell^2}\right)
+  \]</div>
+<p>where <span class="math notranslate nohighlight">\( \sigma_f^2 \)</span> is the signal variance, and <span class="math notranslate nohighlight">\( \ell \)</span> is the length scale parameter.</p>
+</li>
+<li><p><strong>Properties</strong>:</p>
+<ul class="simple">
+<li><p><strong>Locality</strong>: The RBF kernel measures similarity based on the distance between points, with closer points being more similar.</p></li>
+<li><p><strong>Smoothness</strong>: Functions modeled with the RBF kernel are smooth and infinitely differentiable.</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Application in GPs</strong>:</p>
+<ul class="simple">
+<li><p>In Gaussian Processes, the RBF kernel is used to define the covariance function between pairs of data points. It determines how the model smooths and interpolates data.</p></li>
+</ul>
+<p><strong><span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss</strong>:</p>
+<ul>
+<li><p>This loss function is commonly used in Support Vector Regression (SVR) and is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+  L_\epsilon(y, f(x)) = \begin{cases} 
+  0 &amp; \text{if } |y - f(x)| \leq \epsilon \\
+  |y - f(x)| - \epsilon &amp; \text{otherwise}
+  \end{cases}
+  \end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\( \epsilon \)</span> is a parameter that specifies a tolerance zone around the prediction <span class="math notranslate nohighlight">\( f(x) \)</span>.</p>
+</li>
+</ul>
+<p><strong>Application in SVR</strong>:</p>
+<ul class="simple">
+<li><p><strong>Fit Term</strong>: The <span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss function ensures that predictions within an <span class="math notranslate nohighlight">\(\epsilon\)</span> margin around the observed data <span class="math notranslate nohighlight">\( y \)</span> incur no loss. This helps in focusing the learning on the points where the prediction deviates significantly from the true value.</p></li>
+<li><p><strong>Robustness</strong>: By ignoring errors within the <span class="math notranslate nohighlight">\(\epsilon\)</span> margin, the model becomes less sensitive to outliers and noise in the data.</p></li>
+</ul>
+<h2 style="color:red;">Now You Complete</h2>
+<p><strong>Integration of RBF Kernel and <span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss</strong></p>
+<ul class="simple">
+<li><p>Multivariate form</p></li>
+<li><p>Mathematical formulation &amp; experiments</p></li>
+<li><p>Mastery over the regulation of <span class="math notranslate nohighlight">\(\epsilon\)</span> in the synthetic example above</p></li>
+<li><p>Applied to suitable applications that need the <span class="math notranslate nohighlight">\(\epsilon\)</span>-insensitive property</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./courses\ML\Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="KernelRegression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Kernel Regression</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../FeatureReduction/FR_Intro.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Principal Component Analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-space-view">Weight-space View</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-model">Linear Model:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-implementation-of-gp">Step-by-Step Implementation of GP</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-generating-synthetic-data">Step 1: Generating Synthetic Data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-define-the-linear-model">Step 2: Define the Linear Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-define-the-likelihood">Step 3: Define the Likelihood</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-define-the-prior">Step 4: Define the Prior</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-compute-the-posterior">Step 5: Compute the Posterior</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-define-the-predictive-distribution">Step 6: Define the Predictive Distribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-space-view-nonlinear-model">Weight-space View : Nonlinear model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#practical-application">Practical Application</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1">Homework 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#function-space-view-with-gaussian-processes">Function-Space View with Gaussian Processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#from-phi-space-feature-space-to-kernel-based-covariance">From <span class="math notranslate nohighlight">\(\phi \)</span> space (Feature space) to kernel-based covariance</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#projections-of-inputs-into-feature-space">Projections of Inputs into Feature Space</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-trick">Kernel Trick</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-function-kernel">Covariance Function (Kernel)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Function-Space View with Gaussian Processes</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#incorporate-observational-noise">Incorporate Observational Noise</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction-with-gaussian-processes">Prediction with Gaussian Processes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#do-works">Do works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-for-gp-based-prediction">Algorithm for GP-based Prediction</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-log-marginal-likelihood-using-alpha-and-l">Calculating the Log Marginal Likelihood using <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(L\)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Homework 1</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-of-gp-prediction">Implementation of GP prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-kernel-function"><strong>Polynomial Kernel Function</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#again-above-example-with-rbf-kernel">Again above example with RBF kernel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rbf-with-epsilon-insensitive-loss">RBF with <span class="math notranslate nohighlight">\(\epsilon \)</span> Insensitive Loss</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-2">Homework 2</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

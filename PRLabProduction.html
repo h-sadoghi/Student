@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Pattern Lab Production &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PRLabProduction';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Contact Me" href="Contact_Me.html" />
+    <link rel="prev" title="Image Processing" href="courses/image_processing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="Home_Page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="Home_Page.html">
+                    Welcome to my personal Website!
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="Courses.html">Courses</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="courses/pattern_recognition.html">Pattern Recognition</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="courses/PR/Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Introduction/Model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="courses/PR/Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="courses/PR/Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="courses/PR/Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Regression/EvaluationModelSelection.html">Evaluation and Model Selection</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="courses/PR/Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="courses/PR/Classification/PR_intro_Classification.html">Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="courses/machine_learning.html">Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="courses/ML/Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l3"><a class="reference internal" href="courses/ML/Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="courses/ML/Regression/GP_Regression.html">Gaussian Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="courses/ML/FeatureReduction/FR_Intro.html">Introduction of Feature Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="courses/ML/FeatureReduction/PCA.html">Principal Component Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="courses/ML/FeatureReduction/Autoencoders1.html">Autoencoders</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="courses/filtering_algorithms.html">Filtering Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses/signal_processing.html">Signal Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="courses/image_processing.html">Image Processing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Pattern Lab Production</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2FPRLabProduction.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/PRLabProduction.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Pattern Lab Production</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pattern Lab Production</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#production-lab-information">Production Lab Information</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#personal-information-of-colleague">Personal Information of Colleague</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#research-and-technology-background-and-introduction-to-specialized-lab">Research and Technology Background and Introduction to Specialized Lab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#educational-background">Educational Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specialized-fields-of-expertise">Specialized Fields of Expertise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contact-information">Contact Information</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#product-introduction-and-features-description">Product Introduction and Features Description</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#product-title-interactive-smart-mirror">Product Title: Interactive Smart Mirror</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brief-description">Brief Description:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#product-images">Product Images:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#product-features-description">Product Features Description:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#capabilities">Capabilities:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-knowledge">Technical Knowledge:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-location">Execution Location:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-feature-description">Detailed Feature Description:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Product Introduction and Features Description</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#product-title-interactive-smart-wall">Product Title: Interactive Smart Wall</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Brief Description:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Product Images:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Product Features Description:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Capabilities:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Technical Knowledge:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Execution Location:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Detailed Feature Description:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><img alt="Hadi Sadoghi Yazd" src="_images/Hadi_Sadoghi_Yazdi.png" /></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    .navbar {
+        overflow: hidden;
+        text-align: center;
+        border-bottom: 2px solid #B25E07;
+    }
+    .navbar a {
+        display: inline-block;
+        color: inherit;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size: 17px;
+        border: 2px solid transparent;
+    }
+    .navbar a:hover, .navbar a.active {
+        border-color: #B25E07;
+        color: #B25E07;
+    }
+</style>
+</head>
+<body>
+<div class="navbar">
+  <a href="Home_Page.html">Home Page</a>
+  <a href="Courses.html">Courses</a>
+  <a href="PRLabProduction.html" class="active">Pattern Lab Production</a>
+  <a href="Contact_Me.html">Contact Me</a>
+  <a href="About_Me.html">About Me</a>
+  <a href="https://scholar.google.com/citations?user=Z3XAKb0AAAAJ&hl=en" target="_blank">My Google scholar</a>
+</div>
+</body>
+</html>
+<section class="tex2jax_ignore mathjax_ignore" id="pattern-lab-production">
+<h1>Pattern Lab Production<a class="headerlink" href="#pattern-lab-production" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="production-lab-information">
+<h1>Production Lab Information<a class="headerlink" href="#production-lab-information" title="Link to this heading">#</a></h1>
+<!-- University Logo on the left and Lab Logo on the right with introductions -->
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <div style="text-align: left;">
+    <img src="FumLogo.png" alt="Ferdowsi University of Mashhad" style="width: 150px; height: auto;">
+    <p>Ferdowsi University of Mashhad</p>
+  </div>
+  <div style="text-align: right;">
+    <img src="EngLogo.png" alt="Eng Logo" style="width: 150px; height: auto;">
+    <p>Engineering Department</p>
+  </div>
+</div>
+<section id="personal-information-of-colleague">
+<h2>Personal Information of Colleague<a class="headerlink" href="#personal-information-of-colleague" title="Link to this heading">#</a></h2>
+<table>
+  <tr>
+    <td><b>Information</b></td>
+    <td><b>Details</b></td>
+  </tr>
+  <tr>
+    <td>Full Name*</td>
+    <td>Hadi Sadoghi Yazdi</td>
+  </tr>
+  <tr>
+    <td>Year of Birth</td>
+    <td>1971</td>
+  </tr>
+  <tr>
+    <td>Academic Degree*</td>
+    <td>Ph.D. in Electrical Engineering - Electronics</td>
+  </tr>
+  <tr>
+    <td>Department*</td>
+    <td>Computer Engineering</td>
+  </tr>
+  <tr>
+    <td>Academic Rank*</td>
+    <td>Professor</td>
+  </tr>
+  <tr>
+    <td>Year of Start of Academic Activities</td>
+    <td>2004</td>
+  </tr>
+  <tr>
+    <td>Title of Specialized Research/Technology Lab*</td>
+    <td>Pattern Recognition</td>
+  </tr>
+  <tr>
+    <td>Website of Specialized Research/Technology Lab</td>
+    <td><a href="https://h-sadoghi.github.io/HomePage2/Home_Page.html">https://h-sadoghi.github.io/HomePage2/Home_Page.html</a></td>
+  </tr>
+</table>
+</section>
+<section id="research-and-technology-background-and-introduction-to-specialized-lab">
+<h2>Research and Technology Background and Introduction to Specialized Lab<a class="headerlink" href="#research-and-technology-background-and-introduction-to-specialized-lab" title="Link to this heading">#</a></h2>
+<p>Dr. Hadi Sadoghi Yazdi’s research background is in the areas of pattern recognition, machine learning, computer vision, signal processing. He established the specialized Pattern Recognition Lab with the aim of conducting research and technological activities. He is the director and manager of the lab.</p>
+</section>
+<section id="educational-background">
+<h2>Educational Background<a class="headerlink" href="#educational-background" title="Link to this heading">#</a></h2>
+<p>Dr. Hadi Sadoghi Yazdi graduated with a bachelor’s degree in Electrical Engineering - Electronics from Ferdowsi University of Mashhad, and received his master’s and Ph.D. degrees from Tarbiat Modares University. He has been a faculty member in the Department of Computer Engineering at the Faculty of Engineering, Ferdowsi University, since 2007.</p>
+</section>
+<section id="specialized-fields-of-expertise">
+<h2>Specialized Fields of Expertise<a class="headerlink" href="#specialized-fields-of-expertise" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Research Areas</strong> (minimum 4, maximum 8, each up to 5 words)</p>
+<ul class="simple">
+<li><p>Intelligent Systems</p></li>
+<li><p>Pattern Recognition</p></li>
+<li><p>Signal Processing</p></li>
+<li><p>Machine Learning</p></li>
+</ul>
+</li>
+<li><p><strong>Technological Fields of Lab</strong></p>
+<ul class="simple">
+<li><p>Interactive Smart Mirror</p></li>
+<li><p>Interactive Smart Wall</p></li>
+<li><p>Smoke and Fire Detection</p></li>
+<li><p>Smart Parking</p></li>
+<li><p>Smart Microscope</p></li>
+<li><p>Smart Trainer</p></li>
+<li><p>Street Lighting Control System (Astronomical Clock)</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="contact-information">
+<h2>Contact Information<a class="headerlink" href="#contact-information" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><em><em>Office Phone</em>:</em>* 051-38805117</p></li>
+<li><p><em><em>Email</em>:</em>* <a class="reference external" href="mailto:h-sadoghi&#37;&#52;&#48;um&#46;ac&#46;ir">h-sadoghi<span>&#64;</span>um<span>&#46;</span>ac<span>&#46;</span>ir</a></p></li>
+<li><p><strong>Website 1:</strong> <a class="reference external" href="https://prof.um.ac.ir/h-sadoghi/">FUM</a></p></li>
+<li><p><strong>Website 2:</strong> <a class="reference external" href="https://h-sadoghi.github.io/HomePage2/Home_Page.html">Github</a></p></li>
+<li><p><strong>Telegram:</strong> <a class="reference external" href="https://t.me/HadiSadoghiYazdi">https://t.me/HadiSadoghiYazdi</a></p></li>
+</ul>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="product-introduction-and-features-description">
+<h1>Product Introduction and Features Description<a class="headerlink" href="#product-introduction-and-features-description" title="Link to this heading">#</a></h1>
+<section id="product-title-interactive-smart-mirror">
+<h2>Product Title: Interactive Smart Mirror<a class="headerlink" href="#product-title-interactive-smart-mirror" title="Link to this heading">#</a></h2>
+<section id="brief-description">
+<h3>Brief Description:<a class="headerlink" href="#brief-description" title="Link to this heading">#</a></h3>
+<p>Displays information on the mirror and interacts with the user.</p>
+</section>
+<section id="product-images">
+<h3>Product Images:<a class="headerlink" href="#product-images" title="Link to this heading">#</a></h3>
+<!-- Placeholders for images of the product -->
+<div style="text-align: center;">
+  <img src="../SadoghiSite/PRLab_Production/SmartMirror1.png" alt="Interactive Smart Mirror Image 1" style="width: 130px; height: auto;">
+  <img src="../SadoghiSite/PRLab_Production/SmartMirror2.png" alt="Interactive Smart Mirror Image 2" style="width: 300px; height: auto;">
+  <img src="../SadoghiSite/PRLab_Production/SmartMirror3.png" alt="Interactive Smart Mirror Image 3" style="width: 300px; height: auto;">
+</div>
+</section>
+<section id="product-features-description">
+<h3>Product Features Description:<a class="headerlink" href="#product-features-description" title="Link to this heading">#</a></h3>
+<p>In this section, you can describe the product features either in list format (maximum 12 items, each up to 12 words) or in a descriptive format (maximum 200 words).</p>
+<section id="capabilities">
+<h4>Capabilities:<a class="headerlink" href="#capabilities" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Displays text content on the mirror</p></li>
+<li><p>Shows environmental conditions (temperature)</p></li>
+<li><p>Provides an IoT platform</p></li>
+<li><p>Allows touch interaction with the mirror</p></li>
+</ul>
+</section>
+<section id="technical-knowledge">
+<h4>Technical Knowledge:<a class="headerlink" href="#technical-knowledge" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Hardware development</p></li>
+<li><p>Image processing (camera)</p></li>
+<li><p>Audio processing in the mirror</p></li>
+</ul>
+</section>
+<section id="execution-location">
+<h4>Execution Location:<a class="headerlink" href="#execution-location" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Hotels</p></li>
+<li><p>Holy Shrine of Imam Reza</p></li>
+</ul>
+</section>
+</section>
+<section id="detailed-feature-description">
+<h3>Detailed Feature Description:<a class="headerlink" href="#detailed-feature-description" title="Link to this heading">#</a></h3>
+<p>The Interactive Smart Mirror is a cutting-edge product designed to enhance user interaction by displaying various types of information directly on the mirror’s surface. This innovative mirror can show text content such as daily news, weather updates, and calendar events. It also monitors and displays environmental conditions, including temperature and humidity, making it an ideal addition to smart homes and modern facilities.</p>
+<p>With its built-in IoT platform, the mirror can connect with other smart devices, allowing for seamless integration into existing smart home ecosystems. The touch interaction feature enables users to navigate through different menus and options displayed on the mirror, providing an intuitive and user-friendly experience.</p>
+<p>On the technical side, the Interactive Smart Mirror incorporates advanced hardware development, including high-resolution display panels and responsive touch sensors. The product also features sophisticated image processing capabilities through an integrated camera, as well as audio processing to respond to voice commands.</p>
+<p>The Interactive Smart Mirror is suitable for installation in various locations, including hotels and the Holy Shrine of Imam Reza, offering guests and visitors a unique and technologically advanced experience.</p>
+</section>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>Product Introduction and Features Description<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="product-title-interactive-smart-wall">
+<h2>Product Title: Interactive Smart Wall<a class="headerlink" href="#product-title-interactive-smart-wall" title="Link to this heading">#</a></h2>
+<section id="id2">
+<h3>Brief Description:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>User interaction and display response on the wall.</p>
+</section>
+<section id="id3">
+<h3>Product Images:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<!-- Placeholders for images of the product -->
+<div style="text-align: center;">
+  <img src="../SadoghiSite/PRLab_Production/InteractiveSmartWall1.png" alt="Interactive Smart Wall Image 1" style="width: 330px; height: auto;">
+  <img src="../SadoghiSite/PRLab_Production/InteractiveSmartWall2.png" alt="Interactive Smart Wall Image 2" style="width: 250px; height: auto;">
+  <img src="../SadoghiSite/PRLab_Production/InteractiveSmartWall3.png" alt="Interactive Smart Wall Image 3" style="width: 300px; height: auto;">
+  <img src="../SadoghiSite/PRLab_Production/InteractiveSmartWall4.png" alt="Interactive Smart Wall Image 4" style="width: 290px; height: auto;">
+</div>
+</section>
+<section id="id4">
+<h3>Product Features Description:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>In this section, you can describe the product features either in list format (maximum 12 items, each up to 12 words) or in a descriptive format (maximum 200 words).</p>
+<section id="id5">
+<h4>Capabilities:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Games and entertainment</p></li>
+<li><p>Education</p></li>
+<li><p>Interactive advertising</p></li>
+</ul>
+</section>
+<section id="id6">
+<h4>Technical Knowledge:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>3D image processing</p></li>
+<li><p>Object processing and color recognition</p></li>
+<li><p>Skeleton estimation</p></li>
+<li><p>Estimation of the position of people and objects</p></li>
+</ul>
+</section>
+<section id="id7">
+<h4>Execution Location:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>Municipality of Mashhad</p></li>
+<li><p>Exhibitions</p></li>
+<li><p>Ferdowsi University</p></li>
+</ul>
+</section>
+</section>
+<section id="id8">
+<h3>Detailed Feature Description:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>The Interactive Smart Wall is an innovative product designed to enhance user interaction by responding to actions and displaying various types of content on the wall. This advanced wall can be used for multiple purposes, including gaming and entertainment, educational applications, and interactive advertising.</p>
+<p>With its 3D image processing capabilities, the Interactive Smart Wall can accurately track and respond to user movements, providing an immersive experience. It can recognize objects and colors, estimate the skeletal position of users, and determine the location of people and objects such as balls, making it ideal for interactive games and educational demonstrations.</p>
+<p>In the technical domain, the wall incorporates advanced hardware and software to process and display high-quality 3D images. Its sophisticated image processing algorithms enable real-time interaction, making it suitable for dynamic environments like exhibitions and public spaces.</p>
+<p>The Interactive Smart Wall is versatile and can be installed in various locations, including the Municipality of Mashhad, exhibitions, and Ferdowsi University. It offers an engaging and interactive platform for users, making it an excellent addition to any modern facility.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="courses/image_processing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Image Processing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Contact_Me.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Contact Me</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Pattern Lab Production</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#production-lab-information">Production Lab Information</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#personal-information-of-colleague">Personal Information of Colleague</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#research-and-technology-background-and-introduction-to-specialized-lab">Research and Technology Background and Introduction to Specialized Lab</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#educational-background">Educational Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specialized-fields-of-expertise">Specialized Fields of Expertise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contact-information">Contact Information</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#product-introduction-and-features-description">Product Introduction and Features Description</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#product-title-interactive-smart-mirror">Product Title: Interactive Smart Mirror</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brief-description">Brief Description:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#product-images">Product Images:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#product-features-description">Product Features Description:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#capabilities">Capabilities:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-knowledge">Technical Knowledge:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#execution-location">Execution Location:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-feature-description">Detailed Feature Description:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Product Introduction and Features Description</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#product-title-interactive-smart-wall">Product Title: Interactive Smart Wall</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Brief Description:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Product Images:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Product Features Description:</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Capabilities:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Technical Knowledge:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Execution Location:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Detailed Feature Description:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

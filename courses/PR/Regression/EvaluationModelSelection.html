@@ -1,0 +1,1169 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Evaluation and Model Selection &#8212; Dr.Hadi Sadoghi Yazdi</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=3ee479438cf8b5e0d341" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=3ee479438cf8b5e0d341"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'courses/PR/Regression/EvaluationModelSelection';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Solution Method" href="Solution_for_Regression.html" />
+    <link rel="prev" title="Kernel method" href="Kernel_for_Regression.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../Home_Page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Dr.Hadi Sadoghi Yazdi - Home"/>
+    <script>document.write(`<img src="../../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Dr.Hadi Sadoghi Yazdi - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../Home_Page.html">
+                    Welcome to my personal Website!
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../../Courses.html">Courses</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../../pattern_recognition.html">Pattern Recognition</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="Introduction_Regression.html">Regression</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Linearization.html">Linearization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">Evaluation and Model Selection</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../machine_learning.html">Machine Learning</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../ML/Regression/NonParamRegression.html">Regression Review</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ML/Regression/KernelRegression.html">Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../ML/Regression/GP_Regression.html">Regresion with GP</a></li>
+
+
+
+
+
+
+
+
+
+
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../filtering_algorithms.html">Filtering Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../signal_processing.html">Signal Processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../image_processing.html">Image Processing</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Blog.html">Blog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/h-sadoghi/dr-sadoghi.git/issues/new?title=Issue%20on%20page%20%2Fcourses/PR/Regression/EvaluationModelSelection.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/courses/PR/Regression/EvaluationModelSelection.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Evaluation and Model Selection</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Evaluation and Model Selection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-techniques-for-assessing-model-performance">- <strong>Cross-Validation</strong>: Techniques for assessing model performance.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection-choosing-the-best-regression-model-for-a-specific-problem">- <strong>Model Selection</strong>: Choosing the best regression model for a specific problem.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-tradeoff-understanding-and-managing-bias-and-variance-in-regression-models">- <strong>Bias-Variance Tradeoff</strong>: Understanding and managing bias and variance in regression models.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-on-model-evaluation">Tutorial on Model Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importance-of-model-evaluation">Importance of Model Evaluation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation-role-in-preventing-overfitting-and-underfitting">Model Evaluation Role in Preventing Overfitting and Underfitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-and-underfitting">Overfitting and Underfitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting">Overfitting</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#underfitting">Underfitting</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-model-evaluation">Relation to Model Evaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#effectiveness-and-reliability">Effectiveness and Reliability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-model-performance">Understanding Model Performance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#areas-for-improvement">Areas for Improvement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-tutorial">Overview of the Tutorial</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-metrics">Basic Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-metrics">Advanced Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-techniques">Validation Techniques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-studies">Case Studies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-and-libraries">Tools and Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-for-classification-models">2. Metrics for Classification Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#precision">Precision</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-sensitivity">Recall (Sensitivity)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">F1 Score</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-classification-metrics">Multi-Class Classification Metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="evaluation-and-model-selection">
+<h1>Evaluation and Model Selection<a class="headerlink" href="#evaluation-and-model-selection" title="Link to this heading">#</a></h1>
+<section id="cross-validation-techniques-for-assessing-model-performance">
+<h2>- <strong>Cross-Validation</strong>: Techniques for assessing model performance.<a class="headerlink" href="#cross-validation-techniques-for-assessing-model-performance" title="Link to this heading">#</a></h2>
+</section>
+<section id="model-selection-choosing-the-best-regression-model-for-a-specific-problem">
+<h2>- <strong>Model Selection</strong>: Choosing the best regression model for a specific problem.<a class="headerlink" href="#model-selection-choosing-the-best-regression-model-for-a-specific-problem" title="Link to this heading">#</a></h2>
+</section>
+<section id="bias-variance-tradeoff-understanding-and-managing-bias-and-variance-in-regression-models">
+<h2>- <strong>Bias-Variance Tradeoff</strong>: Understanding and managing bias and variance in regression models.<a class="headerlink" href="#bias-variance-tradeoff-understanding-and-managing-bias-and-variance-in-regression-models" title="Link to this heading">#</a></h2>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="tutorial-on-model-evaluation">
+<h1>Tutorial on Model Evaluation<a class="headerlink" href="#tutorial-on-model-evaluation" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2>1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Evaluating machine learning models is crucial for determining their effectiveness and reliability in making accurate predictions. Proper evaluation helps understand the model’s performance and identify areas for improvement.</p>
+<section id="importance-of-model-evaluation">
+<h3>Importance of Model Evaluation<a class="headerlink" href="#importance-of-model-evaluation" title="Link to this heading">#</a></h3>
+<p>Model evaluation ensures that predictions made by machine learning models are accurate and reliable. It helps assess the model’s ability to generalize to new data, thereby preventing overfitting and underfitting.</p>
+</section>
+<section id="model-evaluation-role-in-preventing-overfitting-and-underfitting">
+<h3>Model Evaluation Role in Preventing Overfitting and Underfitting<a class="headerlink" href="#model-evaluation-role-in-preventing-overfitting-and-underfitting" title="Link to this heading">#</a></h3>
+<section id="overfitting-and-underfitting">
+<h4>Overfitting and Underfitting<a class="headerlink" href="#overfitting-and-underfitting" title="Link to this heading">#</a></h4>
+<p>Understanding overfitting and underfitting is crucial for developing robust machine learning models:</p>
+<section id="overfitting">
+<h5>Overfitting<a class="headerlink" href="#overfitting" title="Link to this heading">#</a></h5>
+<p><strong>Definition:</strong> Overfitting occurs when a model learns the training data too well, capturing noise and details that do not generalize to new data.</p>
+<p><strong>Indicators:</strong></p>
+<ul class="simple">
+<li><p>High accuracy on training data but poor performance on validation/test data.</p></li>
+</ul>
+<p><strong>Impact on Evaluation:</strong></p>
+<ul class="simple">
+<li><p>An overfitted model will have misleadingly high training accuracy and low generalization ability. Evaluating on a separate validation or test set can reveal this discrepancy.</p></li>
+</ul>
+</section>
+<section id="underfitting">
+<h5>Underfitting<a class="headerlink" href="#underfitting" title="Link to this heading">#</a></h5>
+<p><strong>Definition:</strong> Underfitting happens when a model is too simple to capture the underlying patterns in the data.</p>
+<p><strong>Indicators:</strong></p>
+<ul class="simple">
+<li><p>Poor performance on both training and validation/test data.</p></li>
+</ul>
+<p><strong>Impact on Evaluation:</strong></p>
+<ul class="simple">
+<li><p>An underfitted model shows consistently low accuracy across both training and validation/test sets, indicating it has not learned the data well.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Generate some data</span>
+<span class="n">model_complexity</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">training_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span> <span class="o">*</span> <span class="n">model_complexity</span><span class="p">)</span>
+<span class="n">validation_error</span> <span class="o">=</span> <span class="n">training_error</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">*</span> <span class="n">model_complexity</span>
+
+<span class="c1"># Create the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Plot the errors</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">,</span> <span class="n">training_error</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Training Error&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model_complexity</span><span class="p">,</span> <span class="n">validation_error</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Validation Error&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add labels and legend</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Model Complexity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Training and Validation Error vs. Model Complexity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Optimal Model Complexity&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/0a371e82431da7976cda6d22beb613e22562884e7654dbb6f234ef2ca79e631b.png" src="../../../_images/0a371e82431da7976cda6d22beb613e22562884e7654dbb6f234ef2ca79e631b.png" />
+</div>
+</div>
+</section>
+<section id="relation-to-model-evaluation">
+<h5>Relation to Model Evaluation<a class="headerlink" href="#relation-to-model-evaluation" title="Link to this heading">#</a></h5>
+<p><strong>Evaluation Metrics:</strong></p>
+<ul class="simple">
+<li><p>Metrics like accuracy, precision, recall, F1 score, AUC, and others should be compared across training and validation/test sets to detect overfitting or underfitting.</p></li>
+</ul>
+<p><strong>Cross-Validation:</strong></p>
+<ul class="simple">
+<li><p>Techniques like K-Fold Cross-Validation help in assessing model performance more reliably, reducing the risk of overfitting or underfitting by ensuring the model is validated on multiple subsets of the data.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="effectiveness-and-reliability">
+<h3>Effectiveness and Reliability<a class="headerlink" href="#effectiveness-and-reliability" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Effectiveness</strong>: Evaluating models helps measure how well a model performs its intended task. It involves checking if the model predictions are accurate and if it solves the problem it was designed for.</p></li>
+<li><p><strong>Reliability</strong>: Reliability refers to the consistency of the model’s performance across different datasets and over time. A reliable model produces stable and consistent predictions even when the input data changes.</p></li>
+</ul>
+</section>
+<section id="understanding-model-performance">
+<h3>Understanding Model Performance<a class="headerlink" href="#understanding-model-performance" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Performance Metrics</strong>: By using various performance metrics, we can quantify how well a model performs. These metrics provide insights into different aspects of the model’s behavior, such as accuracy, precision, recall, and F1 score for classification models, or MAE, MSE, and R-squared for regression models.</p></li>
+<li><p><strong>Identifying Strengths and Weaknesses</strong>: Model evaluation helps in pinpointing the strengths and weaknesses of a model. For instance, a model might have high accuracy but low recall, indicating that it misses many positive cases.</p></li>
+</ul>
+</section>
+<section id="areas-for-improvement">
+<h3>Areas for Improvement<a class="headerlink" href="#areas-for-improvement" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Hyperparameter Tuning</strong>: Evaluation results can guide hyperparameter tuning, which involves adjusting the model parameters to improve performance.</p></li>
+<li><p><strong>Feature Engineering</strong>: Insights from model evaluation can lead to better feature engineering, such as adding new features, removing irrelevant ones, or transforming existing features to enhance the model’s predictive power.</p></li>
+<li><p><strong>Algorithm Selection</strong>: Evaluating different models helps in selecting the best algorithm for the given problem. For example, if a decision tree performs poorly, a random forest or gradient boosting model might be a better choice.</p></li>
+</ul>
+</section>
+</section>
+<section id="overview-of-the-tutorial">
+<h2>Overview of the Tutorial<a class="headerlink" href="#overview-of-the-tutorial" title="Link to this heading">#</a></h2>
+<p>This tutorial provides a comprehensive guide to evaluating machine learning models, covering both basic and advanced concepts. Each method discussed will be implemented in Python to offer practical, hands-on experience.</p>
+<section id="basic-metrics">
+<h3>Basic Metrics<a class="headerlink" href="#basic-metrics" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Accuracy</strong>: Overall correctness of the model.</p></li>
+<li><p><strong>Precision</strong>: Quality of positive predictions.</p></li>
+<li><p><strong>Recall (Sensitivity)</strong>: Ability to identify positive instances.</p></li>
+<li><p><strong>F1 Score</strong>: Balance between precision and recall.</p></li>
+</ul>
+</section>
+<section id="advanced-metrics">
+<h3>Advanced Metrics<a class="headerlink" href="#advanced-metrics" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>ROC Curve and AUC</strong>: Performance at various threshold settings.</p></li>
+<li><p><strong>Kappa Statistic</strong>: Agreement between observed and expected accuracy.</p></li>
+<li><p><strong>Matthews Correlation Coefficient (MCC)</strong>: Balanced performance measure for binary classifications.</p></li>
+</ul>
+</section>
+<section id="validation-techniques">
+<h3>Validation Techniques<a class="headerlink" href="#validation-techniques" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>K-Fold Cross-Validation</strong>: Divides data into k subsets for training and testing.</p></li>
+<li><p><strong>Stratified K-Fold Cross-Validation</strong>: Ensures each fold has a representative distribution of classes.</p></li>
+<li><p><strong>Leave-One-Out Cross-Validation (LOOCV)</strong>: Uses a single observation as the validation set and the rest as the training set.</p></li>
+</ul>
+</section>
+<section id="case-studies">
+<h3>Case Studies<a class="headerlink" href="#case-studies" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Real-world applications and examples of model evaluation.</strong></p></li>
+</ul>
+</section>
+<section id="tools-and-libraries">
+<h3>Tools and Libraries<a class="headerlink" href="#tools-and-libraries" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Scikit-Learn</strong>: Comprehensive machine learning library.</p></li>
+<li><p><strong>Code Examples</strong>: Practical implementation in Python.</p></li>
+</ul>
+<p>By the end of this tutorial, you will be equipped with the knowledge and skills to evaluate machine learning models effectively, choose appropriate metrics, and apply these techniques using Python.</p>
+</section>
+<section id="metrics-for-classification-models">
+<h3>2. Metrics for Classification Models<a class="headerlink" href="#metrics-for-classification-models" title="Link to this heading">#</a></h3>
+<section id="confusion-matrix">
+<h4>Confusion Matrix<a class="headerlink" href="#confusion-matrix" title="Link to this heading">#</a></h4>
+<p>A confusion matrix is a table used to evaluate the performance of a classification model. It provides a detailed breakdown of model predictions by showing the counts of true positive (TP), true negative (TN), false positive (FP), and false negative (FN) predictions.</p>
+<p><strong>Structure</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>               <span class="n">Predicted</span>
+                <span class="n">Positive</span>    <span class="n">Negative</span>
+<span class="n">Actual</span>  <span class="n">Positive</span>    <span class="n">TP</span>           <span class="n">FN</span>
+        <span class="n">Negative</span>    <span class="n">FP</span>           <span class="n">TN</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>True Positive (TP)</strong>: Correctly predicted positive cases.</p></li>
+<li><p><strong>True Negative (TN)</strong>: Correctly predicted negative cases.</p></li>
+<li><p><strong>False Positive (FP)</strong>: Incorrectly predicted positive cases.</p></li>
+<li><p><strong>False Negative (FN)</strong>: Incorrectly predicted negative cases.</p></li>
+</ul>
+<p><strong>Scenario</strong>:
+Consider a binary classification model that predicts whether a transaction is fraudulent or not. For a small dataset of 5 transactions, the actual and predicted outcomes are as follows:</p>
+<ul class="simple">
+<li><p>Actual: [1, 0, 1, 0, 1]</p></li>
+<li><p>Predicted: [1, 0, 0, 0, 1]</p></li>
+</ul>
+<p><strong>Python Example</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Actual and predicted labels</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Generate confusion matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="c1"># Visualize confusion matrix</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/9e722cf05315729d003222287de2110b7ca0629ed6dbc125ae5d98f3fc6079e2.png" src="../../../_images/9e722cf05315729d003222287de2110b7ca0629ed6dbc125ae5d98f3fc6079e2.png" />
+</div>
+</div>
+</section>
+<section id="accuracy">
+<h4>Accuracy<a class="headerlink" href="#accuracy" title="Link to this heading">#</a></h4>
+<p><strong>Definition</strong>: Accuracy is the ratio of correctly predicted instances (both TP and TN) to the total instances. It measures the overall correctness of the model.</p>
+<p><strong>Calculation</strong>:</p>
+<p><span class="math notranslate nohighlight">\( \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN} \)</span></p>
+<p><strong>Scenario</strong>:
+Using the confusion matrix from the previous scenario:</p>
+<ul class="simple">
+<li><p>TP = 2, TN = 2, FP = 0, FN = 1</p></li>
+</ul>
+<p><strong>Python Example</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+
+<span class="c1"># Actual and predicted labels</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Calculate accuracy</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.8
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="precision">
+<h4>Precision<a class="headerlink" href="#precision" title="Link to this heading">#</a></h4>
+<p><strong>Definition</strong>: Precision is the ratio of true positive predictions to the total predicted positives. It indicates the quality of positive predictions.</p>
+<p><strong>Calculation</strong>:</p>
+<p><span class="math notranslate nohighlight">\( \text{Precision} = \frac{TP}{TP + FP} \)</span></p>
+<p><strong>Scenario</strong>:
+From the confusion matrix, precision is calculated with TP = 2 and FP = 0.</p>
+<p><strong>Python Example:</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span>
+
+<span class="c1"># Actual and predicted labels</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Calculate precision</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision: </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision: 1.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="recall-sensitivity">
+<h4>Recall (Sensitivity)<a class="headerlink" href="#recall-sensitivity" title="Link to this heading">#</a></h4>
+<p><strong>Definition</strong>: Recall is the ratio of true positive predictions to the actual positives. It measures the model’s ability to identify positive instances.</p>
+<p><strong>Calculation</strong>:
+<span class="math notranslate nohighlight">\( \text{Recall} = \frac{TP}{TP + FN} \)</span></p>
+<p><strong>Scenario</strong>:
+From the confusion matrix, recall is calculated with TP = 2 and FN = 1.</p>
+<p><strong>Python Example</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">recall_score</span>
+
+<span class="c1"># Actual and predicted labels</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Calculate recall</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall: </span><span class="si">{</span><span class="n">recall</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recall: 0.6666666666666666
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="f1-score">
+<h4>F1 Score<a class="headerlink" href="#f1-score" title="Link to this heading">#</a></h4>
+<p><strong>Definition</strong>: The F1 Score is the harmonic mean of precision and recall. It balances these two metrics, making it particularly useful for evaluating models on imbalanced datasets.</p>
+<p><strong>Calculation</strong>:
+<span class="math notranslate nohighlight">\( F1 = 2 \times \frac{\text{Precision} \times \text{Recall}}{\text{Precision} + \text{Recall}} \)</span></p>
+<p>The harmonic mean is used rather than the arithmetic mean because it penalizes extreme values more, ensuring that the F1 Score is only high if both precision and recall are high.</p>
+<p><strong>Pros</strong>:</p>
+<ul class="simple">
+<li><p><strong>Balances Precision and Recall</strong>: The F1 Score considers both false positives and false negatives, making it a good measure of model performance when the classes are imbalanced.</p></li>
+<li><p><strong>Useful for Imbalanced Datasets</strong>: It provides a better measure of the incorrectly classified cases than accuracy.</p></li>
+<li><p><strong>Single Metric</strong>: Combines two important metrics into one, simplifying model evaluation.</p></li>
+</ul>
+<p><strong>Cons</strong>:</p>
+<ul>
+<li><p><strong>Can Be Difficult to Interpret</strong>: Since it combines precision and recall, it can sometimes be harder to understand what a high or low F1 Score means without additional context.</p></li>
+<li><p><strong>Does Not Differentiate Between Types of Errors</strong>: The F1 Score treats false positives and false negatives equally, which may not always be desirable depending on the application.</p>
+<p><strong>Python Example</strong>:</p>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="c1"># Actual and predicted labels</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Calculate F1 score</span>
+<span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score: </span><span class="si">{</span><span class="n">f1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F1 Score: 0.8
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Situations to Add More Weight to Recall or Precision</strong>:
+In certain scenarios, it may be more important to prioritize either recall or precision over the other:</p>
+<ul>
+<li><p><strong>Prioritizing Recall</strong>: When the cost of false negatives is high, such as in medical diagnoses (e.g., detecting cancer), recall is more critical because missing a positive case can have severe consequences.</p>
+<p><strong>Weighted Example</strong>:
+<span class="math notranslate nohighlight">\( F_{\beta} \text{ Score} = (1 + \beta^2) \times \frac{\text{Precision} \times \text{Recall}}{(\beta^2 \times \text{Precision}) + \text{Recall}} \)</span>
+where <span class="math notranslate nohighlight">\( \beta &gt; 1 \)</span> increases the weight of recall.</p>
+<p><strong>Python Example</strong>:</p>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">fbeta_score</span>
+
+  <span class="c1"># Actual and predicted labels</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+  <span class="c1"># Calculate F2 score (more weight to recall)</span>
+<span class="n">f2</span> <span class="o">=</span> <span class="n">fbeta_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F2 Score: </span><span class="si">{</span><span class="n">f2</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F2 Score: 0.7142857142857143
+</pre></div>
+</div>
+</div>
+</div>
+<ul>
+<li><p><strong>Prioritizing Precision</strong>: When the cost of false positives is high, such as in spam detection, precision is more critical because flagging a legitimate email as spam can be problematic.</p>
+<p><strong>Weighted Example</strong>:
+<span class="math notranslate nohighlight">\( F_{\beta} \text{ Score} = (1 + \beta^2) \times \frac{\text{Precision} \times \text{Recall}}{(\beta^2 \times \text{Precision}) + \text{Recall}} \)</span>
+where <span class="math notranslate nohighlight">\( \beta &lt; 1 \)</span> increases the weight of precision.</p>
+<p><strong>Python Example</strong>:</p>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">fbeta_score</span>
+
+<span class="c1"># Actual and predicted labels</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Calculate F0.5 score (more weight to precision)</span>
+<span class="n">f05</span> <span class="o">=</span> <span class="n">fbeta_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F0.5 Score: </span><span class="si">{</span><span class="n">f05</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>F0.5 Score: 0.9090909090909091
+</pre></div>
+</div>
+</div>
+</div>
+<p>Understanding the F1 Score and how to adjust its balance with <span class="math notranslate nohighlight">\( F_{\beta} \)</span> Score allows for more nuanced evaluation of classification models, tailored to the specific needs of different applications.</p>
+</section>
+</section>
+<section id="multi-class-classification-metrics">
+<h3>Multi-Class Classification Metrics<a class="headerlink" href="#multi-class-classification-metrics" title="Link to this heading">#</a></h3>
+<p>In multi-class classification, the metrics can be extended to handle multiple classes. The concepts of precision, recall, and F1 score are computed for each class separately, and then averaged in various ways. The commonly used averaging methods are:</p>
+<ul class="simple">
+<li><p><strong>Macro-Averaging</strong>: Computes the metric independently for each class and then takes the average (treats all classes equally).</p></li>
+<li><p><strong>Micro-Averaging</strong>: Aggregates the contributions of all classes to compute the average metric (gives more weight to larger classes).</p></li>
+<li><p><strong>Weighted-Averaging</strong>: Computes the metric independently for each class, then takes the average weighted by the number of instances in each class (balances the influence of each class by its size).</p></li>
+</ul>
+<p>Or the metrics can be computed seperately for each class, This means calculating confusion matrix, precision, recall, and F1 score for each class individually.
+Here is an example of how to compute these metrics in a multi-class setting using Python:</p>
+<p><strong>Scenario</strong>:
+Suppose we have a multi-class classification problem with three classes: 0, 1, and 2. We have a dataset with actual and predicted labels as follows:</p>
+<ul class="simple">
+<li><p>Actual: [0, 1, 2, 0, 1, 2]</p></li>
+<li><p>Predicted: [0, 2, 1, 0, 0, 1]</p></li>
+</ul>
+<p><strong>Python Example</strong>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Actual and predicted labels</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Generate and visualize overall confusion matrix</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Overall Confusion Matrix&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Calculate and visualize confusion matrix for each class</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">y_true_bin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">i</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y_true</span><span class="p">]</span>
+    <span class="n">y_pred_bin</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">i</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y_pred</span><span class="p">]</span>
+
+    <span class="n">cm_class</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_true_bin</span><span class="p">,</span> <span class="n">y_pred_bin</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm_class</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicted&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Actual&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Confusion Matrix for Class </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true_bin</span><span class="p">,</span> <span class="n">y_pred_bin</span><span class="p">)</span>
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true_bin</span><span class="p">,</span> <span class="n">y_pred_bin</span><span class="p">)</span>
+    <span class="n">f1</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true_bin</span><span class="p">,</span> <span class="n">y_pred_bin</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision for Class </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall for Class </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">recall</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score for Class </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">f1</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Calculate overall metrics</span>
+<span class="n">precision_macro</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">)</span>
+<span class="n">recall_macro</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">)</span>
+<span class="n">f1_macro</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;macro&#39;</span><span class="p">)</span>
+
+<span class="n">precision_micro</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;micro&#39;</span><span class="p">)</span>
+<span class="n">recall_micro</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;micro&#39;</span><span class="p">)</span>
+<span class="n">f1_micro</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;micro&#39;</span><span class="p">)</span>
+
+<span class="n">precision_weighted</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+<span class="n">recall_weighted</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+<span class="n">f1_weighted</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision (Macro): </span><span class="si">{</span><span class="n">precision_macro</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall (Macro): </span><span class="si">{</span><span class="n">recall_macro</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score (Macro): </span><span class="si">{</span><span class="n">f1_macro</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision (Micro): </span><span class="si">{</span><span class="n">precision_micro</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall (Micro): </span><span class="si">{</span><span class="n">recall_micro</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score (Micro): </span><span class="si">{</span><span class="n">f1_micro</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision (Weighted): </span><span class="si">{</span><span class="n">precision_weighted</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall (Weighted): </span><span class="si">{</span><span class="n">recall_weighted</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score (Weighted): </span><span class="si">{</span><span class="n">f1_weighted</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/c2131fff7b5392d1c8b8bdd7b55c1eb33d4b6017eba9cf3bf081b92220716be0.png" src="../../../_images/c2131fff7b5392d1c8b8bdd7b55c1eb33d4b6017eba9cf3bf081b92220716be0.png" />
+<img alt="../../../_images/8123dc17b35652dfd0d1a9294805e5b7ae9e16d68bd8dcaff73f0108f5c1ab34.png" src="../../../_images/8123dc17b35652dfd0d1a9294805e5b7ae9e16d68bd8dcaff73f0108f5c1ab34.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision for Class 0: 0.6666666666666666
+Recall for Class 0: 1.0
+F1 Score for Class 0: 0.8
+</pre></div>
+</div>
+<img alt="../../../_images/bb80d51288e22ffce7548e2c197db807dda25f98050ed4b781fb85b90dd9d48d.png" src="../../../_images/bb80d51288e22ffce7548e2c197db807dda25f98050ed4b781fb85b90dd9d48d.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision for Class 1: 0.0
+Recall for Class 1: 0.0
+F1 Score for Class 1: 0.0
+</pre></div>
+</div>
+<img alt="../../../_images/8d41e79c2532532962d6dd5bde3eb1123258405815fb70c93b7cfe4abb09136f.png" src="../../../_images/8d41e79c2532532962d6dd5bde3eb1123258405815fb70c93b7cfe4abb09136f.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision for Class 2: 0.0
+Recall for Class 2: 0.0
+F1 Score for Class 2: 0.0
+
+Precision (Macro): 0.2222222222222222
+Recall (Macro): 0.3333333333333333
+F1 Score (Macro): 0.26666666666666666
+Precision (Micro): 0.3333333333333333
+Recall (Micro): 0.3333333333333333
+F1 Score (Micro): 0.3333333333333333
+Precision (Weighted): 0.2222222222222222
+Recall (Weighted): 0.3333333333333333
+F1 Score (Weighted): 0.26666666666666666
+</pre></div>
+</div>
+</div>
+</div>
+<p>These metrics are fundamental for evaluating classification models. They provide insights into different aspects of the model’s performance, helping to identify strengths and weaknesses. Understanding and calculating these metrics are essential skills for anyone working with machine learning models.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./courses\PR\Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Kernel_for_Regression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Kernel method</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Solution_for_Regression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Solution Method</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Evaluation and Model Selection</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation-techniques-for-assessing-model-performance">- <strong>Cross-Validation</strong>: Techniques for assessing model performance.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-selection-choosing-the-best-regression-model-for-a-specific-problem">- <strong>Model Selection</strong>: Choosing the best regression model for a specific problem.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bias-variance-tradeoff-understanding-and-managing-bias-and-variance-in-regression-models">- <strong>Bias-Variance Tradeoff</strong>: Understanding and managing bias and variance in regression models.</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorial-on-model-evaluation">Tutorial on Model Evaluation</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">1. Introduction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importance-of-model-evaluation">Importance of Model Evaluation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation-role-in-preventing-overfitting-and-underfitting">Model Evaluation Role in Preventing Overfitting and Underfitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-and-underfitting">Overfitting and Underfitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting">Overfitting</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#underfitting">Underfitting</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-to-model-evaluation">Relation to Model Evaluation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#effectiveness-and-reliability">Effectiveness and Reliability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-model-performance">Understanding Model Performance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#areas-for-improvement">Areas for Improvement</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview-of-the-tutorial">Overview of the Tutorial</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-metrics">Basic Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-metrics">Advanced Metrics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-techniques">Validation Techniques</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#case-studies">Case Studies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tools-and-libraries">Tools and Libraries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-for-classification-models">2. Metrics for Classification Models</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#confusion-matrix">Confusion Matrix</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#accuracy">Accuracy</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#precision">Precision</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-sensitivity">Recall (Sensitivity)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#f1-score">F1 Score</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-class-classification-metrics">Multi-Class Classification Metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr.Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=3ee479438cf8b5e0d341"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=3ee479438cf8b5e0d341"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
